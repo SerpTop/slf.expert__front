@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+._container {
+  @apply max-w-[1920px] px-4 sm:px-5 xl:px-[25px] 2xl:px-10;
+}
+
+.btn {
+  @apply rounded-full
+    px-6 py-4 2xl:px-8 xl:py-4
+    text-xs 2xl:text-sm uppercase duration-300
+    flex items-center justify-center gap-2.5;
+}
+
+.btn-white {
+  @apply bg-white text-black fill-black
+    hover:text-opacity-60 
+    active:text-opacity-60 
+    xl:active:text-black xl:active:fill-black
+    disabled:bg-blue-400 disabled:text-blue-600 disabled:fill-blue-600;
+}
+.btn-main {
+  @apply bg-blue-100 text-white fill-white
+    hover:text-opacity-60 
+    active:text-opacity-60 
+    xl:active:text-black xl:active:fill-black
+    disabled:text-[#F5F5F8] disabled:bg-[#909AAE] disabled:fill-[#F5F5F8];
+}
+
+.btn-blue {
+  @apply bg-blue-200 text-white fill-white
+    active:text-opacity-60 
+    hover:text-opacity-60 
+    xl:active:text-white xl:active:bg-blue-200
+    disabled:bg-[#C1CDDD];
+}
+
+.btn-white-02 {
+  @apply bg-white-o2 text-white;
+}
+
+h2 {
+  @apply fl-text-[1.5rem,4.25rem] leading-[100%]
+}
+h3 {
+  @apply fl-text-[1.25rem,2.875rem] leading-[120%] xl:leading-[100%]
+}
+h4 {
+  @apply fl-text-[1.125rem,1.625rem] leading-[120%] xl:leading-[100%]
+}
+.number_1 {
+    @apply fl-text-[2.625rem,5.75rem] leading-[100%]
+}
+.number_2 {
+    @apply text-[2rem] 2xl:text-[2.875rem] leading-[100%] text-white
+}

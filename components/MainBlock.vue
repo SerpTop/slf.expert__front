@@ -1,12 +1,12 @@
 <template>
-  <div class="_container bg-[url('images/main-block.png')] pt-6 sm:pt-[38px] 2xl:pt-[100px] pb-6 sm:pb-5 xl:pb-6 2xl:pb-10">
+  <div class="_container bg-[url('/images/main-andrey-mob.png')] sm:bg-[url('/images/main-andrey-tab.png')] xl:bg-[url('/images/main-andrey-desk.png')] pt-6 sm:pt-[38px] 2xl:pt-[100px] pb-6 sm:pb-5 xl:pb-6 2xl:pb-10">
     <div class="max-w-[1080px]">
-      <span
-        class="fl-text-[1.625rem,5.125rem] leading-[120%] font-bold text-white"
+      <h1
+        class="fl-text-[1.625rem,5.125rem] leading-[120%] font-bold text-white uppercase"
         >Более 15 лет успешной практики
         <span class="text-blue-300">
           в области таможни, налогов и арбитража
-        </span></span
+        </span></h1
       >
     </div>
 
@@ -14,7 +14,7 @@
       <IconComponent name="arrow-right" />
       записаться на консультацию
     </button>
-    <div class="grid grid-cols-3 gap-8 max-w-[1080px]  mt-[387px] sm:mt-[118px] xl:mt-[37px] 2xl:mt-[55px]">
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 max-w-[1080px]  mt-[387px] sm:mt-[118px] xl:mt-[37px] 2xl:mt-[55px]">
       <div
         v-for="(item, i) in numbers"
         :key="i"

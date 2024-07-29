@@ -9,5 +9,10 @@
     <CertificatesBlock />
     <FormComponent />
     <FooterComponent />
+    <CookiesComponent />
   </div>
 </template>
+
+<script setup >
+import InlineSvg from "vue-inline-svg";
+</script>

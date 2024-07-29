@@ -6,7 +6,7 @@
             <div class="flex h-fit gap-2.5 sm:gap-4 xl:gap-[190px] 2xl:gap-[250px]">
                 <span
                     class="bg-white rounded-full flex items-center justify-center w-12 h-12 sm:w-[50px] sm:h-[50px] 2xl:h-[60px] 2xl:w-[60px]">
-                    <IconComponent :name="item.icon" />
+                    <NuxtImg :name="item.icon" />
 
                 </span>
                 <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">{{ item.title }}</h3>
@@ -17,7 +17,7 @@
                         {{ listItem }}
                     </li>
                 </ul>
-                <IconComponent name="arrow-right" />
+                <NuxtImg name="arrow-right" />
                 <button class="btn btn-main">решить проблему</button>
             </div>
         </div>

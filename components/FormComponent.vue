@@ -2,8 +2,8 @@
   <div
     class="_container flex flex-col gap-4 sm:gap-5 xl:gap-[30px] 2xl:gap-10 bg-blue-100 py-[60px] xl:py-20 2xl:py-[120px]"
   >
-    <h2 class="text-white">Записаться на консультацию</h2>
-    <form action="" class="grid grid-cols-1 xl:grid-cols-2 gap-[30px]">
+    <h2 v-show="isFormSent === false" class="text-white">Записаться на консультацию</h2>
+    <form v-show="isFormSent === false" action="" class="grid grid-cols-1 xl:grid-cols-2 gap-[30px]">
       <input
         v-for="(item, i) in form"
         :key="i"
@@ -60,14 +60,45 @@
         <a href="" class="text-blue-300"> Персональных данных.</a>
       </label>
 
-      <button class="btn btn-white xl:col-span-2" :disabled="isFormInvalid">
+      <button class="btn btn-white xl:col-span-2" :disabled="isFormInvalid" @click.prevent="isFormSent = true">
         отправить
       </button>
     </form>
+
+    <div v-show="isFormSent" class="flex flex-col items-center justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full fl-max-w-[360px,904px] mx-auto ">
+      <h2 class="text-white text-center">
+        Спасибо, данные успешно <br />
+        отправлены!
+      </h2>
+      <span class="text-base 2xl:text-xl text-white text-center"
+        >Ваша заявка успешно отправлена, и мы уже приступаем к ее рассмотрению.
+        В ближайшее время мы свяжемся с вами, чтобы обсудить ваш вопрос.
+        Мы отвечаем на заявки не позднее двух дней — по возможности
+        раньше.</span
+      >
+      <span class="text-base 2xl:text-xl text-white text-center"
+        >Если у вас срочный вопрос вы можете связаться с нами прямо сейчас
+        по контактам ниже:</span
+      >
+      <div
+        class="grid grid-cols-2 sm:grid-cols-4 w-full gap-[9px] sm:gap-4 xl:gap-6 2xl:gap-8"
+      >
+        <a
+          :href="item.link"
+          v-for="(item, i) in links"
+          :key="i"
+          class="text-white text-sm 2xl:text-base w-full h-11 sm:h-[54px] 2xl:h-[64px] border-white border rounded-full flex items-center justify-center"
+        >
+        <NuxtImg v-show="item && item.icon" :name="item.icon"/>
+          {{ item.title }}
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+const isFormSent = ref(false);
 const form = [
   {
     type: "text",
@@ -83,6 +114,26 @@ const form = [
     type: "email",
     placeholder: "E-mail",
     require: false,
+  },
+];
+const links = [
+  {
+    title: "+8 (831) 414 04 02  ",
+    link: "",
+  },
+  {
+    title: "+7 (903) 601 04 02",
+    link: "",
+  },
+  {
+    title: "slf.expert",
+    link: "",
+    icon: "",
+  },
+  {
+    title: "slf.expert",
+    link: "",
+    icon: "",
   },
 ];
 const selectOptions = [

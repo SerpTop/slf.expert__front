@@ -6,5 +6,8 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@nuxt/image"],
   image: {
     inject: true
-  }
+  },
+  plugins: [
+    '~/plugins/gsap.client.ts'
+  ]
 });

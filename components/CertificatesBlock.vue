@@ -1,22 +1,17 @@
 <template>
-    <div
-        class="_container bg-gray-400 flex flex-col gap-5 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]">
-        <h2 class="border-b pb-6 -mb-6 border-gray-100 xl:border-0 xl:m-0 xl:p-0">Cертификаты и дипломы</h2>
+    <div class="_container bg-gray-400 flex flex-col gap-5 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]">
+        <h2 ref="header" class="border-b pb-6 -mb-6 border-gray-100 xl:border-0 xl:m-0 xl:p-0">Cертификаты и дипломы</h2>
 
-        <div v-for="(item, i) in certificates" :key="i"
-            class="grid  xl:grid-cols-[418fr_1372fr] items-start xl:border-t border-gray-100">
-
+        <div v-for="(item, i) in certificates" :key="i" ref="certificateBlocks" class="grid xl:grid-cols-[418fr_1372fr] items-start xl:border-t border-gray-100">
             <span class="text-sm 2xl:text-base text-black font-semibold flex items-center pt-4 xl:pt-5">
                 <span class="w-2 h-2 bg-black font-bold rounded-full mr-2"></span>
                 {{ item.title }}:
             </span>
-
             <ul>
-                <li v-for="(doc, j) in item.docs" :key="j"
-                    class="flex justify-between gap-4 items-center w-full text-black text-sm 2xl:text-base  border-b border-gray-100 py-3 sm:py-4 2xl:gap-5 ">
-                    <a :href="doc.url" class="">{{ doc.title }}</a>
+                <li v-for="(doc, j) in item.docs" :key="j" class="flex justify-between gap-4 items-center w-full text-black text-sm 2xl:text-base border-b border-gray-100 py-3 sm:py-4 2xl:gap-5">
+                    <a :href="doc.url">{{ doc.title }}</a>
                     <div class="ml-auto flex items-center xl:gap-40 2xl:gap-64">
-                        <span class="">{{ doc.expansion }}</span>
+                        <span>{{ doc.expansion }}</span>
                         <span class="hidden xl:block">[{{ doc.size }}]</span>
                     </div>
                 </li>
@@ -25,7 +20,14 @@
     </div>
 </template>
 
+
 <script setup>
+import { ref, onMounted } from 'vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 const certificates = [
     {
         title: 'Сертификаты',
@@ -86,4 +88,49 @@ const certificates = [
         ]
     }
 ]
+
+const header = ref(null);
+const certificateBlocks = ref([]);
+
+onMounted(() => {
+    // Анимация заголовка
+    gsap.fromTo(header.value, 
+        { y: 50, opacity: 0 }, 
+        {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: header.value,
+                start: 'top 75%',
+                end: 'top 55%',
+                scrub: true,
+                markers: false,
+            }
+        }
+    );
+
+    // Анимация блоков сертификатов
+    gsap.utils.toArray(certificateBlocks.value).forEach((block, index) => {
+        gsap.fromTo(block, 
+            { y: 50, opacity: 0 }, 
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: block,
+                    start: 'top 80%',
+                    end: 'top 60%',
+                    scrub: true,
+                    markers: false,
+                    delay: index * 0.3
+                }
+            }
+        );
+    });
+});
 </script>
+

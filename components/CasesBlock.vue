@@ -1,8 +1,8 @@
 <template>
     <div
         class="_container bg-gray-400 flex flex-col gap-4 sm:gap-5 xl:gap-[30px] 2xl:gap-10  py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]">
-        <h2>Кейсы из судебной практики</h2>
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6 2xl:gap-8">
+        <h2  ref="title">Кейсы из судебной практики</h2>
+        <div ref="casesContainer" class="grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6 2xl:gap-8">
             <div v-for="(item, i) in visibleCases" :key="i" 
             class="bg-white p-4 sm:p-5 2xl:p-[30px] rounded-xl gap-4 sm:gap-5  click-path flex flex-col items-start">
                 <span class="text-black text-sm 2xl:text-base py-2 px-4 rounded-[10px] border-gray-200 border 2xl:py-[10px] 2xl:px-5">{{ item.date }}</span>
@@ -26,6 +26,9 @@
 </template>
 
 <script setup>
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 const cases = [
     {
         name: 'Дело № А43-41882/2019',
@@ -87,4 +90,45 @@ const visibleCases = computed(() => {
 function toggleShowAll() {
     showAll.value = !showAll.value;
 }
+
+const title = ref(null);
+const casesContainer = ref(null);
+onMounted(() => {
+    gsap.fromTo(title.value, 
+            { y: 50, opacity: 0 }, 
+            {
+                y: 0,
+                opacity: 1,
+                duration: 2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: title.value,
+                    start: 'top 80%',
+                    end: 'top 60%',
+                    scrub: true,
+                    markers: false,
+                }
+            }
+        );
+        gsap.utils.toArray(casesContainer.value.children).forEach((caseItem, i) => {
+            gsap.fromTo(caseItem, 
+                { y: 70, opacity: 0 }, 
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: caseItem,
+                        start: 'top 90%',
+                        end: 'top 70%',
+                        scrub: true,
+                        markers: false,
+                        start: `top ${90 - i * 10}%`,
+                        end: `top ${70 - i * 10}%`,
+                    }
+                }
+            );
+        });
+});
 </script>

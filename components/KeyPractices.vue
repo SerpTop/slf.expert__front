@@ -1,31 +1,38 @@
 <template>
     <div
-        class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px] bg-gray-400">
-        <h2>Ключевые практики</h2>
-        <div v-for="(item, i) in blocks" :key="i" class="grid grid-cols-1 xl:grid-cols-2 gap-5 xl:gap-0">
-            <div class="flex h-fit gap-2.5 sm:gap-4 xl:gap-[190px] 2xl:gap-[250px]">
-                <span
-                    class="bg-white rounded-full flex items-center justify-center w-12 h-12 sm:w-[50px] sm:h-[50px] 2xl:h-[60px] 2xl:w-[60px]">
-                    <NuxtImg :name="item.icon" />
-
-                </span>
-                <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">{{ item.title }}</h3>
-            </div>
-            <div class="flex items-start  flex-col gap-5 xl:gap-[30px] 2xl:gap-10">
-                <ul class="flex flex-col gap-4 list-disc list-inside">
-                    <li v-for="(listItem, i) in item.list" class="text-xs 2xl:text-base text-black">
-                        {{ listItem }}
-                    </li>
-                </ul>
-                <NuxtImg name="arrow-right" />
-                <button class="btn btn-main">решить проблему</button>
-            </div>
+      class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px] bg-gray-400"
+    >
+      <h2 ref="header">Ключевые практики</h2>
+      <div
+        v-for="(item, i) in blocksMain"
+        :key="i"
+        ref="blocks"
+        class="grid grid-cols-1 xl:grid-cols-2 gap-5 xl:gap-0"
+      >
+        <div class="flex h-fit gap-2.5 sm:gap-4 xl:gap-[190px] 2xl:gap-[250px]">
+          <span
+            class="bg-white rounded-full flex items-center justify-center w-12 h-12 sm:w-[50px] sm:h-[50px] 2xl:h-[60px] 2xl:w-[60px]"
+          >
+            <NuxtImg :name="item.icon" />
+          </span>
+          <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">{{ item.title }}</h3>
         </div>
+        <div class="flex items-start flex-col gap-5 xl:gap-[30px] 2xl:gap-10">
+          <ul class="flex flex-col gap-4 list-disc list-inside">
+            <li v-for="(listItem, i) in item.list" :key="i" class="text-xs 2xl:text-base text-black">
+              {{ listItem }}
+            </li>
+          </ul>
+          <NuxtImg name="arrow-right" />
+          <button class="btn btn-main">решить проблему</button>
+        </div>
+      </div>
     </div>
-</template>
+  </template>
+  
 
 <script setup>
-const blocks = [
+const blocksMain = [
     {
         title: 'Таможня',
         icon: '',
@@ -78,4 +85,56 @@ const blocks = [
 
     },
 ]
+import { ref, onMounted } from 'vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const header = ref(null);
+const blocks = ref([]);
+const blocksArray = ref([]);
+
+onMounted(() => {
+  // Анимация заголовка
+  gsap.fromTo(
+    header.value,
+    { y: 50, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 4,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: header.value,
+        start: 'top 80%',
+        end: 'top 60%',
+        scrub: true,
+        markers: false,
+      },
+    }
+  );
+
+  // Анимация блоков
+  blocks.value.forEach((block, index) => {
+    gsap.fromTo(
+      block,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 4,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: block,
+          start: 'top 80%',
+          end: 'top 60%',
+          scrub: true,
+          markers: false,
+        },
+        stagger: 0.3,
+      }
+    );
+  });
+});
 </script>

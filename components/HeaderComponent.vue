@@ -1,5 +1,5 @@
 <template>
-    <header class="flex justify-between items-center _container py-4">
+    <header ref="header" class="flex justify-between items-center _container py-4">
         <div>
             <svg width="233" height="60" viewBox="0 0 233 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -217,4 +217,29 @@ const links = [
         icon: "",
     },
 ];
+
+import { ref, onMounted } from 'vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const header = ref(null);
+const listItems = ref([]);
+const footerLinks = ref([]);
+const logo = ref(null);
+
+
+onMounted(() => {
+  // Анимация заголовка
+  gsap.fromTo(header.value,
+    { y: -100, opacity: 0 },
+    {
+      y: 0,                    // Конечное состояние
+      opacity: 1,
+      duration: 1.5,
+      ease: 'power3.out',
+    }
+  );
+});
 </script>

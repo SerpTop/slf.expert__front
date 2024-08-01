@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col bg-blue-100">
     <LoadingComponent />
-    <div  class="content">
+    <div v-if="loading"  class="content">
       <HeaderComponent />
       <MainBlock />
       <KeyPractices />
@@ -20,13 +20,13 @@
 export default {
   data() {
     return {
-      loading: true,
+      loading: false,
     };
   },
   mounted() {
     // Здесь нужно связать состояние загрузки с реальным процессом
     setTimeout(() => {
-      this.loading = false;
+      this.loading = true;
     }, 3000); // 3 секунды для демонстрации
   },
 };

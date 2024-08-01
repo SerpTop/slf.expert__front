@@ -2,8 +2,11 @@
   <div
     class="_container flex flex-col gap-4 sm:gap-5 xl:gap-[30px] 2xl:gap-10 bg-blue-100 py-[60px] xl:py-20 2xl:py-[120px]"
   >
-    <h2 v-show="isFormSent === false" class="text-white">Записаться на консультацию</h2>
-    <form v-show="isFormSent === false" action="" class="grid grid-cols-1 xl:grid-cols-2 gap-[30px]">
+    <!-- Заголовок формы -->
+    <h2 ref="formTitle" v-show="isFormSent === false" class="text-white">Записаться на консультацию</h2>
+
+    <!-- Форма -->
+    <form ref="formElement" v-show="isFormSent === false" action="" class="grid grid-cols-1 xl:grid-cols-2 gap-[30px]">
       <input
         v-for="(item, i) in form"
         :key="i"
@@ -13,6 +16,7 @@
         v-model="formData[i]"
         :rows="item.rows"
         class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 text-white"
+        :ref="`formInput_${i}`" 
       />
 
       <select
@@ -65,6 +69,7 @@
       </button>
     </form>
 
+    <!-- Сообщение после отправки формы -->
     <div v-show="isFormSent" class="flex flex-col items-center justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full fl-max-w-[360px,904px] mx-auto ">
       <h2 class="text-white text-center">
         Спасибо, данные успешно <br />
@@ -97,62 +102,101 @@
   </div>
 </template>
 
+
 <script setup>
+import { ref, computed, onMounted } from 'vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 const isFormSent = ref(false);
 const form = [
-  {
-    type: "text",
-    placeholder: "Имя*",
-    require: true,
-  },
-  {
-    type: "tel",
-    placeholder: "Телефон*",
-    require: true,
-  },
-  {
-    type: "email",
-    placeholder: "E-mail",
-    require: false,
-  },
+  { type: "text", placeholder: "Имя*", require: true },
+  { type: "tel", placeholder: "Телефон*", require: true },
+  { type: "email", placeholder: "E-mail", require: false }
 ];
 const links = [
-  {
-    title: "+8 (831) 414 04 02  ",
-    link: "",
-  },
-  {
-    title: "+7 (903) 601 04 02",
-    link: "",
-  },
-  {
-    title: "slf.expert",
-    link: "",
-    icon: "",
-  },
-  {
-    title: "slf.expert",
-    link: "",
-    icon: "",
-  },
+  { title: "+8 (831) 414 04 02", link: "" },
+  { title: "+7 (903) 601 04 02", link: "" },
+  { title: "slf.expert", link: "", icon: "" },
+  { title: "slf.expert", link: "", icon: "" }
 ];
 const selectOptions = [
   { value: "practice1", label: "Таможня " },
   { value: "practice2", label: "Налоги" },
   { value: "practice3", label: "Арбитражные споры" },
   { value: "practice4", label: "На Споры по исполнению госконтрактовлоги" },
-  {
-    value: "practice4",
-    label: "Аудит юридических бизнес-процессов в компании",
-  },
+  { value: "practice4", label: "Аудит юридических бизнес-процессов в компании" }
 ];
 const formData = ref(Array(form.length).fill(""));
 const isFormInvalid = computed(() => {
-  for (let i = 0; i < form.length; i++) {
-    if (form[i].require && !formData.value[i]) {
-      return true;
+  return form.some((item, i) => item.require && !formData.value[i]);
+});
+
+const formTitle = ref(null);
+const formElement = ref(null);
+const formInputs = form.map((_, i) => ref(null)); // Массив рефов для каждого элемента формы
+
+onMounted(() => {
+  // Анимация заголовка формы
+  gsap.fromTo(formTitle.value,
+    { y: 50, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 3,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: formTitle.value,
+        start: 'top 80%',
+        end: 'top 60%',
+        scrub: true,
+        markers: false,
+      }
     }
-  }
-  return false;
+  );
+
+  // Анимация элементов формы
+  gsap.fromTo(formElement.value,
+    { y: 50,opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 3,
+      ease: 'power3.out',
+      stagger: 0.3, // Задержка между анимацией элементов
+      scrollTrigger: {
+        trigger: formElement.value,
+        start: 'top 70%',
+        end: 'top 50%',
+        scrub: true,
+        markers: false,
+      }
+    }
+  );
+
+  // Анимация каждого элемента формы по очереди
+  formInputs.forEach((inputRef, i) => {
+    gsap.fromTo(inputRef.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        delay: i * 0.3, // Задержка между анимацией элементов
+        scrollTrigger: {
+          trigger: inputRef.value,
+          start: 'top 80%',
+          end: 'top 60%',
+          scrub: true,
+          markers: false,
+        }
+      }
+    );
+  });
 });
 </script>
+
+

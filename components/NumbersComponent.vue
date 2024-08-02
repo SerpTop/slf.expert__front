@@ -77,23 +77,38 @@ gsap.registerPlugin(ScrollTrigger);
 
 const container = ref(null);
 const grid = ref(null);
+const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+const initializeAnimations = () => {
+  if (mediaQuery.matches) {
+    const innerDivs = grid.value.querySelectorAll("[data-speed]");
+    innerDivs.forEach((div) => {
+      const speed = div.getAttribute("data-speed");
+      gsap.to(div, {
+        y: () => `${speed * 200}px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: div,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+  } else {
+    // Отключить анимации для мобильных экранов
+    gsap.killTweensOf("[data-speed]");
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  }
+};
 
 onMounted(() => {
-  const innerDivs = grid.value.querySelectorAll("[data-speed]");
+  initializeAnimations();
+  mediaQuery.addEventListener('change', initializeAnimations);
+});
 
-  innerDivs.forEach((div) => {
-    const speed = div.getAttribute("data-speed");
-    gsap.to(div, {
-      y: () => `${speed * 200}px`,
-      ease: "none",
-      scrollTrigger: {
-        trigger: div,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-  });
+onUnmounted(() => {
+  mediaQuery.removeEventListener('change', initializeAnimations);
 });
 </script>
 

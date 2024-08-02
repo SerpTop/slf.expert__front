@@ -5,10 +5,18 @@
         <div>
             <h2 ref="title" class="text-white mb-3 sm:mb-4 2xl:mb-5">Семин Андрей Сергеевич</h2>
             <span ref="subtitle" class="text-blue-300 text-sm 2xl:text-base">Управляющий партнер</span>
-            <ul ref="infoList" class="list-disc list-inside flex flex-col gap-4 2xl:gap-5 py-4 sm:py-6 xl:py-[30px] 2xl:py-10">
+            <ul ref="infoList"
+                class="list-disc list-inside flex flex-col gap-4 2xl:gap-5 py-4 sm:py-6 xl:py-[30px] 2xl:py-10">
                 <li v-for="(item, i) in info" :key="i" class="text-white text-sm 2xl:text-base">{{ item }}</li>
             </ul>
-            <button ref="ctaButton" class="btn btn-white">записаться на консультацию</button>
+            <button ref="ctaButton" class="btn btn-white"><svg width="18" height="12" viewBox="0 0 18 12" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M-0.000141144 4.875L2.24986 4.875L12.7499 4.875V1.125L17.9999 6L12.7499 10.875V7.125L-0.000141144 7.125V4.875Z"
+                        fill="#1F1F1F" />
+                    <rect width="2.25" height="5.25" fill="#1F1F1F" />
+                </svg>
+                записаться на консультацию</button>
         </div>
     </div>
 </template>
@@ -33,8 +41,8 @@ const ctaButton = ref(null);
 
 onMounted(() => {
     // Анимация блока _container
-    gsap.fromTo(container.value, 
-        { x: '100%', opacity: 0 }, 
+    gsap.fromTo(container.value,
+        { x: '100%', opacity: 0 },
         {
             x: '0%',
             opacity: 1,
@@ -56,8 +64,8 @@ onMounted(() => {
 
 function animateElements() {
     // Анимация заголовка
-    gsap.fromTo(title.value, 
-        { y: 50, opacity: 0 }, 
+    gsap.fromTo(title.value,
+        { y: 50, opacity: 0 },
         {
             y: 0,
             opacity: 1,
@@ -74,8 +82,8 @@ function animateElements() {
     );
 
     // Анимация подзаголовка
-    gsap.fromTo(subtitle.value, 
-        { y: 50, opacity: 0 }, 
+    gsap.fromTo(subtitle.value,
+        { y: 50, opacity: 0 },
         {
             y: 0,
             opacity: 1,
@@ -92,8 +100,8 @@ function animateElements() {
     );
 
     // Анимация списка
-    gsap.fromTo(infoList.value, 
-        { y: 50, opacity: 0 }, 
+    gsap.fromTo(infoList.value,
+        { y: 50, opacity: 0 },
         {
             y: 0,
             opacity: 1,
@@ -111,8 +119,8 @@ function animateElements() {
     );
 
     // Анимация кнопки
-    gsap.fromTo(ctaButton.value, 
-        { y: 50, opacity: 0 }, 
+    gsap.fromTo(ctaButton.value,
+        { y: 50, opacity: 0 },
         {
             y: 0,
             opacity: 1,

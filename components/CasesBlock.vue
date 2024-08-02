@@ -1,11 +1,13 @@
 <template>
     <div
         class="_container bg-gray-400 flex flex-col gap-4 sm:gap-5 xl:gap-[30px] 2xl:gap-10  py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]">
-        <h2  ref="title">Кейсы из судебной практики</h2>
+        <h2 ref="title">Кейсы из судебной практики</h2>
         <div ref="casesContainer" class="grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6 2xl:gap-8">
-            <div v-for="(item, i) in visibleCases" :key="i" 
-            class="bg-white p-4 sm:p-5 2xl:p-[30px] rounded-xl gap-4 sm:gap-5  click-path flex flex-col items-start">
-                <span class="text-black text-sm 2xl:text-base py-2 px-4 rounded-[10px] border-gray-200 border 2xl:py-[10px] 2xl:px-5">{{ item.date }}</span>
+            <div v-for="(item, i) in visibleCases" :key="i"
+                class="bg-white p-4 sm:p-5 2xl:p-[30px] rounded-xl gap-4 sm:gap-5  click-path flex flex-col items-start">
+                <span
+                    class="text-black text-sm 2xl:text-base py-2 px-4 rounded-[10px] border-gray-200 border 2xl:py-[10px] 2xl:px-5">{{
+                        item.date }}</span>
                 <span class="text-black text-sm 2xl:text-base -mb-4">{{ item.name }}</span>
                 <h4 class="text-black">{{ item.title }}</h4>
                 <div class="flex flex-col sm:flex-row gap-2 sm:gap-[30px] 2xl:gap-10">
@@ -17,11 +19,19 @@
                     <span class="text-black text-sm 2xl:text-base">{{ item.result }}</span>
                 </div>
                 <button class="btn btn-blue mt-auto">
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M-0.000137329 4.875L2.24986 4.875L12.7499 4.875V1.125L17.9999 6L12.7499 10.875V7.125L-0.000137329 7.125V4.875Z"
+                            fill="white" />
+                        <rect width="2.25" height="5.25" fill="white" />
+                    </svg>
+
                     посмотреть решение
                 </button>
             </div>
         </div>
-        <button class="btn btn-main mx-auto xl:w-1/4" @click="toggleShowAll">{{ showAll ? 'свернуть' : 'смотреть еще' }}</button>
+        <button class="btn btn-main mx-auto xl:w-1/4" @click="toggleShowAll">{{ showAll ? 'свернуть' : 'смотреть еще'
+        }}</button>
     </div>
 </template>
 
@@ -94,41 +104,41 @@ function toggleShowAll() {
 const title = ref(null);
 const casesContainer = ref(null);
 onMounted(() => {
-    gsap.fromTo(title.value, 
-            { y: 50, opacity: 0 }, 
+    gsap.fromTo(title.value,
+        { y: 50, opacity: 0 },
+        {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: title.value,
+                start: 'top 80%',
+                end: 'top 60%',
+                scrub: true,
+                markers: false,
+            }
+        }
+    );
+    gsap.utils.toArray(casesContainer.value.children).forEach((caseItem, i) => {
+        gsap.fromTo(caseItem,
+            { y: 70, opacity: 0 },
             {
                 y: 0,
                 opacity: 1,
                 duration: 2,
                 ease: 'power3.out',
                 scrollTrigger: {
-                    trigger: title.value,
-                    start: 'top 80%',
-                    end: 'top 60%',
+                    trigger: caseItem,
+                    start: 'top 90%',
+                    end: 'top 70%',
                     scrub: true,
                     markers: false,
+                    start: `top ${100 - i * 10}%`,
+                    end: `top ${90 - i * 10}%`,
                 }
             }
         );
-        gsap.utils.toArray(casesContainer.value.children).forEach((caseItem, i) => {
-            gsap.fromTo(caseItem, 
-                { y: 70, opacity: 0 }, 
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 2,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: caseItem,
-                        start: 'top 90%',
-                        end: 'top 70%',
-                        scrub: true,
-                        markers: false,
-                        start: `top ${90 - i * 10}%`,
-                        end: `top ${70 - i * 10}%`,
-                    }
-                }
-            );
-        });
+    });
 });
 </script>

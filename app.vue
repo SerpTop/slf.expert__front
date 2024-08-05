@@ -12,6 +12,7 @@
       <FormComponent />
       <FooterComponent />
       <CookiesComponent />
+      <BackToTopButton />
     </div>
   </div>
 </template>

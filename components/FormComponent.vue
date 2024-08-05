@@ -3,14 +3,14 @@
     class="_container flex flex-col gap-4 sm:gap-5 xl:gap-[30px] 2xl:gap-10 bg-blue-100 py-[60px] xl:py-20 2xl:py-[120px]"
   >
     <!-- Заголовок формы -->
-    <h2 ref="formTitle" v-show="isFormSent === false" class="text-white">
+    <h2 ref="formTitle" v-show="!isFormSent" class="text-white">
       Записаться на консультацию
     </h2>
 
     <!-- Форма -->
     <form
       ref="formElement"
-      v-show="isFormSent === false"
+      v-show="!isFormSent"
       action=""
       class="grid grid-cols-1 xl:grid-cols-2 gap-[30px]"
     >
@@ -40,12 +40,14 @@
           {{ option.label }}
         </option>
       </select>
+
       <textarea
         class="bg-transparent border-b text-sm 2xl:text-base border-blue-400 text-white xl:col-span-2"
         rows="4"
       >
         Комментарий
       </textarea>
+
       <label
         for=""
         class="xl:col-span-2 flex items-center justify-center gap-2 relative cursor-pointer"
@@ -72,14 +74,11 @@
           </svg>
         </div>
         <div class="flex flex-col">
-          <span class="text-sm text-blue-300 2xl:text-base"
-            >Подгрузить документ</span
-          >
-          <span class="text-blue-400 text-sm 2xl:text-base"
-            >Не более [20 MB]</span
-          >
+          <span class="text-sm text-blue-300 2xl:text-base">Подгрузить документ</span>
+          <span class="text-blue-400 text-sm 2xl:text-base">Не более [20 MB]</span>
         </div>
       </label>
+
       <label
         class="flex items-center gap-2 text-sm 2xl:text-base xl:col-span-2 justify-center"
       >
@@ -100,22 +99,22 @@
     <!-- Сообщение после отправки формы -->
     <div
       v-show="isFormSent"
-      class="flex flex-col items-center justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full fl-max-w-[360px,904px] mx-auto"
+      class="flex flex-col items-center justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full max-w-[360px,904px] mx-auto"
     >
       <h2 class="text-white text-center">
         Спасибо, данные успешно <br />
         отправлены!
       </h2>
-      <span class="text-base 2xl:text-xl text-white text-center"
-        >Ваша заявка успешно отправлена, и мы уже приступаем к ее рассмотрению.
-        В ближайшее время мы свяжемся с вами, чтобы обсудить ваш вопрос.
-        Мы отвечаем на заявки не позднее двух дней — по возможности
-        раньше.</span
-      >
-      <span class="text-base 2xl:text-xl text-white text-center"
-        >Если у вас срочный вопрос вы можете связаться с нами прямо сейчас
-        по контактам ниже:</span
-      >
+      <span class="text-base 2xl:text-xl text-white text-center">
+        Ваша заявка успешно отправлена, и мы уже приступаем к ее рассмотрению.
+        В ближайшее время мы свяжемся с вами, чтобы обсудить ваш вопрос.
+        Мы отвечаем на заявки не позднее двух дней — по возможности
+        раньше.
+      </span>
+      <span class="text-base 2xl:text-xl text-white text-center">
+        Если у вас срочный вопрос вы можете связаться с нами прямо сейчас
+        по контактам ниже:
+      </span>
       <div
         class="grid grid-cols-2 sm:grid-cols-4 w-full gap-[9px] sm:gap-4 xl:gap-6 2xl:gap-8"
       >
@@ -133,8 +132,9 @@
   </div>
 </template>
 
+
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, nextTick } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import telegramIcon from "assets/icons/tg-icon.svg";
@@ -159,10 +159,7 @@ const selectOptions = [
   { value: "practice2", label: "Налоги" },
   { value: "practice3", label: "Арбитражные споры" },
   { value: "practice4", label: "На Споры по исполнению госконтрактовлоги" },
-  {
-    value: "practice4",
-    label: "Аудит юридических бизнес-процессов в компании",
-  },
+  { value: "practice4", label: "Аудит юридических бизнес-процессов в компании" },
 ];
 const formData = ref(Array(form.length).fill(""));
 const isFormInvalid = computed(() => {
@@ -173,7 +170,9 @@ const formTitle = ref(null);
 const formElement = ref(null);
 const formInputs = form.map((_, i) => ref(null)); // Массив рефов для каждого элемента формы
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick(); // Дожидаемся обновления DOM
+
   // Анимация заголовка формы
   gsap.fromTo(
     formTitle.value,
@@ -213,26 +212,5 @@ onMounted(() => {
     }
   );
 
-  // Анимация каждого элемента формы по очереди
-  formInputs.forEach((inputRef, i) => {
-    gsap.fromTo(
-      inputRef.value,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        delay: i * 0.3, // Задержка между анимацией элементов
-        scrollTrigger: {
-          trigger: inputRef.value,
-          start: "top 80%",
-          end: "top 60%",
-          scrub: true,
-          markers: false,
-        },
-      }
-    );
-  });
 });
 </script>

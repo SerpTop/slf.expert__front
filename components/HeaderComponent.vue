@@ -100,7 +100,7 @@
             </a>
         </div>
         <div class="gap-5 hidden sm:flex">
-            <a href="" class="btn btn-white-02">+8 (831) 414 04 02 </a>
+            <a href="" class="btn btn-white-02">+8 (831) 414 04 02 </a>
             <button @click='isFormOpen = true' class="btn btn-white">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12" fill="none">
                     <path
@@ -126,7 +126,7 @@
             </svg>
         </div>
         <div v-if="isMenuOpen"
-            class="fixed left-0 top-20 bg-blue-100 py-6 px-4 sm:px-5 z-10 w-full flex flex-col gap-4 overflow-scroll">
+            class="absolute left-0 top-20 bg-blue-100 py-6 px-4 sm:px-5 z-10 w-full flex flex-col gap-4 overflow-scroll">
             <div class="flex flex-col gap-4">
                 <a :href="item.link" v-for="(item, i) in headerLinks" :key="i"
                     class="h-11 px-6 bg-white-o2 rounded-full flex items-center justify-between text-white">
@@ -225,9 +225,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const header = ref(null);
-const listItems = ref([]);
-const footerLinks = ref([]);
-const logo = ref(null);
 
 
 onMounted(() => {
@@ -241,5 +238,28 @@ onMounted(() => {
       ease: 'power3.out',
     }
   );
+});
+let lastScrollTop = 0;
+
+const handleScroll = () => {
+  const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (currentScrollTop > lastScrollTop) {
+    // Скролл вниз
+    header.value.classList.add('header-hidden');
+  } else {
+    // Скролл вверх
+    header.value.classList.remove('header-hidden');
+  }
+
+  lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для мобильных устройств или отрицательного скролла
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
 });
 </script>

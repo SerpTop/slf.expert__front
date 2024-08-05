@@ -239,27 +239,5 @@ onMounted(() => {
     }
   );
 });
-let lastScrollTop = 0;
 
-const handleScroll = () => {
-  const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-  if (currentScrollTop > lastScrollTop) {
-    // Скролл вниз
-    header.value.classList.add('header-hidden');
-  } else {
-    // Скролл вверх
-    header.value.classList.remove('header-hidden');
-  }
-
-  lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // Для мобильных устройств или отрицательного скролла
-};
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 </script>

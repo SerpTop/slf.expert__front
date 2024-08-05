@@ -18,6 +18,11 @@
 </template>
 
 <script>
+import { createPinia } from 'pinia';
+import { useGlobalStore } from '@/stores/globalStore';
+const store = useGlobalStore();
+const globalVariable = store.globalVariable;
+app.use(createPinia());
 export default {
   data() {
     return {

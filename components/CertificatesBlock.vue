@@ -1,5 +1,5 @@
 <template>
-  <a neme="certificates" class="bg-gray-400">
+  <a name="certificates" class="bg-gray-400">
     <div
       class="_container flex flex-col gap-5 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >

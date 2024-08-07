@@ -1,6 +1,7 @@
 <template>
-  <div
-    class="_container flex flex-col gap-5 sm:gap-10 xl:gap-[60px] 2xl:gap-20 bg-gray-400 pt-[60px] sm:pt-20 xl:pt-[120px] 2xl:pt-[200px] pb-5"
+  <a name="contacts" class="bg-gray-400 ">
+    <div
+    class="_container flex flex-col gap-5 sm:gap-10 xl:gap-[60px] 2xl:gap-20 pt-[60px] sm:pt-20 xl:pt-[120px] 2xl:pt-[200px] pb-5"
   >
     <h2 ref="header">Контакты</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
@@ -27,6 +28,8 @@
       <a href="https://serptop.ru" ref="footerLinks">Разработка: Serptop</a>
     </div>
   </div>
+  </a>
+
 </template>
 
 

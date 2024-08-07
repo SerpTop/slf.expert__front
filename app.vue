@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col bg-blue-100">
+  <div class="flex flex-col">
     <LoadingComponent />
     <div v-if="loading"  class="content">
       <HeaderComponent />
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import { createPinia } from 'pinia';
-import { useGlobalStore } from '@/stores/globalStore';
-const store = useGlobalStore();
-const globalVariable = store.globalVariable;
-app.use(createPinia());
+// import { createPinia } from 'pinia';
+// import { useGlobalStore } from '@/stores/globalStore';
+// const store = useGlobalStore();
+// const globalVariable = store.globalVariable;
+// app.use(createPinia());
 export default {
   data() {
     return {

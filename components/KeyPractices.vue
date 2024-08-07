@@ -1,45 +1,92 @@
 <template>
-  <div
-    class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px] bg-gray-400">
-    <h2 ref="header">Ключевые практики</h2>
-    <div v-for="(item, i) in blocksMain" :key="i" ref="blocks" class="grid grid-cols-1 xl:grid-cols-2 gap-5 xl:gap-0">
-      <div class="flex h-fit gap-2.5 sm:gap-4 xl:gap-[190px] 2xl:gap-[250px]">
-        <span
-          class="bg-white rounded-full flex items-center justify-center w-12 h-12 sm:w-[50px] sm:h-[50px] 2xl:h-[60px] 2xl:w-[60px]">
-          <img :src="item.icon" />
-        </span>
-        <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">{{ item.title }}</h3>
-      </div>
-      <div class="flex items-start flex-col gap-5 xl:gap-[30px] 2xl:gap-10">
-        <ul class="flex flex-col gap-4 list-disc list-inside">
-          <li v-for="(listItem, i) in item.list" :key="i" class="text-xs 2xl:text-base text-black">
-            {{ listItem }}
-          </li>
-        </ul>
-        <NuxtImg name="arrow-right" />
-        <button class="btn btn-main">
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M-0.000137329 4.875L2.24986 4.875L12.7499 4.875V1.125L17.9999 6L12.7499 10.875V7.125L-0.000137329 7.125V4.875Z"
-              fill="white" />
-            <rect width="2.25" height="5.25" fill="white" />
-          </svg>
+  <a name="practices" class="bg-gray-400">
+    <div
+      class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
+    >
+      <h2 ref="header">Ключевые практики</h2>
+      <div
+        v-for="(item, i) in blocksMain"
+        :key="i"
+        ref="blocks"
+        class="grid grid-cols-1 xl:grid-cols-2 gap-5 xl:gap-0"
+      >
+        <div class="flex h-fit gap-2.5 sm:gap-4 xl:gap-[190px] 2xl:gap-[250px]">
+          <span
+            class="bg-white rounded-full flex items-center justify-center w-12 h-12 sm:w-[50px] sm:h-[50px] 2xl:h-[60px] 2xl:w-[60px]"
+          >
+            <img :src="item.icon" />
+          </span>
+          <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">{{ item.title }}</h3>
+        </div>
+        <div class="flex items-start flex-col gap-5 xl:gap-[30px] 2xl:gap-10">
+          <ul class="flex flex-col gap-4 list-disc list-inside">
+            <li
+              v-for="(listItem, i) in item.list"
+              :key="i"
+              class="text-xs 2xl:text-base text-black"
+            >
+              {{ listItem }}
+            </li>
+          </ul>
+          <NuxtImg name="arrow-right" />
+          <button @click="isFormOpen = true" class="btn btn-main">
+            <svg
+              width="18"
+              height="12"
+              viewBox="0 0 18 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M-0.000137329 4.875L2.24986 4.875L12.7499 4.875V1.125L17.9999 6L12.7499 10.875V7.125L-0.000137329 7.125V4.875Z"
+                fill="white"
+              />
+              <rect width="2.25" height="5.25" fill="white" />
+            </svg>
 
-          решить проблему
-        </button>
+            решить проблему
+          </button>
+        </div>
+      </div>
+      <div
+        v-if="isFormOpen"
+        class="fixed top-0 right-0 z-20 w-full overflow-scroll xl:max-w-[696px] 2xl:max-w-[984px]"
+      >
+        <div class="bg-blue-100 p-4">
+          <div
+            @click="isFormOpen = false"
+            class="border border-white rounded-full ml-auto w-11 h-11 flex items-center justify-center"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 10L15 15M10 10L5 5M10 10L5 15M10 10L15 5"
+                stroke="white"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <FormComponent />
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script setup>
-import customsIcon from 'assets/icons/customs.svg';
-import taxesIcon from 'assets/icons/taxes.svg';
-import arbDisputesIcon from '/assets/icons/arb-disputes.svg';
-import govContractsIcon from 'assets/icons/gov-contracts.svg';
-import businessProcessesIcon from 'assets/icons/business-processes.svg';
+const isFormOpen = ref(false);
 
-
+import customsIcon from "assets/icons/customs.svg";
+import taxesIcon from "assets/icons/taxes.svg";
+import arbDisputesIcon from "/assets/icons/arb-disputes.svg";
+import govContractsIcon from "assets/icons/gov-contracts.svg";
+import businessProcessesIcon from "assets/icons/business-processes.svg";
 
 const blocksMain = [
   {
@@ -131,7 +178,7 @@ onMounted(() => {
       scrollTrigger: {
         trigger: header.value,
         start: "top 95%",
-          end: "top 90%",
+        end: "top 90%",
         scrub: true,
         markers: false,
       },

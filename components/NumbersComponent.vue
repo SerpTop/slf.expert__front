@@ -1,8 +1,9 @@
 <template>
-  <a name="numbers" class="bg-blue-100">
-    <div
+  <div class="bg-blue-100">
+    <a
+      name="numbers"
       ref="container"
-      class="_container flex flex-col bg-blue-100 overflow-hidden h-[120vh] gap-10 sm:gap-[60px] xl:gap-20 2xl:gap-[120px] py-[60px] xl:py-20 2xl:py-[120px] bg-center bg-no-repeat bg-[length:500px_600px] bg-[url('assets/icons/logo-big.svg')]"
+      class="_container flex flex-col bg-blue-100 overflow-hidden h-[120vh] gap-10 sm:gap-[60px] xl:gap-20 2xl:gap-[120px] py-[60px] xl:py-20 2xl:py-[120px] bg-center bg-no-repeat bg-[length:500px_600px] bg-opacity-20 bg-[url('assets/icons/logo-big.svg')]"
     >
       <h2 class="text-white text-center">Цифры фирмы</h2>
       <div
@@ -71,8 +72,8 @@
           </div>
         </div>
       </div>
-    </div></a
-  >
+    </a>
+  </div>
 </template>
 
 <script setup>

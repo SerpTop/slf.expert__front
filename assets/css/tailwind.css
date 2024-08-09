@@ -65,3 +65,11 @@ h4 {
     clip-path: polygon(40% 0, 50% 16%, 100% 16%, 100% 100%, 0 100%, 0 0);
   }
 }
+
+.text-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Количество строк, до которого отображается текст */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

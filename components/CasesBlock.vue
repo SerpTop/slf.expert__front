@@ -1,35 +1,37 @@
 <template>
-  <a name="cases" class="bg-gray-400">
-    <div
+  <div  class="bg-gray-400">
+    <a name="cases"
       class="_container flex flex-col gap-4 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2 ref="title">Кейсы из судебной практики</h2>
       <div
         ref="casesContainer"
-        class="grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6 2xl:gap-8"
+        class="relative grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6 2xl:gap-8"
       >
+      <span class="sm:absolute top-5 left-80 xl:left-[280px] text-gray-300 text-sm 2xl:text-base">В настоящее время в производстве —  более 80 дел.</span>
+
         <div
           v-for="(item, i) in visibleCases"
           :key="i"
-          class="bg-white p-4 sm:p-5 2xl:p-[30px] rounded-xl gap-4 sm:gap-5 click-path flex flex-col items-start"
+          class="bg-white p-4 sm:p-5 2xl:p-[30px] rounded-xl gap-4 sm:gap-5 click-path flex flex-col items-start min-h-[427px] sm:min-h-[420px] 2xl:min-h-[540px]"
         >
           <span
             class="text-black text-sm 2xl:text-base py-2 px-4 rounded-[10px] border-gray-200 border 2xl:py-[10px] 2xl:px-5"
             >{{ item.date }}</span
           >
-          <span class="text-black text-sm 2xl:text-base -mb-4">{{
+          <span class="text-black text-sm 2xl:text-base -mb-2">{{
             item.name
           }}</span>
           <h4 class="text-black">{{ item.title }}</h4>
           <div class="flex flex-col sm:flex-row gap-2 sm:gap-[30px] 2xl:gap-10">
             <span class="text-gray-200 text-sm 2xl:text-base">(Ситуация)</span>
-            <span class="text-black text-sm 2xl:text-base">{{
+            <span class="text-black text-sm 2xl:text-base text-clamp">{{
               item.situation
             }}</span>
           </div>
           <div class="flex flex-col sm:flex-row gap-2 sm:gap-[30px] 2xl:gap-10">
             <span class="text-gray-200 text-sm 2xl:text-base">(Результат)</span>
-            <span class="text-black text-sm 2xl:text-base">{{
+            <span class="text-black text-sm 2xl:text-base text-clamp">{{
               item.result
             }}</span>
           </div>
@@ -55,8 +57,8 @@
       <button class="btn btn-main mx-auto xl:w-1/4" @click="toggleShowAll">
         {{ showAll ? "свернуть" : "смотреть еще" }}
       </button>
-    </div>
-  </a>
+    </a>
+  </div>
 </template>
 
 <script setup>

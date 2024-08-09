@@ -289,7 +289,7 @@
             </svg>
           </div>
         </div>
-        <FormComponent />
+        <FormComponent modal />
       </div>
     </div>
   </header>

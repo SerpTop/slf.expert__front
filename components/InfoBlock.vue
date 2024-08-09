@@ -1,13 +1,13 @@
 <template>
-  <a name="about" class="bg-blue-100">
-    <div
+  <div class="bg-blue-100">
+    <a name="about"
       ref="container"
       class="_container h-screen bg-[url('/images/andrey-mob.png')] sm:bg-[url('/images/andrey-tab.png')] xl:bg-[url('/images/andrey-desk.png')] pt-[60px] pb-[380px] sm:bp-[564px] xl:py-[71px] 2xl:py-[140px] bg-no-repeat xl:grid xl:grid-cols-2"
     >
       <div></div>
       <div>
-        <h2 ref="title" class="text-white mb-3 sm:mb-4 2xl:mb-5">
-          Семин Андрей Сергеевич
+        <h2 ref="title" class="text-white mb-3 sm:mb-4 2xl:mb-5 leading-23">
+          Семин <br> Андрей <br> Сергеевич
         </h2>
         <span ref="subtitle" class="text-blue-300 text-sm 2xl:text-base"
           >Управляющий партнер</span
@@ -70,10 +70,10 @@
             </svg>
           </div>
         </div>
-        <FormComponent />
+        <FormComponent modal />
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 </template>
 
 <script setup>

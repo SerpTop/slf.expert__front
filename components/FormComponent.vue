@@ -25,11 +25,13 @@
           :rows="item.rows"
           class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 text-white"
           :ref="`formInput_${i}`"
+          :class="{ maskphone: item.type === 'tel' }"
+          @input="handleInput($event, i)"
         />
-
         <select
-          v-model="formData[i]"
           class="bg-transparent border-b text-sm 2xl:text-base border-blue-400 text-white"
+          name="practices"
+          id="city-select"
         >
           <option value="">Выберите практику</option>
           <option
@@ -41,12 +43,28 @@
             {{ option.label }}
           </option>
         </select>
+        <!-- <select
+          name="practices"
+          v-model="formData[i]"
+          class="bg-transparent border-b text-sm 2xl:text-base border-blue-400 text-white"
+          placeholder="Выберите практику"
+        >
+        <option value="">Выберите практику</option>
+          <option
+            v-for="(option, index) in selectOptions"
+            :key="index"
+            :value="option.value"
+            class="bg-[#00113A] p-5"
+          >
+            {{ option.label }}
+          </option>
+        </select> -->
 
         <textarea
           class="bg-transparent border-b text-sm 2xl:text-base border-blue-400 text-white xl:col-span-2"
           rows="4"
         >
-        Комментарий
+Комментарий
       </textarea
         >
 
@@ -92,14 +110,15 @@
           <span class="text-white"> Я согласен на обработку</span>
           <a href="" class="text-blue-300"> Персональных данных.</a>
         </label>
-
-        <button
-          class="btn btn-white xl:col-span-2"
-          :disabled="isFormInvalid"
-          @click.prevent="isFormSent = true"
-        >
-          отправить
-        </button>
+        <div class="w-full flex justify-center xl:col-span-2">
+          <button
+            class="btn btn-white xl:max-w-[436px] w-full"
+            :disabled="isFormInvalid"
+            @click.prevent="isFormSent = true"
+          >
+            отправить
+          </button>
+        </div>
       </form>
 
       <!-- Сообщение после отправки формы -->
@@ -107,16 +126,16 @@
         v-show="isFormSent"
         class="flex flex-col items-center justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full max-w-[360px,904px] mx-auto"
       >
-        <h2 class="text-white text-center">
+        <h2 class="text-white text-center" :class="{ 'text-start': modal }">
           Спасибо, данные успешно <br />
           отправлены!
         </h2>
-        <span class="text-base 2xl:text-xl text-white text-center">
+        <span class="text-base 2xl:text-xl text-white text-center" :class="{ 'text-start': modal }">
           Ваша заявка успешно отправлена, и мы уже приступаем к ее рассмотрению.
           В ближайшее время мы свяжемся с вами, чтобы обсудить ваш вопрос. Мы
           отвечаем на заявки не позднее двух дней — по возможности раньше.
         </span>
-        <span class="text-base 2xl:text-xl text-white text-center">
+        <span class="text-base 2xl:text-xl text-white text-center" :class="{ 'text-start': modal }">
           Если у вас срочный вопрос вы можете связаться с нами прямо сейчас по
           контактам ниже:
         </span>
@@ -144,6 +163,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import telegramIcon from "assets/icons/tg-icon.svg";
 import WhatsAppIcon from "assets/icons/wa-icon.svg";
+
+defineProps({
+  modal: Boolean,
+});
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -176,7 +199,22 @@ const isFormInvalid = computed(() => {
 
 const formTitle = ref(null);
 const formElement = ref(null);
-const formInputs = form.map((_, i) => ref(null)); // Массив рефов для каждого элемента формы
+
+function maskPhone(value) {
+  var blank = "+_ (___) ___-__-__";
+  var i = 0;
+  var val = value.replace(/\D/g, "").replace(/^8/, "7");
+  return blank.replace(/./g, function (char) {
+    if (/[_\d]/.test(char) && i < val.length) return val.charAt(i++);
+    return i >= val.length ? "" : char;
+  });
+}
+
+function handleInput(event, index) {
+  if (form[index].type === "tel") {
+    formData.value[index] = maskPhone(event.target.value);
+  }
+}
 
 onMounted(async () => {
   await nextTick(); // Дожидаемся обновления DOM

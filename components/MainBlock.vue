@@ -4,13 +4,13 @@
       ref="container"
       class="_container h-screen bg-[url('/images/main-andrey-mob.png')] sm:bg-[url('/images/main-andrey-tab.png')] xl:bg-[url('/images/main-andrey-desk.png')] pt-6 sm:pt-[38px] 2xl:pt-[100px] pb-6 sm:pb-5 xl:pb-6 2xl:pb-10 bg-no-repeat"
     >
-      <div ref="content" class="max-w-[1080px]">
+      <div ref="content" class="max-w-[1100px]">
         <h1
           class="fl-text-[1.625rem,5.125rem] leading-[120%] font-bold text-white uppercase"
         >
-          Более 15 лет успешной практики
+          Более 15 лет успешной <br> практики
           <span class="text-blue-300">
-            в области таможни, налогов и арбитража
+            в области таможни, налогов <br> и арбитража
           </span>
         </h1>
       </div>
@@ -37,12 +37,12 @@
       </button>
       <div
         ref="grid"
-        class="grid grid-cols-1 xl:grid-cols-3 gap-8 max-w-[1080px] mt-[387px] sm:mt-[118px] xl:mt-[37px] 2xl:mt-[55px]"
+        class="grid grid-cols-1 xl:grid-cols-3 gap-8 max-w-[1015px] mt-[387px] sm:mt-[118px] xl:mt-[37px] 2xl:mt-[55px]"
       >
         <div
           v-for="(item, i) in numbers"
           :key="i"
-          class="flex flex-col rounded-[20px] bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl"
+          class="flex flex-col rounded-[20px] justify-between gap-4 2xl:gap-5  bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl"
         >
           <span class="number_2">{{ item.title }}</span>
           <span class="text-base text-gray-300">{{ item.subtitle }}</span>
@@ -73,7 +73,7 @@
             </svg>
           </div>
         </div>
-        <FormComponent />
+        <FormComponent modal />
       </div>
     </div>
   </div>

@@ -1,14 +1,15 @@
 <template>
-  <a name="practices" class="bg-gray-400">
-    <div
+  <div class="bg-gray-400">
+    <a name="practices"
       class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2 ref="header">Ключевые практики</h2>
+      <div class="1 w-full h-px bg-gray-100"></div>
       <div
         v-for="(item, i) in blocksMain"
         :key="i"
         ref="blocks"
-        class="grid grid-cols-1 xl:grid-cols-2 gap-5 xl:gap-0"
+        class="grid grid-cols-1 xl:grid-cols-2 gap-5 xl:gap-0 border-b border-gray-100 pb-10"
       >
         <div class="flex h-fit gap-2.5 sm:gap-4 xl:gap-[190px] 2xl:gap-[250px]">
           <span
@@ -18,7 +19,7 @@
           </span>
           <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">{{ item.title }}</h3>
         </div>
-        <div class="flex items-start flex-col gap-5 xl:gap-[30px] 2xl:gap-10">
+        <div class="flex items-start flex-col gap-5 xl:gap-[30px] 2xl:gap-10 sm:border-l sm:border-gray-100 sm:pl-10">
           <ul class="flex flex-col gap-4 list-disc list-inside">
             <li
               v-for="(listItem, i) in item.list"
@@ -73,10 +74,10 @@
             </svg>
           </div>
         </div>
-        <FormComponent />
+        <FormComponent modal />
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 </template>
 
 <script setup>

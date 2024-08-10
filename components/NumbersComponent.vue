@@ -3,7 +3,7 @@
     <a
       name="numbers"
       ref="container"
-      class="_container flex flex-col bg-blue-100 overflow-hidden h-[120vh] gap-10 sm:gap-[60px] xl:gap-20 2xl:gap-[120px] py-[60px] xl:py-20 2xl:py-[120px] bg-center bg-no-repeat bg-[length:500px_600px] bg-opacity-20 bg-[url('assets/icons/logo-big.svg')]"
+      class="_container flex flex-col bg-blue-100 overflow-hidden sm:h-[120vh] gap-10 sm:gap-[60px] xl:gap-20 2xl:gap-[120px] py-[60px] xl:py-20 2xl:py-[120px] bg-center bg-no-repeat bg-[length:500px_600px] bg-opacity-20 bg-[url('assets/icons/logo-big.svg')]"
     >
       <h2 class="text-white text-center">Цифры фирмы</h2>
       <div
@@ -60,7 +60,7 @@
         </div>
         <div>
           <div
-            data-speed="1.2"
+            data-speed="2.2"
             class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[311px] 2xl:h-[436px]"
           >
             <span class="number_1">200 млн</span>
@@ -93,7 +93,7 @@ const initializeAnimations = () => {
     innerDivs.forEach((div) => {
       const speed = div.getAttribute("data-speed");
       gsap.to(div, {
-        y: () => `${speed * 100}px`,
+        y: () => `${speed * 80}px`,
         ease: "none",
         scrollTrigger: {
           trigger: div,

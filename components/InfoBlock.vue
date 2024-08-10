@@ -2,12 +2,12 @@
   <div class="bg-blue-100">
     <a name="about"
       ref="container"
-      class="_container h-screen bg-[url('/images/andrey-mob.png')] sm:bg-[url('/images/andrey-tab.png')] xl:bg-[url('/images/andrey-desk.png')] pt-[60px] pb-[380px] sm:bp-[564px] xl:py-[71px] 2xl:py-[140px] bg-no-repeat xl:grid xl:grid-cols-2"
+      class="_container xl:h-screen bg-contain bg-bottom bg-[url('/images/andrey-mob.png')] sm:bg-[url('/images/andrey-tab.png')] xl:bg-[url('/images/andrey-desk.png')] pt-[60px] pb-[380px] sm:pb-[564px] xl:py-[71px] 2xl:py-[140px] bg-no-repeat flex xl:grid xl:grid-cols-2"
     >
       <div></div>
-      <div>
+      <div class="_container">
         <h2 ref="title" class="text-white mb-3 sm:mb-4 2xl:mb-5 leading-23">
-          Семин <br> Андрей <br> Сергеевич
+          Семин <br class="hidden xl:block"> Андрей <br class="hidden xl:block">Сергеевич
         </h2>
         <span ref="subtitle" class="text-blue-300 text-sm 2xl:text-base"
           >Управляющий партнер</span
@@ -102,26 +102,26 @@ const ctaButton = ref(null);
 
 onMounted(() => {
   // Анимация блока _container
-  gsap.fromTo(
-    container.value,
-    { x: "100%", opacity: 0 },
-    {
-      x: "0%",
-      opacity: 1,
-      duration: 3,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: container.value,
-        start: "top 80%",
-        end: "top 60%",
-        scrub: true,
-        markers: false,
-        onEnter: () => {
-          animateElements();
-        },
-      },
-    }
-  );
+  // gsap.fromTo(
+  //   container.value,
+  //   { x: "100%", opacity: 0 },
+  //   {
+  //     x: "0%",
+  //     opacity: 1,
+  //     duration: 3,
+  //     ease: "power3.out",
+  //     scrollTrigger: {
+  //       trigger: container.value,
+  //       start: "top 80%",
+  //       end: "top 60%",
+  //       scrub: true,
+  //       markers: false,
+  //       onEnter: () => {
+  //         animateElements();
+  //       },
+  //     },
+  //   }
+  // );
 });
 
 function animateElements() {

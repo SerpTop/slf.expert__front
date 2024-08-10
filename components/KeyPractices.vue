@@ -178,7 +178,7 @@ onMounted(() => {
       ease: "power3.out",
       scrollTrigger: {
         trigger: header.value,
-        start: "top 95%",
+        start: "top 90%",
         end: "top 90%",
         scrub: true,
         markers: false,
@@ -194,7 +194,7 @@ onMounted(() => {
       {
         y: 0,
         opacity: 1,
-        duration: 4,
+        duration: 2,
         ease: "power3.out",
         scrollTrigger: {
           trigger: block,
@@ -203,7 +203,7 @@ onMounted(() => {
           scrub: true,
           markers: false,
         },
-        stagger: 0.3,
+        // stagger: 0.3,
       }
     );
   });

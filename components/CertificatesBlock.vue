@@ -1,6 +1,7 @@
 <template>
   <div class="bg-gray-400">
-    <a  name="certificates" 
+    <a
+      name="certificates"
       class="_container flex flex-col gap-5 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2
@@ -116,31 +117,13 @@ const certificates = [
 
 const header = ref(null);
 const certificateBlocks = ref([]);
+const mediaQuery = window.matchMedia("(min-width: 768px)");
 
 onMounted(() => {
-  // Анимация заголовка
-  gsap.fromTo(
-    header.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: header.value,
-        start: "top 75%",
-        end: "top 55%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
-
-  // Анимация блоков сертификатов
-  gsap.utils.toArray(certificateBlocks.value).forEach((block, index) => {
+  if (mediaQuery.matches) {
+    // Анимация заголовка
     gsap.fromTo(
-      block,
+      header.value,
       { y: 50, opacity: 0 },
       {
         y: 0,
@@ -148,15 +131,36 @@ onMounted(() => {
         duration: 1,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: block,
-          start: "top 80%",
-          end: "top 60%",
+          trigger: header.value,
+          start: "top 75%",
+          end: "top 55%",
           scrub: true,
           markers: false,
-          delay: index * 0.3,
         },
       }
     );
-  });
+
+    // Анимация блоков сертификатов
+    gsap.utils.toArray(certificateBlocks.value).forEach((block, index) => {
+      gsap.fromTo(
+        block,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: block,
+            start: "top 80%",
+            end: "top 60%",
+            scrub: true,
+            markers: false,
+            delay: index * 0.3,
+          },
+        }
+      );
+    });
+  } else return;
 });
 </script>

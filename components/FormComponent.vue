@@ -125,18 +125,24 @@
       <div
         v-show="isFormSent"
         class="flex flex-col items-center justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full max-w-[360px,904px] mx-auto"
+        :class="{ 'items-start': modal }"
       >
         <h2 class="text-white text-center" :class="{ 'text-start': modal }">
           Спасибо, данные успешно <br />
           отправлены!
         </h2>
-        <span class="text-base 2xl:text-xl text-white text-center" :class="{ 'text-start': modal }">
+        <span
+          class="text-base 2xl:text-xl text-white text-center"
+          :class="{ 'text-start': modal }"
+        >
           Ваша заявка успешно отправлена, и мы уже приступаем к ее рассмотрению.
           В ближайшее время мы свяжемся с вами, чтобы обсудить ваш вопрос. Мы
           отвечаем на заявки не позднее двух дней — по возможности раньше.
         </span>
-        <span class="text-base 2xl:text-xl text-white text-center" :class="{ 'text-start': modal }">
-          Если у вас срочный вопрос вы можете связаться с нами прямо сейчас по
+        <span
+          class="text-base 2xl:text-xl text-white text-center"
+          :class="{ 'text-start': modal }"
+          >Если у вас срочный вопрос вы можете связаться с нами прямо сейчас по
           контактам ниже:
         </span>
         <div
@@ -215,47 +221,49 @@ function handleInput(event, index) {
     formData.value[index] = maskPhone(event.target.value);
   }
 }
+const mediaQuery = window.matchMedia("(min-width: 768px)");
 
 onMounted(async () => {
   await nextTick(); // Дожидаемся обновления DOM
+  if (mediaQuery.matches) {
+    // Анимация заголовка формы
+    gsap.fromTo(
+      formTitle.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: formTitle.value,
+          start: "top 80%",
+          end: "top 60%",
+          scrub: true,
+          markers: false,
+        },
+      }
+    );
 
-  // Анимация заголовка формы
-  gsap.fromTo(
-    formTitle.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 3,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: formTitle.value,
-        start: "top 80%",
-        end: "top 60%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
-
-  // Анимация элементов формы
-  gsap.fromTo(
-    formElement.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 3,
-      ease: "power3.out",
-      stagger: 0.3, // Задержка между анимацией элементов
-      scrollTrigger: {
-        trigger: formElement.value,
-        start: "top 70%",
-        end: "top 50%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
+    // Анимация элементов формы
+    gsap.fromTo(
+      formElement.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 3,
+        ease: "power3.out",
+        stagger: 0.3, // Задержка между анимацией элементов
+        scrollTrigger: {
+          trigger: formElement.value,
+          start: "top 70%",
+          end: "top 50%",
+          scrub: true,
+          markers: false,
+        },
+      }
+    );
+  } else return;
 });
 </script>

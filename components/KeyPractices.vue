@@ -1,6 +1,7 @@
 <template>
   <div class="bg-gray-400">
-    <a name="practices"
+    <a
+      name="practices"
       class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2 ref="header">Ключевые практики</h2>
@@ -19,7 +20,9 @@
           </span>
           <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">{{ item.title }}</h3>
         </div>
-        <div class="flex items-start flex-col gap-5 xl:gap-[30px] 2xl:gap-10 sm:border-l sm:border-gray-100 sm:pl-10">
+        <div
+          class="flex items-start flex-col gap-5 xl:gap-[30px] 2xl:gap-10 sm:border-l sm:border-gray-100 sm:pl-10"
+        >
           <ul class="flex flex-col gap-4 list-disc list-inside">
             <li
               v-for="(listItem, i) in item.list"
@@ -165,47 +168,49 @@ gsap.registerPlugin(ScrollTrigger);
 const header = ref(null);
 const blocks = ref([]);
 const blocksArray = ref([]);
+const mediaQuery = window.matchMedia("(min-width: 768px)");
 
 onMounted(() => {
-  // Анимация заголовка
-  gsap.fromTo(
-    header.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 4,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: header.value,
-        start: "top 90%",
-        end: "top 90%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
-
-  // Анимация блоков
-  blocks.value.forEach((block, index) => {
+  if (mediaQuery.matches) {
     gsap.fromTo(
-      block,
+      header.value,
       { y: 50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 2,
+        duration: 4,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: block,
-          start: "top 95%",
+          trigger: header.value,
+          start: "top 90%",
           end: "top 90%",
           scrub: true,
           markers: false,
         },
-        // stagger: 0.3,
       }
     );
-  });
+
+    // Анимация блоков
+    blocks.value.forEach((block, index) => {
+      gsap.fromTo(
+        block,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: block,
+            start: "top 95%",
+            end: "top 90%",
+            scrub: true,
+            markers: false,
+          },
+          // stagger: 0.3,
+        }
+      );
+    });
+  } else return;
 });
 </script>

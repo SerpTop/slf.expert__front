@@ -1,6 +1,7 @@
 <template>
-  <div  class="bg-gray-400">
-    <a name="cases"
+  <div class="bg-gray-400">
+    <a
+      name="cases"
       class="_container bg-gray-400 flex flex-col gap-4 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2 ref="title">Кейсы из судебной практики</h2>
@@ -8,7 +9,10 @@
         ref="casesContainer"
         class="relative grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-6 2xl:gap-8"
       >
-      <span class="sm:absolute top-5 left-80 xl:left-[280px] text-gray-300 text-sm 2xl:text-base">В настоящее время в производстве —  более 80 дел.</span>
+        <span
+          class="sm:absolute top-5 left-80 xl:left-[280px] text-gray-300 text-sm 2xl:text-base"
+          >В настоящее время в производстве —  более 80 дел.</span
+        >
 
         <div
           v-for="(item, i) in visibleCases"
@@ -142,44 +146,48 @@ function toggleShowAll() {
 
 const title = ref(null);
 const casesContainer = ref(null);
+const mediaQuery = window.matchMedia("(min-width: 768px)");
+
 onMounted(() => {
-  gsap.fromTo(
-    title.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 2,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: title.value,
-        start: "top 80%",
-        end: "top 60%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
-  gsap.utils.toArray(casesContainer.value.children).forEach((caseItem, i) => {
+  if (mediaQuery.matches) {
     gsap.fromTo(
-      caseItem,
-      { y: 70, opacity: 0 },
+      title.value,
+      { y: 50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
         duration: 2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: caseItem,
-          start: "top 90%",
-          end: "top 70%",
+          trigger: title.value,
+          start: "top 80%",
+          end: "top 60%",
           scrub: true,
           markers: false,
-          start: `top ${100 - i * 10}%`,
-          end: `top ${90 - i * 10}%`,
         },
       }
     );
-  });
+    gsap.utils.toArray(casesContainer.value.children).forEach((caseItem, i) => {
+      gsap.fromTo(
+        caseItem,
+        { y: 70, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: caseItem,
+            start: "top 90%",
+            end: "top 70%",
+            scrub: true,
+            markers: false,
+            start: `top ${100 - i * 10}%`,
+            end: `top ${90 - i * 10}%`,
+          },
+        }
+      );
+    });
+  } else return;
 });
 </script>

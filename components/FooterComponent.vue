@@ -54,84 +54,87 @@ const header = ref(null);
 const listItems = ref([]);
 const footerLinks = ref([]);
 const logo = ref(null);
+const mediaQuery = window.matchMedia("(min-width: 768px)");
 
 onMounted(() => {
-  // Анимация заголовка
-  gsap.fromTo(
-    header.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 4,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: header.value,
-        start: "top 80%",
-        end: "top 60%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
+  if (mediaQuery.matches) {
+    // Анимация заголовка
+    gsap.fromTo(
+      header.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 4,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: header.value,
+          start: "top 80%",
+          end: "top 60%",
+          scrub: true,
+          markers: false,
+        },
+      }
+    );
 
-  // Анимация логотипа
-  gsap.fromTo(
-    logo.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 4,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: logo.value,
-        start: "top 80%",
-        end: "top 60%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
+    // Анимация логотипа
+    gsap.fromTo(
+      logo.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 4,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: logo.value,
+          start: "top 80%",
+          end: "top 60%",
+          scrub: true,
+          markers: false,
+        },
+      }
+    );
 
-  // Анимация элементов списка
-  gsap.fromTo(
-    listItems.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 4,
-      ease: "power3.out",
-      stagger: 0.3,
-      scrollTrigger: {
-        trigger: listItems.value[0],
-        start: "top 80%",
-        end: "top 60%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
+    // Анимация элементов списка
+    gsap.fromTo(
+      listItems.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 4,
+        ease: "power3.out",
+        stagger: 0.3,
+        scrollTrigger: {
+          trigger: listItems.value[0],
+          start: "top 80%",
+          end: "top 60%",
+          scrub: true,
+          markers: false,
+        },
+      }
+    );
 
-  // Анимация ссылок в нижней части
-  gsap.fromTo(
-    footerLinks.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 4,
-      ease: "power3.out",
-      stagger: 0.3,
-      scrollTrigger: {
-        trigger: footerLinks.value[0],
-        start: "top 75%",
-        end: "top 55%",
-        scrub: true,
-        markers: false,
-      },
-    }
-  );
+    // Анимация ссылок в нижней части
+    gsap.fromTo(
+      footerLinks.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 4,
+        ease: "power3.out",
+        stagger: 0.3,
+        scrollTrigger: {
+          trigger: footerLinks.value[0],
+          start: "top 75%",
+          end: "top 55%",
+          scrub: true,
+          markers: false,
+        },
+      }
+    );
+  } else return;
 });
 </script>

@@ -170,7 +170,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import telegramIcon from "assets/icons/tg-icon.svg";
 import WhatsAppIcon from "assets/icons/wa-icon.svg";
 
-defineProps({
+const props = defineProps({
   modal: Boolean,
 });
 
@@ -224,6 +224,9 @@ function handleInput(event, index) {
 const mediaQuery = window.matchMedia("(min-width: 768px)");
 
 onMounted(async () => {
+  if (props.modal === false) {
+    // ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  } else return;
   await nextTick(); // Дожидаемся обновления DOM
   if (mediaQuery.matches) {
     // Анимация заголовка формы

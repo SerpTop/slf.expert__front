@@ -24,7 +24,7 @@
           </svg>
         </div>
       </div>
-      <FormComponent modal />
+      <FormComponent modal class="h-full" />
     </div>
   </template>
   

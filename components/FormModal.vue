@@ -1,7 +1,7 @@
 <template>
     <div
       v-if="isFormOpen" 
-      class="fixed top-0 right-0 z-20 w-full overflow-auto xl:max-w-[696px] 2xl:max-w-[984px] xl:h-screen"
+      class="fixed top-0 right-0 w-full overflow-auto xl:max-w-[696px] 2xl:max-w-[984px] xl:h-screen z-[999] flex flex-col"
     >
       <div class="bg-blue-100 p-4">
         <div
@@ -24,7 +24,7 @@
           </svg>
         </div>
       </div>
-      <FormComponent modal class="h-full" />
+      <FormComponent modal class="flex-grow" />
     </div>
   </template>
   

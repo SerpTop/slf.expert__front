@@ -2,11 +2,11 @@
   <header class="bg-blue-100">
     <div
       ref="header"
-      class="flex justify-between items-center _container py-4 relative z-40"
+      class="flex justify-between items-center _container gap-4 py-4 relative z-40"
     >
       <div>
         <svg
-          width="233"
+          width="auto"
           height="60"
           viewBox="0 0 233 60"
           fill="none"
@@ -146,7 +146,10 @@
           {{ item.title }}
         </a>
       </div>
-      <div class="gap-5 hidden sm:flex">
+      
+
+      <div class="flex items-center gap-5 shrink-0">
+      <div class="gap-5 hidden sm:flex h-11 xl:h-fit">
         <a href="" class="btn btn-white-02">+8 (831) 414 04 02 </a>
         <button @click="isFormOpen = true" class="btn btn-white">
           <svg
@@ -165,6 +168,8 @@
           решить проблему
         </button>
       </div>
+
+
       <div
         @click="isMenuOpen = !isMenuOpen"
         class="rounded-full bg-white-o2 py-4 px-6 flex items-center justify-center h-11 xl:hidden"
@@ -213,6 +218,9 @@
           />
         </svg>
       </div>
+    </div>
+
+
       <div
         v-if="isMenuOpen"
         class="absolute left-0 top-20 bg-blue-100 py-6 px-4 sm:px-5 z-10 w-full flex flex-col gap-4 overflow-scroll"
@@ -271,7 +279,7 @@
         <div class="bg-blue-100 p-4">
           <div
             @click="isFormOpen = false"
-            class="border border-white rounded-full ml-auto w-11 h-11 flex items-center justify-center"
+            class="border border-blue-4 rounded-full ml-auto w-11 h-11 flex items-center justify-center cursor-pointer hover:border-white"
           >
             <svg
               width="20"

@@ -29,7 +29,7 @@
           @input="handleInput($event, i)"
         />
         <select
-          class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 text-white"
+          class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 text-white -translate-x-1"
           name="practices"
           id="city-select"
         >

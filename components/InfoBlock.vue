@@ -2,7 +2,7 @@
   <div class="bg-blue-100">
     <a name="about"
       ref="container"
-      class="_container xl:h-screen bg-contain bg-bottom bg-[url('/images/andrey-mob.png')] sm:bg-[url('/images/andrey-tab.png')] xl:bg-[url('/images/andrey-desk.png')] pt-[60px] pb-[380px] sm:pb-[564px] xl:py-[71px] 2xl:py-[140px] bg-no-repeat flex xl:grid xl:grid-cols-2"
+      class="_container xl:h-screen bg-contain bg-bottom max-h-[950px] bg-[url('/images/andrey-mob.png')] sm:bg-[url('/images/andrey-tab.png')] xl:bg-[url('/images/andrey-desk.png')] pt-[60px] pb-[380px] sm:pb-[564px] xl:py-[71px] 2xl:py-[140px] bg-no-repeat flex xl:grid xl:grid-cols-2"
     >
       <div></div>
       <div class="_container">

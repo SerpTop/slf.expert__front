@@ -2,7 +2,7 @@
   <div class="bg-blue-100">
     <div
       ref="container"
-      class="_container xl:h-screen bg-contain sm:bg-bottom  bg-[url('/images/main-andrey-mob.png')] sm:bg-[url('/images/main-andrey-tab.png')] xl:bg-[url('/images/main-andrey-desk.png')] pt-6 sm:pt-[38px] 2xl:pt-[100px] pb-6 sm:pb-5 xl:pb-6 2xl:pb-10 bg-no-repeat"
+      class="_container xl:h-screen bg-contain sm:bg-bottom xl:max-h-[950px]  bg-[url('/images/main-andrey-mob.png')] sm:bg-[url('/images/main-andrey-tab.png')] xl:bg-[url('/images/main-andrey-desk.png')] pt-6 sm:pt-[38px] 2xl:pt-[100px] pb-6 sm:pb-5 xl:pb-6 2xl:pb-10 bg-no-repeat"
     >
       <div ref="content" class="max-w-[1100px]">
         <h1
@@ -37,7 +37,7 @@
       </button>
       <div
         ref="grid"
-        class="grid grid-cols-1 xl:grid-cols-3 gap-8 sm:gap-4 max-w-[277px] xl:max-w-[1015px] mt-[387px] sm:mt-[118px] xl:mt-[37px] 2xl:mt-[55px]"
+        class="grid grid-cols-1 xl:grid-cols-3 gap-8 sm:gap-4 max-w-[290px] xl:max-w-[1015px] mt-[387px] sm:mt-[118px] xl:mt-[37px] 2xl:mt-[55px]"
       >
         <div
           v-for="(item, i) in numbers"
@@ -116,6 +116,8 @@ onMounted(() => {
       opacity: 1,
       duration: 1.5,
       ease: "power3.out",
+      delay: 1, // Задержка для последовательности анимаций
+
     }
   );
 
@@ -128,7 +130,8 @@ onMounted(() => {
       opacity: 1,
       duration: 1.5,
       ease: "power3.out",
-      delay: 0.5, // Задержка для последовательности анимаций
+      delay: 1, // Задержка для последовательности анимаций
+      stagger: 0.5
     }
   );
 
@@ -139,10 +142,10 @@ onMounted(() => {
     {
       y: 0,
       opacity: 1,
-      duration: 1.5,
+      duration: 2.5,
       ease: "power3.out",
       delay: 1, // Задержка для последовательности анимаций
-      stagger: 0.2, // Задержка между анимациями элементов
+      stagger: 0.5, // Задержка между анимациями элементов
     }
   );
 });

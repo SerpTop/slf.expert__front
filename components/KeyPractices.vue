@@ -5,7 +5,7 @@
       class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2 ref="header">Ключевые практики</h2>
-      <div class="1 w-full h-px bg-gray-100"></div>
+      <div class="w-full h-px bg-gray-100"></div>
       <div
         v-for="(item, i) in blocksMain"
         :key="i"
@@ -33,7 +33,7 @@
             </li>
           </ul>
           <NuxtImg name="arrow-right" />
-          <button @click="isFormOpen = true" class="btn btn-main">
+          <button @click="openModal(item.title)" class="btn btn-main">
             <svg
               width="18"
               height="12"
@@ -47,24 +47,34 @@
               />
               <rect width="2.25" height="5.25" fill="white" />
             </svg>
-
             решить проблему
           </button>
         </div>
       </div>
-      <FormModal :isFormOpen="isFormOpen" @update:isFormOpen="updateIsFormOpen"/>
+      <FormModal
+        :selectedOption="option"
+        :isFormOpen="isFormOpen"
+        @update:isFormOpen="updateIsFormOpen"
+      />
     </a>
   </div>
 </template>
 
 <script setup>
-const isFormOpen = ref(false);
+import { ref, onMounted } from 'vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import customsIcon from 'assets/icons/customs.svg';
+import taxesIcon from 'assets/icons/taxes.svg';
+import arbDisputesIcon from 'assets/icons/arb-disputes.svg';
+import govContractsIcon from 'assets/icons/gov-contracts.svg';
+import businessProcessesIcon from 'assets/icons/business-processes.svg';
+import FormModal from '@/components/FormModal.vue'; // Убедитесь, что путь к компоненту правильный
 
-import customsIcon from "assets/icons/customs.svg";
-import taxesIcon from "assets/icons/taxes.svg";
-import arbDisputesIcon from "/assets/icons/arb-disputes.svg";
-import govContractsIcon from "assets/icons/gov-contracts.svg";
-import businessProcessesIcon from "assets/icons/business-processes.svg";
+gsap.registerPlugin(ScrollTrigger);
+
+const isFormOpen = ref(false);
+const option = ref("Выберите практику");
 
 const blocksMain = [
   {
@@ -75,7 +85,7 @@ const blocksMain = [
       "Разработка проектов в сфере ВЭД",
       "Представление интересов доверителей в спорах с таможенными органами",
       "Обжалование корректировки таможенной стоимости",
-      "Представление интересов доверителей в делах об административных правонарушениях на таможне",
+      "Представление интересов доверителей в делах об административных правонарушениях на таможне",
       "Обжалование классификации товаров по ТН ВЭД",
       "Возврат таможенных платежей",
       "Возврат сумм обеспечения",
@@ -121,7 +131,7 @@ const blocksMain = [
     buttonClick: "",
   },
   {
-    title: "Аудит юридических бизнес-процессов в компании",
+    title: "Аудит юридических бизнес-процессов в компании",
     icon: businessProcessesIcon,
     list: [
       "Выявление рисков",
@@ -133,20 +143,21 @@ const blocksMain = [
     buttonClick: "",
   },
 ];
-import { ref, onMounted } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+function updateIsFormOpen(value) {
+  isFormOpen.value = value;
+}
+
+function openModal(title) {
+  isFormOpen.value = true;
+  option.value = title; // Измените значение option через .value
+}
 
 const header = ref(null);
 const blocks = ref([]);
 const blocksArray = ref([]);
 const mediaQuery = window.matchMedia("(min-width: 768px)");
 
-function updateIsFormOpen(value) {
-  isFormOpen.value = value;
-}
 onMounted(() => {
   if (mediaQuery.matches) {
     gsap.fromTo(
@@ -167,8 +178,7 @@ onMounted(() => {
       }
     );
 
-    // Анимация блоков
-    blocks.value.forEach((block, index) => {
+    blocks.value.forEach((block) => {
       gsap.fromTo(
         block,
         { y: 50, opacity: 0 },
@@ -184,6 +194,7 @@ onMounted(() => {
             scrub: true,
             markers: false,
           },
+
           // stagger: 0.3,
         }
       );

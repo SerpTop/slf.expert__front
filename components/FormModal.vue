@@ -24,7 +24,7 @@
           </svg>
         </div>
       </div>
-      <FormComponent modal class="flex-grow" />
+      <FormComponent :select-option="selectedOption" modal class="flex-grow" />
     </div>
   </template>
   
@@ -35,6 +35,10 @@
     isFormOpen: {
       type: Boolean,
       default: false
+    },
+    selectedOption: {
+      type: String,
+      default: 'Выберите практику'
     }
   });
   

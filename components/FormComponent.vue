@@ -33,14 +33,14 @@
           name="practices"
           id="city-select"
         >
-          <option value="">Выберите практику</option>
+          <option value="">{{ selectOption }}</option>
           <option
             v-for="(option, index) in selectOptions"
             :key="index"
             :value="option.value"
             class="bg-[#00113A] p-5"
           >
-            {{ option.label }}
+            {{ option?.label !== selectOption ? option.label : ''  }}
           </option>
         </select>
         <!-- <select
@@ -172,8 +172,11 @@ import WhatsAppIcon from "assets/icons/wa-icon.svg";
 
 const props = defineProps({
   modal: Boolean,
+  selectOption: {
+      type: String,
+      default: 'Выберите практику'
+    }
 });
-
 gsap.registerPlugin(ScrollTrigger);
 
 const isFormSent = ref(false);

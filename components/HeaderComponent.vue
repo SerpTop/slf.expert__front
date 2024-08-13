@@ -150,7 +150,7 @@
 
       <div class="flex items-center gap-5 shrink-0">
       <div class="gap-5 hidden sm:flex h-11 xl:h-fit">
-        <a href="" class="btn btn-white-02">+8 (831) 414 04 02 </a>
+        <a href="tel:78314140402" class="btn btn-white-02">+7 (831) 414 04 02 </a>
         <button @click="isFormOpen = true" class="btn btn-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +223,7 @@
 
       <div
         v-if="isMenuOpen"
-        class="absolute left-0 top-20 bg-blue-100 py-6 px-4 sm:px-5 z-10 w-full flex flex-col gap-4 overflow-scroll"
+        class="absolute left-0 top-20 bg-blue-100 py-6 px-4 sm:px-5 z-10 w-full flex flex-col gap-4 overflow-scroll xl:hidden"
       >
         <div class="flex flex-col gap-4">
           <a

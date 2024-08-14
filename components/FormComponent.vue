@@ -23,13 +23,14 @@
           :required="item.require"
           v-model="formData[i]"
           :rows="item.rows"
-          class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 text-white"
+          class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white"
           :ref="`formInput_${i}`"
           :class="{ maskphone: item.type === 'tel' }"
           @input="handleInput($event, i)"
         />
-        <select
-          class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 text-white -translate-x-1"
+
+        <!-- <select
+          class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white -translate-x-1"
           name="practices"
           id="city-select"
         >
@@ -42,26 +43,61 @@
           >
             {{ option?.label !== selectOption ? option.label : ''  }}
           </option>
-        </select>
-        <!-- <select
-          name="practices"
-          v-model="formData[i]"
-          class="bg-transparent border-b text-sm 2xl:text-base border-blue-400 text-white"
-          placeholder="Выберите практику"
-        >
-        <option value="">Выберите практику</option>
-          <option
-            v-for="(option, index) in selectOptions"
-            :key="index"
-            :value="option.value"
-            class="bg-[#00113A] p-5"
-          >
-            {{ option.label }}
-          </option>
         </select> -->
 
+        <Listbox v-model="selectedPerson">
+          <div class="relative z-50">
+            <ListboxButton
+              class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white w-full duration-200 cursor-pointer hover:border-white"
+            >
+              <span class="block truncate text-start">{{
+                selectedPerson?.label
+              }}</span>
+            </ListboxButton>
+
+            <transition
+              leave-active-class="transition duration-100 ease-in"
+              leave-from-class="opacity-100"
+              leave-to-class="opacity-0"
+            >
+              <ListboxOptions
+                class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-[#00113A] py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm"
+              >
+                <ListboxOption
+                  v-slot="{ active, selected }"
+                  v-for="item in selectOptions"
+                  :key="item.id"
+                  :value="item"
+                  as="template"
+                  class="text-white hover:text-blue-300"
+                >
+                  <li
+                    :class="[
+                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                      'relative cursor-default select-none py-2 pl-10 pr-4',
+                    ]"
+                  >
+                    <span
+                      :class="[
+                        selected ? 'font-medium' : 'font-normal',
+                        'block truncate',
+                      ]"
+                      >{{ item.label }}</span
+                    >
+                    <span
+                      v-if="selected"
+                      class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                    >
+                    </span>
+                  </li>
+                </ListboxOption>
+              </ListboxOptions>
+            </transition>
+          </div>
+        </Listbox>
+
         <textarea
-          class="bg-transparent border-b text-sm 2xl:text-base border-blue-400 text-white xl:col-span-2"
+          class="bg-transparent border-b text-sm 2xl:text-base border-blue-400 hover:border-white text-white xl:col-span-2"
           rows="4"
         >
 Комментарий
@@ -169,13 +205,20 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import telegramIcon from "assets/icons/tg-icon.svg";
 import WhatsAppIcon from "assets/icons/wa-icon.svg";
+import {
+  Listbox,
+  ListboxLabel,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+} from "@headlessui/vue";
 
 const props = defineProps({
   modal: Boolean,
   selectOption: {
-      type: String,
-      default: 'Выберите практику'
-    }
+    type: Number,
+    default: 0,
+  },
 });
 gsap.registerPlugin(ScrollTrigger);
 
@@ -192,15 +235,21 @@ const links = [
   { title: "slf.expert", link: "", icon: telegramIcon },
 ];
 const selectOptions = [
-  { value: "practice1", label: "Таможня " },
-  { value: "practice2", label: "Налоги" },
-  { value: "practice3", label: "Арбитражные споры" },
-  { value: "practice4", label: "На Споры по исполнению госконтрактовлоги" },
+  { id: 0, value: "practice0", label: "Выберите практику" },
+  { id: 1, value: "practice1", label: "Таможня " },
+  { id: 2, value: "practice2", label: "Налоги" },
+  { id: 3, value: "practice3", label: "Арбитражные споры" },
+  {
+    id: 4,
+    value: "practice4",
+    label: "На Споры по исполнению госконтрактовлоги",
+  },
   {
     value: "practice4",
     label: "Аудит юридических бизнес-процессов в компании",
   },
 ];
+const selectedPerson = ref(selectOptions[props.selectOption]);
 const formData = ref(Array(form.length).fill(""));
 const isFormInvalid = computed(() => {
   return form.some((item, i) => item.require && !formData.value[i]);

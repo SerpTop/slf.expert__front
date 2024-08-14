@@ -37,8 +37,8 @@
       default: false
     },
     selectedOption: {
-      type: String,
-      default: 'Выберите практику'
+      type: Number,
+      default: 0
     }
   });
   

@@ -33,7 +33,7 @@
             </li>
           </ul>
           <NuxtImg name="arrow-right" />
-          <button @click="openModal(item.title)" class="btn btn-main">
+          <button @click="openModal(i)" class="btn btn-main">
             <svg
               width="18"
               height="12"
@@ -74,7 +74,7 @@ import FormModal from '@/components/FormModal.vue'; // Убедитесь, чт�
 gsap.registerPlugin(ScrollTrigger);
 
 const isFormOpen = ref(false);
-const option = ref("Выберите практику");
+const option = ref(0);
 
 const blocksMain = [
   {
@@ -148,9 +148,9 @@ function updateIsFormOpen(value) {
   isFormOpen.value = value;
 }
 
-function openModal(title) {
+function openModal(i) {
   isFormOpen.value = true;
-  option.value = title; // Измените значение option через .value
+  option.value = i + 1; // Измените значение option через .value
 }
 
 const header = ref(null);

@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.22",
     "@nuxt/image": "^1.7.0",
     "gsap": "^3.12.5",
     "nuxt": "^3.12.4",

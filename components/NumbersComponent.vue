@@ -12,7 +12,7 @@
       >
         <div>
           <div data-speed="3.2"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[35vh] xl:translate-y-[1000px]"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[30vh] xl:translate-y-[1000px]"
           >
             <span class="number_1">70%</span>
             <span
@@ -25,7 +25,7 @@
         <div>
           <div
             data-speed="2.5"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[35vh] xl:translate-y-[1600px]"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[30vh] xl:translate-y-[1600px]"
           >
             <span class="number_1">500+</span>
             <span
@@ -38,7 +38,7 @@
         <div class="flex flex-col gap-4 xl:gap-6 2xl:gap-8">
           <div
             data-speed="1.8"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[35vh] xl:translate-y-[1200px]"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[30vh] xl:translate-y-[1200px]"
           >
             <span class="number_1">1 млрд</span>
             <span
@@ -48,7 +48,7 @@
           </div>
           <div
             data-speed="3.0"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[35vh] xl:translate-y-[1500px]"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[30vh] xl:translate-y-[1200px]"
           >
             <span class="number_1">30+</span>
             <span
@@ -61,7 +61,7 @@
         <div>
           <div
             data-speed="2.2"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[35vh] xl:translate-y-[800px]"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:h-[30vh] xl:translate-y-[800px]"
           >
             <span class="number_1">200 млн</span>
             <span

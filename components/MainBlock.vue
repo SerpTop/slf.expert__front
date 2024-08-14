@@ -37,7 +37,7 @@
       </button>
       <div
         ref="grid"
-        class="grid grid-cols-1 xl:grid-cols-3 gap-8 sm:gap-4 max-w-[290px] xl:max-w-[1015px] mt-[387px] sm:mt-[118px] xl:mt-[300px] 2xl:mt-[55px]"
+        class="grid grid-cols-1 xl:grid-cols-3 gap-8 sm:gap-4 max-w-[290px] xl:max-w-[1015px] mt-[387px] sm:mt-[118px] xl:mt-[250px] 2xl:mt-[55px]"
       >
         <div
           v-for="(item, i) in numbers"

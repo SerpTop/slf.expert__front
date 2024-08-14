@@ -48,7 +48,7 @@
         <Listbox v-model="selectedPerson">
           <div class="relative z-50">
             <ListboxButton
-              class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white w-full duration-200 cursor-pointer hover:border-white"
+              class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white w-full duration-200 cursor-pointer "
             >
               <span class="block truncate text-start">{{
                 selectedPerson?.label

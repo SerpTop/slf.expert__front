@@ -146,7 +146,7 @@ function toggleShowAll() {
 
 const title = ref(null);
 const casesContainer = ref(null);
-const mediaQuery = window.matchMedia("(min-width: 768px)");
+const mediaQuery = window.matchMedia("(min-width: 1280px)");
 
 onMounted(() => {
   if (mediaQuery.matches) {

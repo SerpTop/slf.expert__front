@@ -10,9 +10,9 @@
         ref="grid"
         class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-6 2xl:gap-8"
       >
-        <div data-speed="0.2">
-          <div
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh]"
+        <div>
+          <div data-speed="3.2"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh] xl:translate-y-[1000px]"
           >
             <span class="number_1">70%</span>
             <span
@@ -24,8 +24,8 @@
         </div>
         <div>
           <div
-            data-speed="1.5"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh]"
+            data-speed="2.5"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh] xl:translate-y-[1600px]"
           >
             <span class="number_1">500+</span>
             <span
@@ -37,8 +37,8 @@
         </div>
         <div class="flex flex-col gap-4 xl:gap-6 2xl:gap-8">
           <div
-            data-speed="0.8"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh]"
+            data-speed="1.8"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh] xl:translate-y-[1200px]"
           >
             <span class="number_1">1 млрд</span>
             <span
@@ -47,8 +47,8 @@
             >
           </div>
           <div
-            data-speed="2.0"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh]"
+            data-speed="3.0"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh] xl:translate-y-[1500px]"
           >
             <span class="number_1">30+</span>
             <span
@@ -61,7 +61,7 @@
         <div>
           <div
             data-speed="2.2"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh]"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between 2xl:h-[35vh] xl:translate-y-[800px]"
           >
             <span class="number_1">200 млн</span>
             <span
@@ -81,25 +81,40 @@ import { ref, onMounted } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const container = ref(null);
 const grid = ref(null);
-const mediaQuery = window.matchMedia("(min-width: 768px)");
+const mediaQuery = window.matchMedia("(min-width: 1280px)");
 
 const initializeAnimations = () => {
   if (mediaQuery.matches) {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        scrub: 1,
+        pin: true,
+        trigger: container.value,
+        start: "top top",
+        // endTrigger: "#pin-windmill-wrap",
+        end: "+=3000",
+        markers: false,
+      },
+    });
     const innerDivs = grid.value.querySelectorAll("[data-speed]");
+
     innerDivs.forEach((div) => {
-      const speed = div.getAttribute("data-speed");
-      gsap.to(div, {
-        y: () => `${speed * 80}px`,
+      const speed = parseFloat(div.getAttribute("data-speed")); // Преобразование в число
+      tl.to(div, {
+        y: `-${speed * 100}px`, // Корректное смещение
         ease: "none",
         scrollTrigger: {
           trigger: div,
-          start: "top bottom",
-          end: "bottom top",
+          start: "top 10%", // Начало анимации, когда нижняя часть блока доходит до нижней части экрана
+          end: "+=2000", // Конец анимации, когда верхняя часть блока доходит до верхней части экрана
           scrub: true,
+          smooth: 2,
+          markers: false, // Для отладки, можно убрать в финальной версии
         },
       });
     });
@@ -113,6 +128,7 @@ const initializeAnimations = () => {
 onMounted(() => {
   initializeAnimations();
   mediaQuery.addEventListener("change", initializeAnimations);
+  console.log(gsap);
 });
 
 onUnmounted(() => {

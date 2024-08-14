@@ -54,7 +54,7 @@ const header = ref(null);
 const listItems = ref([]);
 const footerLinks = ref([]);
 const logo = ref(null);
-const mediaQuery = window.matchMedia("(min-width: 768px)");
+const mediaQuery = window.matchMedia("(min-width: 1280px)");
 
 onMounted(() => {
   if (mediaQuery.matches) {

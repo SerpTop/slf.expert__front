@@ -156,7 +156,7 @@ function openModal(title) {
 const header = ref(null);
 const blocks = ref([]);
 const blocksArray = ref([]);
-const mediaQuery = window.matchMedia("(min-width: 768px)");
+const mediaQuery = window.matchMedia("(min-width: 1280px)");
 
 onMounted(() => {
   if (mediaQuery.matches) {

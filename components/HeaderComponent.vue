@@ -308,7 +308,7 @@ const headerLinks = [
 ];
 const links = [
   {
-    title: "+8 (831) 414 04 02  ",
+    title: "+7 (831) 414 04 02  ",
     link: "",
   },
   {

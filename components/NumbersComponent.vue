@@ -12,7 +12,7 @@
       >
         <div>
           <div data-speed="3.2"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[1000px]"
+            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[500px]"
           >
             <span class="number_1">70%</span>
             <span

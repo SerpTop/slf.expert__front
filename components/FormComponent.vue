@@ -229,7 +229,7 @@ const form = [
   { type: "email", placeholder: "E-mail", require: false },
 ];
 const links = [
-  { title: "+8 (831) 414 04 02", link: "" },
+  { title: "+7 (831) 414 04 02", link: "" },
   { title: "+7 (903) 601 04 02", link: "" },
   { title: "slf.expert", link: "", icon: WhatsAppIcon },
   { title: "slf.expert", link: "", icon: telegramIcon },

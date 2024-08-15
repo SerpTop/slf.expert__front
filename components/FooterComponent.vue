@@ -19,6 +19,17 @@
             {{ item }}
             <span class="w-[6px] h-[6px] bg-black rounded-full"></span>
           </span>
+          <a
+            :href="item.link"
+            target="_blank"
+            v-for="(item, i) in links"
+            :key="i"
+            ref="listItems"
+            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black"
+          >
+            {{ item.title }}
+            <span class="w-[6px] h-[6px] bg-black rounded-full"></span>
+          </a>
         </div>
       </div>
       <div
@@ -41,8 +52,13 @@ const list = [
   "+7 (903) 601 04 02",
   "Почта компании: oo@slf.expert",
   "Личная почта Андрея: as@slf.expert",
-  "WhatsApp: slf.expert",
-  "Telegram: slf.expert",
+];
+const links = [
+  { title: "WhatsApp: +7 (903) 601 04 02", link: "https://wa.me/79036010402" },
+  {
+    title: "Telegram: +7 (903) 601 04 02",
+    link: "https://t.me/+79036010402",
+  },
 ];
 import { ref, onMounted } from "vue";
 import { gsap } from "gsap";

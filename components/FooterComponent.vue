@@ -1,51 +1,138 @@
 <template>
-  <footer class="bg-gray-400">
-    <a
-      name="contacts"
+  <footer class="bg-gray-400" id="contacts">
+    <div
       class="_container flex flex-col gap-5 sm:gap-10 xl:gap-[60px] 2xl:gap-20 pt-[60px] sm:pt-20 xl:pt-[120px] 2xl:pt-[200px] pb-5"
     >
-      <h2 ref="header">Контакты</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
+      <h2 ref="header">{{ data.heading }}</h2>
+
+      <div
+        class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-4 xl:gap-6 2xl:gap-8"
+      >
         <div>
-          <img ref="logo" src="assets/icons/logo-big.svg" alt="Logo" />
+          <IconLogoBig
+            class="w-[181px] h-[204px] sm:w-[356px] sm:h-[402px] xl:w-[391px] xl:h-[442px] 2xl:w-[460px] 2xl:h-[520px] mx-auto"
+          />
         </div>
+
         <div class="flex flex-col gap-[34px] 2xl:gap-10">
           <span
-            v-for="(item, i) in list"
-            :key="i"
             ref="listItems"
-            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black"
+            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
           >
-            {{ item }}
-            <span class="w-[6px] h-[6px] bg-black rounded-full"></span>
+            {{ data.name }}
+
+            <span
+              class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
+            ></span>
           </span>
-          <a
-            :href="item.link"
+
+          <!-- TODO стандартизировать номера телефонов -->
+          <NuxtLink
+            v-for="(phone, phoneId) in data.phones"
+            :key="phoneId"
+            :to="formatPhoneNumber(phone.value)"
             target="_blank"
-            v-for="(item, i) in links"
-            :key="i"
             ref="listItems"
-            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black"
+            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
           >
-            {{ item.title }}
-            <span class="w-[6px] h-[6px] bg-black rounded-full"></span>
-          </a>
+            {{ phone.value }}
+
+            <span
+              class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
+            ></span>
+          </NuxtLink>
+
+          <NuxtLink
+            :to="'mailto:' + data.companyEmail"
+            target="_blank"
+            ref="listItems"
+            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
+          >
+            Почта компании: {{ data.companyEmail }}
+
+            <span
+              class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
+            ></span>
+          </NuxtLink>
+
+          <NuxtLink
+            :to="'mailto:' + data.personalEmail"
+            target="_blank"
+            ref="listItems"
+            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
+          >
+            Личная почта Андрея: {{ data.personalEmail }}
+
+            <span
+              class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
+            ></span>
+          </NuxtLink>
+
+          <NuxtLink
+            :to="data.whatsappLink"
+            target="_blank"
+            ref="listItems"
+            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
+          >
+            WhatsApp: slf.expert
+            <span
+              class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
+            ></span>
+          </NuxtLink>
+
+          <NuxtLink
+            :to="data.telegramLink"
+            target="_blank"
+            ref="listItems"
+            class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
+          >
+            Telegram: slf.expert
+            <span
+              class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
+            ></span>
+          </NuxtLink>
         </div>
       </div>
+
       <div
-        class="flex flex-col gap-5 sm:flex-row sm:justify-between text-gray-600 text-sm 2xl:text-base"
+        class="flex flex-col gap-5 text-sm text-gray-600 sm:grid sm:grid-cols-2 sm:gap-4 xl:gap-6 2xl:gap-8 2xl:text-base sm:items-center"
       >
-        <a href="" target="_blank" ref="footerLinks"
-          >Политика конфиденциальности</a
+        <NuxtLink
+          :to="data.policy.url"
+          target="_blank"
+          ref="footerLinks"
+          class="text-gray-600 transition-colors duration-500 hover:text-black"
         >
-        <span ref="footerLinks">© 2024 ИП Семин А. С.</span>
-        <a href="https://serptop.ru" ref="footerLinks">Разработка: Serptop</a>
+          Политика конфиденциальности
+        </NuxtLink>
+
+        <div
+          class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <span ref="footerLinks">© 2024 ИП Семин А. С.</span>
+
+          <NuxtLink to="https://serptop.ru" target="_blank" ref="footerLinks">
+            Разработка: Serptop
+          </NuxtLink>
+        </div>
       </div>
-    </a>
+    </div>
   </footer>
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const props = defineProps({
+  data: {
+    type: Object,
+  },
+});
+
 const list = [
   "ИП Семин Андрей Сергеевич",
   "+7 (831) 414 04 02",
@@ -53,6 +140,7 @@ const list = [
   "Почта компании: oo@slf.expert",
   "Личная почта Андрея: as@slf.expert",
 ];
+
 const links = [
   { title: "WhatsApp: +7 (903) 601 04 02", link: "https://wa.me/79036010402" },
   {
@@ -60,11 +148,6 @@ const links = [
     link: "https://t.me/+79036010402",
   },
 ];
-import { ref, onMounted } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const header = ref(null);
 const listItems = ref([]);
@@ -153,4 +236,14 @@ onMounted(() => {
     );
   } else return;
 });
+
+const formatPhoneNumber = (phoneNumber) => {
+  const cleaned = phoneNumber.replace(/[^+\d]/g, "");
+
+  if (cleaned.length === 0 || (cleaned.includes("+") && cleaned[0] !== "+")) {
+    return "";
+  }
+
+  return `tel:${cleaned}`;
+};
 </script>

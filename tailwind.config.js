@@ -11,6 +11,10 @@ module.exports = {
     ],
   },
 
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+
   theme: {
     fontFamily: {
       sans: ["Onest", "sans-serif"],
@@ -55,7 +59,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwind-smart-fluid"),
-  ],
+  plugins: [require("tailwind-smart-fluid")],
 };

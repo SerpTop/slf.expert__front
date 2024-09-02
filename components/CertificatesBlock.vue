@@ -1,43 +1,90 @@
 <template>
-  <div class="bg-gray-400">
-    <a
-      name="certificates"
+  <div class="bg-gray-400" id="certificates">
+    <div
       class="_container flex flex-col gap-5 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2
         ref="header"
-        class="border-b pb-6 -mb-6 border-gray-100 xl:border-0 xl:m-0 xl:p-0"
+        class="pb-6 -mb-6 border-b border-gray-100 xl:border-0 xl:m-0 xl:p-0"
       >
-        Cертификаты и дипломы
+        {{ data.heading }}
       </h2>
 
       <div
-        v-for="(item, i) in certificates"
-        :key="i"
         ref="certificateBlocks"
         class="grid xl:grid-cols-[418fr_1372fr] items-start xl:border-t border-gray-100"
       >
         <span
-          class="text-sm 2xl:text-base text-black font-semibold flex items-center pt-4 xl:pt-5"
+          class="flex items-center pt-4 text-sm font-semibold text-black 2xl:text-base xl:pt-5"
         >
-          <span class="w-2 h-2 bg-black font-bold rounded-full mr-2"></span>
-          {{ item.title }}:
+          <span class="w-2 h-2 mr-2 font-bold bg-black rounded-full"></span>
+
+          Дипломы
         </span>
+
         <ul>
           <li
-            v-for="(doc, j) in item.docs"
-            :key="j"
-            class="flex justify-between gap-4 items-center w-full text-black text-sm 2xl:text-base border-b border-gray-100 py-3 sm:py-4 2xl:gap-5"
+            v-for="(diplom, diplomId) in data.diploms"
+            :key="diplomId"
+            class="relative flex items-center justify-between w-full gap-4 py-3 text-sm text-black transition duration-500 border-b border-gray-100 2xl:text-base sm:py-4 2xl:gap-5 hover:border-black active:border-black"
           >
-            <a :href="doc.url">{{ doc.title }}</a>
-            <div class="ml-auto flex items-center xl:gap-40 2xl:gap-64">
-              <span>{{ doc.expansion }}</span>
-              <span class="hidden xl:block">[{{ doc.size }}]</span>
+            <NuxtLink
+              :to="diplom.file.url"
+              target="_blank"
+              class="before:absolute before:inset-0"
+            >
+              {{ diplom.title }}
+            </NuxtLink>
+
+            <div class="flex items-center ml-auto xl:gap-40 2xl:gap-64">
+              <span class="uppercase">{{ diplom.file.format }}</span>
+
+              <span class="hidden xl:block">
+                [{{ Math.round((diplom.file.size / 1000) * 100) / 100 }} MB]
+              </span>
             </div>
           </li>
         </ul>
       </div>
-    </a>
+
+      <div
+        ref="certificateBlocks"
+        class="grid xl:grid-cols-[418fr_1372fr] items-start xl:border-t border-gray-100"
+      >
+        <span
+          class="flex items-center pt-4 text-sm font-semibold text-black 2xl:text-base xl:pt-5"
+        >
+          <span class="w-2 h-2 mr-2 font-bold bg-black rounded-full"></span>
+
+          Сертификаты
+        </span>
+
+        <ul>
+          <li
+            v-for="(certificate, certificateId) in data.certificates"
+            :key="certificateId"
+            class="relative flex items-center justify-between w-full gap-4 py-3 text-sm text-black transition duration-500 border-b border-gray-100 2xl:text-base sm:py-4 2xl:gap-5 hover:border-black active:border-black"
+          >
+            <NuxtLink
+              :to="certificate.file.url"
+              target="_blank"
+              class="before:absolute before:inset-0"
+            >
+              {{ certificate.title }}
+            </NuxtLink>
+
+            <div class="flex items-center ml-auto xl:gap-40 2xl:gap-64">
+              <span class="uppercase">{{ certificate.file.format }}</span>
+
+              <span class="hidden xl:block">
+                [{{ Math.round((certificate.file.size / 1000) * 100) / 100 }}
+                MB]
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,72 +95,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const certificates = [
-  {
-    title: "Сертификаты",
-    docs: [
-      {
-        title:
-          "Таможенное право: защита интересов бизнеса. Практика Омбудсмена",
-        expansion: ".PDF",
-        size: "1.6 MB",
-        url: "files/tamozhennoe-pravo.pdf",
-      },
-      {
-        title: "Налоговое консультирование: аттестованный специалист",
-        expansion: ".PDF",
-        size: "0.8 MB",
-        url: "files/nalogovoe-konsultirovanie.pdf",
-      },
-      {
-        title: "Арбитражное управление: передовые практики и стратегии",
-        expansion: ".PDF",
-        size: "1.4 MB",
-        url: "files/arbitrazhnoe-upravlenie.pdf",
-      },
-    ],
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  {
-    title: "Дипломы",
-    docs: [
-      {
-        title:
-          "За весомый вклад в защиту прав предпринимателей Нижегородской области",
-        expansion: ".PDF",
-        size: "0.6 MB",
-        url: "files/zaschita-prav.pdf",
-      },
-      {
-        title:
-          "Финалист конкурса «Юрист – профессионал». За высокий уровень профессионализма в юри",
-        expansion: ".PDF",
-        size: "1.8 MB",
-        url: "files/yurist-professional.pdf",
-      },
-      {
-        title:
-          "Финалист конкурса «Лидеры России». За лидерские качества и активную гражданскую позиц",
-        expansion: ".PDF",
-        size: "2.7 MB",
-        url: "files/lidery-rossii.pdf",
-      },
-      {
-        title:
-          "Master of Business Administration (MBA) с отличием. Специализация: «Операционный менед",
-        expansion: ".PDF",
-        size: "1.2 MB",
-        url: "files/mba.pdf",
-      },
-      {
-        title:
-          "За успешное применение знаний MBA в сфере юриспруденции и достижения в области арби",
-        expansion: ".PDF",
-        size: "0.5 MB",
-        url: "files/mba-yurisprudenciya.pdf",
-      },
-    ],
-  },
-];
+});
 
 const header = ref(null);
 const certificateBlocks = ref([]);

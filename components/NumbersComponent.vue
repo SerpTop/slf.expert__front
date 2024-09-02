@@ -1,78 +1,104 @@
 <template>
-  <div class="bg-blue-100">
-    <a
-      name="numbers"
+  <div
+    id="numbers"
+    class="relative bg-blue-100 bg-center bg-no-repeat bg-[length:362px_410px] 2xl:bg-[length:538px_610px] bg-[url('assets/icons/logo-big.svg')] xl:bg-none"
+  >
+    <div
       ref="container"
-      class="_container flex flex-col bg-blue-100 overflow-hidden sm:h-[120vh] gap-10 sm:gap-[60px] xl:gap-20 2xl:gap-[120px] py-[60px] xl:py-20 2xl:py-[120px] bg-center bg-no-repeat bg-[length:500px_600px] bg-opacity-20 bg-[url('assets/icons/logo-big.svg')]"
+      class="_container overflow-hidden xl:h-[120vh] xl:bg-center xl:bg-no-repeat xl:bg-[length:500px_600px] xl:bg-opacity-20 xl:bg-[url('assets/icons/logo-big.svg')] pt-[60px] xl:pt-20 2xl:pt-[120px]"
     >
-      <h2 class="text-white text-center">Цифры фирмы</h2>
+      <h2 class="text-center text-white">{{ data.heading }}</h2>
+    </div>
+
+    <div
+      class="_container xl:absolute xl:inset-0 mt-10 sm:mt-[3.75rem] xl:mt-20 2xl:mt-[7.5rem] pb-[60px] xl:pb-20 2xl:pb-[120px]"
+    >
       <div
         ref="grid"
-        class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 xl:gap-6 2xl:gap-8"
+        class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6 2xl:gap-8"
       >
-        <div>
-          <div data-speed="3.2"
+        <div class="order-1 xl:order-none">
+          <div
+            :data-speed="data.numbers[0].speed"
             class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[500px]"
           >
-            <span class="number_1">70%</span>
+            <span class="number_1">{{ data.numbers[0].number }}</span>
+
             <span
               class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
-              >70% снижений доначислений в ходе налоговых проверок из них 30%
-              до минимальных значений</span
             >
+              {{ data.numbers[0].description }}
+            </span>
           </div>
         </div>
-        <div>
+
+        <div
+          class="order-4 row-start-4 sm:col-start-2 xl:order-none xl:row-start-auto xl:col-start-auto"
+        >
           <div
-            data-speed="2.5"
+            :data-speed="data.numbers[1].speed"
             class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[1600px]"
           >
-            <span class="number_1">500+</span>
+            <span class="number_1">{{ data.numbers[1].number }}</span>
+
             <span
               class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
-              >Юридическое сопровождение более 500 внешнеэкономических сделок
-              без нарушений таможенного и валютного законодательства</span
             >
+              {{ data.numbers[1].description }}
+            </span>
           </div>
         </div>
-        <div class="flex flex-col gap-4 xl:gap-6 2xl:gap-8">
-          <div
-            data-speed="1.8"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[1200px]"
-          >
-            <span class="number_1">1 млрд</span>
-            <span
-              class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
-              >Общий экономический эффект более 1 млрд рублей</span
+
+        <div class="flex-col gap-6 contents xl:flex 2xl:gap-8">
+          <div class="order-3 row-start-3 xl:order-none xl:row-start-auto">
+            <div
+              :data-speed="data.numbers[2].speed"
+              class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[1200px]"
             >
+              <span class="number_1">{{ data.numbers[2].number }}</span>
+
+              <span
+                class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
+              >
+                {{ data.numbers[2].description }}
+              </span>
+            </div>
           </div>
-          <div
-            data-speed="3.0"
-            class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[1200px]"
-          >
-            <span class="number_1">30+</span>
-            <span
-              class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
-              >Более 30 успешных дел в спорах с государственными заказчиками
-              и исключению из реестра недобросовестных поставщиков</span
+
+          <div class="order-5 row-start-5 xl:order-none xl:row-start-auto">
+            <div
+              :data-speed="data.numbers[3].speed"
+              class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[1200px]"
             >
+              <span class="number_1">{{ data.numbers[3].number }}</span>
+
+              <span
+                class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
+              >
+                {{ data.numbers[3].description }}
+              </span>
+            </div>
           </div>
         </div>
-        <div>
+
+        <div
+          class="order-2 row-start-2 sm:col-start-2 xl:order-none xl:row-start-auto xl:col-start-auto"
+        >
           <div
-            data-speed="2.2"
+            :data-speed="data.numbers[4].speed"
             class="inner-div flex flex-col rounded-[20px] gap-4 bg-white-o2 p-5 2xl:p-[30px] backdrop-blur-xl xl:justify-between xl:min-h-[35vh] t xl:translate-y-[800px]"
           >
-            <span class="number_1">200 млн</span>
+            <span class="number_1">{{ data.numbers[4].number }}</span>
+
             <span
               class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
-              >Возврат излишне уплаченных таможенных пошлин в размере 200 млн
-              рублей</span
             >
+              {{ data.numbers[4].description }}
+            </span>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   </div>
 </template>
 
@@ -81,8 +107,14 @@ import { ref, onMounted } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-
 gsap.registerPlugin(ScrollTrigger);
+
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
+  },
+});
 
 const container = ref(null);
 const grid = ref(null);
@@ -97,7 +129,7 @@ const initializeAnimations = () => {
         trigger: container.value,
         start: "top top",
         // endTrigger: "#pin-windmill-wrap",
-        end: "+=2000",
+        end: "+=1500",
         markers: false,
       },
     });
@@ -111,7 +143,7 @@ const initializeAnimations = () => {
         scrollTrigger: {
           trigger: div,
           start: "top bottom", // Начало анимации, когда нижняя часть блока доходит до нижней части экрана
-          end: "+=2000", // Конец анимации, когда верхняя часть блока доходит до верхней части экрана
+          end: "+=1500", // Конец анимации, когда верхняя часть блока доходит до верхней части экрана
           scrub: true,
           smooth: 2,
           markers: false, // Для отладки, можно убрать в финальной версии
@@ -128,7 +160,6 @@ const initializeAnimations = () => {
 onMounted(() => {
   initializeAnimations();
   mediaQuery.addEventListener("change", initializeAnimations);
-  console.log(gsap);
 });
 
 onUnmounted(() => {

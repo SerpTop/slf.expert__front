@@ -1,48 +1,53 @@
 <template>
   <div class="flex flex-col">
     <LoadingComponent />
-    <div v-if="loading"  class="content">
-      <HeaderComponent />
-      <MainBlock />
-      <KeyPractices />
-      <NumbersComponent />
-      <CasesBlock />
-      <InfoBlock />
-      <CertificatesBlock />
-      <FormComponent />
-      <FooterComponent />
-      <CookiesComponent />
+
+    <div v-if="loading" class="overflow-hidden content">
+      <HeaderComponent v-if="data.contacts" :contacts="data.contacts" />
+
+      <MainBlock v-if="data.hero" :data="data.hero" />
+
+      <KeyPractices v-if="data.practices" :data="data.practices" />
+
+      <NumbersComponent v-if="data.numbers" :data="data.numbers" />
+
+      <CasesBlock v-if="data.cases" :data="data.cases" />
+
+      <InfoBlock v-if="data.info" :data="data.info" />
+
+      <CertificatesBlock v-if="data.documents" :data="data.documents" />
+
+      <FormComponent
+        v-if="data.contacts"
+        :practices="data.practices.practices"
+        :contacts="data.contacts"
+      />
+
+      <FooterComponent v-if="data.contacts" :data="data.contacts" />
+
+      <CookiesComponent :contacts="data.contacts" />
+
       <BackToTopButton />
+
+      <FormModal
+        v-if="isOpen('form')"
+        :data="data.practices"
+        :contacts="data.contacts"
+      />
     </div>
   </div>
 </template>
 
-<script>
-// import { createPinia } from 'pinia';
-// import { useGlobalStore } from '@/stores/globalStore';
-// const store = useGlobalStore();
-// const globalVariable = store.globalVariable;
-// app.use(createPinia());
-export default {
-  data() {
-    return {
-      loading: false,
-    };
-  },
-  mounted() {
-    // Здесь нужно связать состояние загрузки с реальным процессом
-    setTimeout(() => {
-      this.loading = true;
-    }, 3000); // 3 секунды для демонстрации
-  },
-};
-</script>
+<script setup>
+const { isOpen } = useModal();
 
-<style>
-.content {
-  display: none;
-}
-.content:not([v-cloak]) {
-  display: block;
-}
-</style>
+const loading = ref(false);
+
+onMounted(() => {
+  setTimeout(() => {
+    loading.value = true;
+  }, 3000); // 3 секунды для демонстрации
+});
+
+const data = await $fetch("http://127.0.0.1:1337/api/homepage");
+</script>

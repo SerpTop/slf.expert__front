@@ -25,7 +25,7 @@
             <span class="number_1">{{ data.numbers[0].number }}</span>
 
             <span
-              class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
+              class="fl-text-[0.875rem,1.25rem] leading-[130%] text-gray-300"
             >
               {{ data.numbers[0].description }}
             </span>
@@ -42,7 +42,7 @@
             <span class="number_1">{{ data.numbers[1].number }}</span>
 
             <span
-              class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
+              class="fl-text-[0.875rem,1.25rem] leading-[130%] text-gray-300"
             >
               {{ data.numbers[1].description }}
             </span>
@@ -58,7 +58,7 @@
               <span class="number_1">{{ data.numbers[2].number }}</span>
 
               <span
-                class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
+                class="fl-text-[0.875rem,1.25rem] leading-[130%] text-gray-300"
               >
                 {{ data.numbers[2].description }}
               </span>
@@ -73,7 +73,7 @@
               <span class="number_1">{{ data.numbers[3].number }}</span>
 
               <span
-                class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
+                class="fl-text-[0.875rem,1.25rem] leading-[130%] text-gray-300"
               >
                 {{ data.numbers[3].description }}
               </span>
@@ -91,7 +91,7 @@
             <span class="number_1">{{ data.numbers[4].number }}</span>
 
             <span
-              class="fl-text-[0.875rem,1.625rem] leading-[130%] text-gray-300"
+              class="fl-text-[0.875rem,1.25rem] leading-[130%] text-gray-300"
             >
               {{ data.numbers[4].description }}
             </span>

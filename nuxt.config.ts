@@ -48,4 +48,16 @@ export default defineNuxtConfig({
     inject: true,
   },
   plugins: ["~/plugins/gsap.client.ts"],
+
+  runtimeConfig: {
+    emailHost: process.env.EMAIL_HOST,
+    emailUser: process.env.EMAIL_USER,
+    emailPassword: process.env.EMAIL_PASSWORD,
+
+    public: {
+      strapi: {
+        url: process.env.STRAPI_URL,
+      },
+    },
+  },
 });

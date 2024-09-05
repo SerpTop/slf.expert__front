@@ -39,6 +39,7 @@
 </template>
 
 <script setup>
+const config = useRuntimeConfig();
 const { isOpen } = useModal();
 
 const loading = ref(false);
@@ -49,5 +50,16 @@ onMounted(() => {
   }, 3000); // 3 секунды для демонстрации
 });
 
-const data = await $fetch("http://127.0.0.1:1337/api/homepage");
+const data = await $fetch(`${config.public.strapi.url}/api/homepage`);
+
+useHead({
+  title: "Юридическая фирма Андрея Сёмина | Таможня, Налоги, Арбитраж",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Юридическая фирма, специализирующаяся на таможенных вопросах, арбитражных спорах и налоговом праве. Более 15 лет успешной практики.",
+    },
+  ],
+});
 </script>

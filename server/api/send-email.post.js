@@ -1,20 +1,23 @@
 import nodemailer from "nodemailer";
 
+const config = useRuntimeConfig();
+
 const transporter = nodemailer.createTransport({
-  host: "smtp.yandex.ru", // SMTP сервер вашего почтового провайдера
+  host: config.emailHost,
   port: 587,
   secure: false, // true для портов 465, false для других портов
   auth: {
-    user: "a.brusov@serptop.ru", // ваш email
-    pass: "serptop9876", // ваш пароль от email
+    user: config.emailUser,
+    pass: config.emailPassword,
   },
 });
 
 export default defineEventHandler(async (event) => {
+  const config = useRuntimeConfig();
   const body = await readBody(event);
 
   const options = {
-    subject: "Новая заявка с сайта - Юрист Семин А.С.",
+    subject: "Новая заявка с сайта - slf.expert",
     text: `
     Имя: ${body.name}
 
@@ -38,8 +41,8 @@ export default defineEventHandler(async (event) => {
   };
 
   const mailOptions = {
-    from: "a.brusov@serptop.ru", // адрес отправителя
-    to: "a.brusov@serptop.ru", // адрес получателя
+    from: '"slf.expert" <no-reply@slf.expert>',
+    to: config.emailUser,
     ...options,
   };
 

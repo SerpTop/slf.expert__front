@@ -43,8 +43,6 @@
             </li>
           </ul>
 
-          <NuxtImg name="arrow-right" />
-
           <button
             @click="
               openModal('form');

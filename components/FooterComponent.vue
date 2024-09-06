@@ -74,7 +74,7 @@
             ref="listItems"
             class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
           >
-            WhatsApp: slf.expert
+            WhatsApp: {{ data.whatsappText }}
             <span
               class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
             ></span>
@@ -86,7 +86,7 @@
             ref="listItems"
             class="flex items-center justify-between py-[10px] border-y border-gray-100 text-sm xl:text-base text-black hover:border-black transition-colors duration-500 group"
           >
-            Telegram: slf.expert
+            Telegram: {{ data.telegramText }}
             <span
               class="w-[6px] h-[6px] bg-black rounded-full group-hover:bg-[#C5C5C9] transition-colors duration-500"
             ></span>
@@ -132,22 +132,6 @@ const props = defineProps({
     type: Object,
   },
 });
-
-const list = [
-  "ИП Семин Андрей Сергеевич",
-  "+7 (831) 414 04 02",
-  "+7 (903) 601 04 02",
-  "Почта компании: oo@slf.expert",
-  "Личная почта Андрея: as@slf.expert",
-];
-
-const links = [
-  { title: "WhatsApp: +7 (903) 601 04 02", link: "https://wa.me/79036010402" },
-  {
-    title: "Telegram: +7 (903) 601 04 02",
-    link: "https://t.me/+79036010402",
-  },
-];
 
 const header = ref(null);
 const listItems = ref([]);

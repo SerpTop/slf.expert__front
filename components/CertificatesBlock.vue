@@ -36,7 +36,9 @@
               {{ diplom.title }}
             </NuxtLink>
 
-            <div class="flex items-center ml-auto xl:gap-40 2xl:gap-64">
+            <div
+              class="flex items-center flex-shrink-0 ml-auto xl:gap-40 2xl:gap-64"
+            >
               <span class="uppercase">{{ diplom.file.format }}</span>
 
               <span class="hidden xl:block">
@@ -73,7 +75,9 @@
               {{ certificate.title }}
             </NuxtLink>
 
-            <div class="flex items-center ml-auto xl:gap-40 2xl:gap-64">
+            <div
+              class="flex items-center flex-shrink-0 ml-auto xl:gap-40 2xl:gap-64"
+            >
               <span class="uppercase">{{ certificate.file.format }}</span>
 
               <span class="hidden xl:block">

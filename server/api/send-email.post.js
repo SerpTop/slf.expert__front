@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   };
 
   const mailOptions = {
-    from: '"slf.expert" <no-reply@slf.expert>',
+    from: config.emailUser,
     to: config.emailUser,
     ...options,
   };

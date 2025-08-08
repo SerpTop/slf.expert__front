@@ -15,7 +15,7 @@
       >
         <div class="flex h-fit gap-2.5 sm:gap-4 xl:gap-[190px] 2xl:gap-[250px]">
           <span
-            class="bg-white rounded-full flex items-center justify-center w-12 h-12 sm:w-[50px] sm:h-[50px] 2xl:h-[60px] 2xl:w-[60px]"
+            class="bg-white rounded-full flex items-center justify-center w-12 h-12 sm:w-[50px] sm:h-[50px] 2xl:h-[60px] 2xl:w-[60px] flex-shrink-0"
           >
             <img
               :src="practic.icon.url"
@@ -81,49 +81,54 @@ const { activePracticeId } = usePractices();
 const header = ref(null);
 const blocks = ref([]);
 const blocksArray = ref([]);
-const mediaQuery = window.matchMedia("(min-width: 1280px)");
+const mediaQuery = ref(null);
 
 onMounted(() => {
-  if (mediaQuery.matches) {
-    gsap.fromTo(
-      header.value,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 4,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: header.value,
-          start: "top 90%",
-          end: "top 90%",
-          scrub: true,
-          markers: false,
-        },
-      }
-    );
+  // Проверяем, что мы на клиенте
+  if (process.client) {
+    mediaQuery.value = window.matchMedia("(min-width: 1280px)");
 
-    blocks.value.forEach((block) => {
+    if (mediaQuery.value.matches) {
       gsap.fromTo(
-        block,
+        header.value,
         { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 2,
+          duration: 4,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: block,
-            start: "top 95%",
+            trigger: header.value,
+            start: "top 90%",
             end: "top 90%",
             scrub: true,
             markers: false,
           },
-
-          // stagger: 0.3,
         }
       );
-    });
-  } else return;
+
+      blocks.value.forEach((block) => {
+        gsap.fromTo(
+          block,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: block,
+              start: "top 95%",
+              end: "top 90%",
+              scrub: true,
+              markers: false,
+            },
+
+            // stagger: 0.3,
+          }
+        );
+      });
+    }
+  }
 });
 </script>

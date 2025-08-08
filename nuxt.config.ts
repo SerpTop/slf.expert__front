@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  // Включаем SSR для лучшей индексации
+  ssr: true,
+
   app: {
     head: {
       htmlAttrs: {

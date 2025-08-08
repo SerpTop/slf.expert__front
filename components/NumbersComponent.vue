@@ -103,7 +103,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -118,10 +118,10 @@ const props = defineProps({
 
 const container = ref(null);
 const grid = ref(null);
-const mediaQuery = window.matchMedia("(min-width: 1280px)");
+const mediaQuery = ref(null);
 
 const initializeAnimations = () => {
-  if (mediaQuery.matches) {
+  if (process.client && mediaQuery.value && mediaQuery.value.matches) {
     const tl = gsap.timeline({
       scrollTrigger: {
         scrub: 1,
@@ -152,17 +152,25 @@ const initializeAnimations = () => {
     });
   } else {
     // Отключить анимации для мобильных экранов
-    gsap.killTweensOf("[data-speed]");
-    ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    if (process.client) {
+      gsap.killTweensOf("[data-speed]");
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    }
   }
 };
 
 onMounted(() => {
-  initializeAnimations();
-  mediaQuery.addEventListener("change", initializeAnimations);
+  // Проверяем, что мы на клиенте
+  if (process.client) {
+    mediaQuery.value = window.matchMedia("(min-width: 1280px)");
+    initializeAnimations();
+    mediaQuery.value.addEventListener("change", initializeAnimations);
+  }
 });
 
 onUnmounted(() => {
-  mediaQuery.removeEventListener("change", initializeAnimations);
+  if (process.client && mediaQuery.value) {
+    mediaQuery.value.removeEventListener("change", initializeAnimations);
+  }
 });
 </script>

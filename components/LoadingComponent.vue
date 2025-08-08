@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="loading-container">
+  <div v-if="isLoading" class="loading-container">
     <div class="logo-wrapper">
       <img
         src="assets/icons/logo-big.svg"
@@ -48,20 +48,14 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      loading: true,
-    };
+<script setup>
+// Принимаем состояние загрузки как пропс
+defineProps({
+  isLoading: {
+    type: Boolean,
+    default: false,
   },
-  mounted() {
-    // Симуляция загрузки, уберите это и замените на ваш реальный процесс загрузки
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000); // 3 секунды для демонстрации
-  },
-};
+});
 </script>
 
 <style scoped>
@@ -90,7 +84,7 @@ export default {
 }
 
 .mask-animation {
-  animation: maskAnimation 3s forwards;
+  animation: maskAnimation 1s forwards;
 }
 
 @keyframes maskAnimation {

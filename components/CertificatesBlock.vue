@@ -108,33 +108,17 @@ const props = defineProps({
 
 const header = ref(null);
 const certificateBlocks = ref([]);
-const mediaQuery = window.matchMedia("(min-width: 1280px)");
+const mediaQuery = ref(null);
 
 onMounted(() => {
-  if (mediaQuery.matches) {
-    // Анимация заголовка
-    gsap.fromTo(
-      header.value,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: header.value,
-          start: "top 75%",
-          end: "top 55%",
-          scrub: true,
-          markers: false,
-        },
-      }
-    );
+  // Проверяем, что мы на клиенте
+  if (process.client) {
+    mediaQuery.value = window.matchMedia("(min-width: 1280px)");
 
-    // Анимация блоков сертификатов
-    gsap.utils.toArray(certificateBlocks.value).forEach((block, index) => {
+    if (mediaQuery.value.matches) {
+      // Анимация заголовка
       gsap.fromTo(
-        block,
+        header.value,
         { y: 50, opacity: 0 },
         {
           y: 0,
@@ -142,16 +126,37 @@ onMounted(() => {
           duration: 1,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: block,
-            start: "top 80%",
-            end: "top 60%",
+            trigger: header.value,
+            start: "top 75%",
+            end: "top 55%",
             scrub: true,
             markers: false,
-            delay: index * 0.3,
           },
         }
       );
-    });
-  } else return;
+
+      // Анимация блоков сертификатов
+      gsap.utils.toArray(certificateBlocks.value).forEach((block, index) => {
+        gsap.fromTo(
+          block,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: block,
+              start: "top 80%",
+              end: "top 60%",
+              scrub: true,
+              markers: false,
+              delay: index * 0.3,
+            },
+          }
+        );
+      });
+    }
+  }
 });
 </script>

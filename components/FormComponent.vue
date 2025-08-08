@@ -472,53 +472,57 @@ const onSubmitForm = async () => {
 // Анимации
 const formTitle = ref(null);
 const formElement = ref(null);
-
-const mediaQuery = window.matchMedia("(min-width: 1280px)");
+const mediaQuery = ref(null);
 
 onMounted(async () => {
-  if (props.modal === false) {
-    // ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  } else return;
-  await nextTick(); // Дожидаемся обновления DOM
-  if (mediaQuery.matches) {
-    // Анимация заголовка формы
-    gsap.fromTo(
-      formTitle.value,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 3,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: formTitle.value,
-          start: "top 80%",
-          end: "top 60%",
-          scrub: true,
-          markers: false,
-        },
-      }
-    );
+  // Проверяем, что мы на клиенте
+  if (process.client) {
+    mediaQuery.value = window.matchMedia("(min-width: 1280px)");
 
-    // Анимация элементов формы
-    gsap.fromTo(
-      formElement.value,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 3,
-        ease: "power3.out",
-        stagger: 0.3, // Задержка между анимацией элементов
-        scrollTrigger: {
-          trigger: formElement.value,
-          start: "top 70%",
-          end: "top 50%",
-          scrub: true,
-          markers: false,
-        },
-      }
-    );
-  } else return;
+    if (props.modal === false) {
+      // ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    } else return;
+    await nextTick(); // Дожидаемся обновления DOM
+    if (mediaQuery.value.matches) {
+      // Анимация заголовка формы
+      gsap.fromTo(
+        formTitle.value,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 3,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: formTitle.value,
+            start: "top 80%",
+            end: "top 60%",
+            scrub: true,
+            markers: false,
+          },
+        }
+      );
+
+      // Анимация элементов формы
+      gsap.fromTo(
+        formElement.value,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 3,
+          ease: "power3.out",
+          stagger: 0.3, // Задержка между анимацией элементов
+          scrollTrigger: {
+            trigger: formElement.value,
+            start: "top 70%",
+            end: "top 50%",
+            scrub: true,
+            markers: false,
+          },
+        }
+      );
+    }
+  }
 });
 </script>

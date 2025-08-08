@@ -106,49 +106,56 @@ function toggleShowAll() {
 
 const title = ref(null);
 const casesContainer = ref(null);
-const mediaQuery = window.matchMedia("(min-width: 1280px)");
+const mediaQuery = ref(null);
 
 onMounted(() => {
-  if (mediaQuery.matches) {
-    gsap.fromTo(
-      title.value,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: title.value,
-          start: "top 80%",
-          end: "top 60%",
-          scrub: true,
-          markers: false,
-        },
-      }
-    );
-    gsap.utils.toArray(casesContainer.value.children).forEach((caseItem, i) => {
+  // Проверяем, что мы на клиенте
+  if (process.client) {
+    mediaQuery.value = window.matchMedia("(min-width: 1280px)");
+
+    if (mediaQuery.value.matches) {
       gsap.fromTo(
-        caseItem,
-        { y: 70, opacity: 0 },
+        title.value,
+        { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 2,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: caseItem,
-            start: "top 90%",
-            end: "top 70%",
+            trigger: title.value,
+            start: "top 80%",
+            end: "top 60%",
             scrub: true,
             markers: false,
-            start: `top ${100 - i * 10}%`,
-            end: `top ${90 - i * 10}%`,
           },
         }
       );
-    });
-  } else return;
+      gsap.utils
+        .toArray(casesContainer.value.children)
+        .forEach((caseItem, i) => {
+          gsap.fromTo(
+            caseItem,
+            { y: 70, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 2,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: caseItem,
+                start: "top 90%",
+                end: "top 70%",
+                scrub: true,
+                markers: false,
+                start: `top ${100 - i * 10}%`,
+                end: `top ${90 - i * 10}%`,
+              },
+            }
+          );
+        });
+    }
+  }
 });
 
 const formatDate = (dateString) => {

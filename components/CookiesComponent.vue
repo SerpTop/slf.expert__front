@@ -8,13 +8,12 @@
     </span>
 
     <span class="text-sm text-white 2xl:text-base">
-      Это необходимо для того, чтобы сделать сайт более удобным для вас.
-      Продолжая использовать сайт, вы соглашаетесь со сбором и обработкой
-      <NuxtLink :to="contacts.personalConsent.url">
-        Персональных данных.
-      </NuxtLink>
+      Наш сайт использует файлы cookie, чтобы сделать его более удобным для вас.
+      Продолжая использовать сайт, вы соглашаетесь с
+      <NuxtLink :to="contacts.policy?.url" target="_blank"
+        >политикой использования файлов cookie
+      </NuxtLink>.
     </span>
-
     <button @click="acceptCookies" class="btn btn-white">согласиться</button>
   </div>
 </template>

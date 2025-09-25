@@ -160,11 +160,11 @@
             <span class="text-white"> Я согласен на обработку</span>
 
             <NuxtLink
-              :to="contacts.personalConsent"
+              :to="contacts.personalConsent.url"
               target="_blank"
               class="text-blue-300"
             >
-              Персональных данных.
+              персональных данных.
             </NuxtLink>
           </label>
 

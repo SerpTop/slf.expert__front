@@ -11,8 +11,8 @@
       Наш сайт использует файлы cookie, чтобы сделать его более удобным для вас.
       Продолжая использовать сайт, вы соглашаетесь с
       <NuxtLink :to="contacts.policy?.url" target="_blank"
-        >политикой использования файлов cookie
-      </NuxtLink>.
+        >политикой использования файлов cookie </NuxtLink
+      >.
     </span>
     <button @click="acceptCookies" class="btn btn-white">согласиться</button>
   </div>

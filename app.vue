@@ -15,10 +15,15 @@
       <ServiceOrder />
 
       <InfoBlock v-if="data?.info" :data="data.info" />
+      <OurTeam />
 
       <CertificatesBlock v-if="data?.documents" :data="data.documents" />
 
-      <FormComponent v-if="data?.contacts" :practices="data.practices.practices" :contacts="data.contacts" />
+      <FormComponent
+        v-if="data?.contacts"
+        :practices="data.practices.practices"
+        :contacts="data.contacts"
+      />
 
       <FooterComponent v-if="data?.contacts" :data="data.contacts" />
 
@@ -26,7 +31,11 @@
 
       <BackToTopButton />
 
-      <FormModal v-if="isOpen('form')" :data="data?.practices" :contacts="data?.contacts" />
+      <FormModal
+        v-if="isOpen('form')"
+        :data="data?.practices"
+        :contacts="data?.contacts"
+      />
     </div>
   </div>
 </template>

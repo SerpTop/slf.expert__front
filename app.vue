@@ -19,6 +19,8 @@
 
       <CertificatesBlock v-if="data?.documents" :data="data.documents" />
 
+      <VideoSlider />
+
       <FormComponent
         v-if="data?.contacts"
         :practices="data.practices.practices"

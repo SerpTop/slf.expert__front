@@ -1,20 +1,27 @@
 <template>
   <div class="flex flex-col">
-    <!-- <LoadingComponent :is-loading="showLoading" /> -->
-
     <div v-if="!showLoading" class="overflow-hidden content">
-      <HeaderComponent v-if="data?.contacts" :contacts="data.contacts" />
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
-      <FormComponent v-if="data?.contacts" :practices="data.practices.practices" :contacts="data.contacts" />
-      <FooterComponent v-if="data?.contacts" :data="data.contacts" />
+      <MainBlock v-if="data?.hero" :data="data.hero" />
 
-      <CookiesComponent :contacts="data?.contacts" />
+      <KeyPractices v-if="data?.practices" :data="data.practices" />
 
-      <BackToTopButton />
+      <NumbersComponent v-if="data?.numbers" :data="data.numbers" />
 
-      <FormModal v-if="isOpen('form')" :data="data?.practices" :contacts="data?.contacts" />
+      <CasesBlock v-if="data?.cases" :data="data.cases" />
+      <ServiceOrder />
+
+      <InfoBlock v-if="data?.info" :data="data.info" />
+      <OurTeam />
+
+      <CertificatesBlock v-if="data?.documents" :data="data.documents" />
+
+      <VideoSlider />
+
+      <!-- <FormComponent
+        v-if="data?.contacts"
+        :practices="data.practices.practices"
+        :contacts="data.contacts"
+      /> -->
     </div>
   </div>
 </template>

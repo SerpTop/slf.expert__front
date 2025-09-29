@@ -1,24 +1,32 @@
 <template>
-  <div class="flex flex-col">
-    <!-- <LoadingComponent :is-loading="showLoading" /> -->
-
-    <div v-if="!showLoading" class="overflow-hidden content">
-      <HeaderComponent v-if="data?.contacts" :contacts="data.contacts" />
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
-      <FormComponent v-if="data?.contacts" :practices="data.practices.practices" :contacts="data.contacts" />
-      <FooterComponent v-if="data?.contacts" :data="data.contacts" />
-
-      <CookiesComponent :contacts="data?.contacts" />
-
-      <BackToTopButton />
-
-      <FormModal v-if="isOpen('form')" :data="data?.practices" :contacts="data?.contacts" />
+  <div class="2xl:pt-[9.375rem] md:pt-[7.5rem] pt-[6.25rem] bg-gray-400 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]">
+    <div class="_container">
+      <NuxtLink
+        to="/"
+        class="flex gap-2 items-center text-blue-100 text-lg 2xl:text-[1.625rem] mb-5 md:mb-11 2xl:mb-[100px]"
+      >
+        <IconArrowThin />
+        Главная
+      </NuxtLink>
+      <div class="flex flex-col gap-5 md:gap-6 xl:gap-[30px] 2xl:gap-10">
+        <div
+          class="flex justify-between gap-5 flex-col xl:flex-row xl:items-center"
+        >
+          <h1
+            class="fl-text-[1.625rem,5.125rem] leading-[120%] font-bold text-blue-100 uppercase"
+          >
+            отвечаем на ваши вопросы
+          </h1>
+        </div>
+        <div class="flex flex-col">
+          <FaqCard v-for="(item, i) in [1, 2, 3, 4, 5, 6]" :key="i" />
+        </div>
+        <button class="btn btn-main w-full md:w-[311px] mx-auto">смотреть еще</button>
+      </div>
     </div>
+
   </div>
 </template>
-
 <script setup>
 const config = useRuntimeConfig();
 const { isOpen } = useModal();

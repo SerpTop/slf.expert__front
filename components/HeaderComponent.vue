@@ -9,9 +9,9 @@
     <div
       class="relative flex items-center justify-between gap-4 py-4 _container"
     >
-      <div>
+      <NuxtLink to="/">
         <IconLogo />
-      </div>
+      </NuxtLink>
       <div
         class="gap-[30px] bg-white-o2 rounded-full xl:py-5 xl:px-8 hidden xl:flex"
       >
@@ -27,6 +27,12 @@
 
       <div class="flex items-center gap-5 shrink-0">
         <div class="hidden gap-5 sm:flex h-11 xl:h-fit">
+            <NuxtLink
+            to="/faq"
+            class="btn btn-white-02"
+          >
+            Вопрос-ответ
+          </NuxtLink>
           <NuxtLink
             :to="formatPhoneNumber(contacts.phones[0].value)"
             class="btn btn-white-02"

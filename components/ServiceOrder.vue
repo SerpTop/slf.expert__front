@@ -39,7 +39,8 @@
                         </span>
                         <h3 class="xl:max-w-[470px] 2xl:max-w-[570px]">Консультация юриста</h3>
                     </div>
-                    <span class="text-sm text-black 2xl:text-base text-clamp xl:max-w-[80%]">Наш специалист устно проконсультирует по вопросу
+                    <span class="text-sm text-black 2xl:text-base text-clamp xl:max-w-[80%]">Наш специалист устно
+                        проконсультирует по вопросу
                         таможенного права. Время консультации — 30
                         минут, формат — по телефону или видео.</span>
                 </div>
@@ -51,8 +52,7 @@
                 </div>
             </div>
         </div>
-
-
+        <PayModal />
     </div>
 </template>
 

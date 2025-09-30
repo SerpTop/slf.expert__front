@@ -2,6 +2,7 @@ export const useModal = () => {
   const modals = useState("modals", () => ({
     form: false,
     menu: false,
+    pay: false,
   }));
 
   const isOpen = (key) => !!modals.value[key];

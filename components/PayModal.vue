@@ -1,14 +1,15 @@
 <template>
     <div class="fixed top-0 left-0 w-full h-full z-[999] flex items-center justify-center overflow-scroll">
-        <div class="absolute inset-0 bg-white/20 backdrop-blur-2xl z-20"></div>
+        <div class="absolute inset-0 bg-white/20 backdrop-blur-2xl z-20 cursor-pointer" @click="closeModal('pay')">
+        </div>
         <div
             class="bg-blue-100 p-5 xl:p-[30px] 2xl:p-10 z-30 w-full md:w-fit rounded-[20px] flex flex-col gap-5 xl:gap-[30px] md:min-w-[620px] xl:min-w-[800px] 2xl:min-w-[900px] absolute md:static top-0">
             <div class="flex items-center justify-between gap-8">
                 <span
                     class="text-white text-lg font-medium md:text-[1.625rem] xl:text-[2rem] 2xl:text-[2.875rem]">Оплата
                     тарифного плана</span>
-                <div
-                    class="flex justify-center items-center rounded-full border border-blue-400 h-11 w-11 2xl:h-[54px] 2xl:w-[54px] cursor-pointer shrink-0">
+                <div class="flex justify-center items-center rounded-full border border-blue-400 h-11 w-11 2xl:h-[54px] 2xl:w-[54px] cursor-pointer shrink-0"
+                    @click="closeModal('pay')">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 10L15 15M10 10L5 5M10 10L5 15M10 10L15 5" stroke="white" stroke-width="1.7"
                             stroke-linecap="round" />
@@ -129,6 +130,7 @@
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength, email, sameAs } from "@vuelidate/validators";
 import { useFileDialog } from "@vueuse/core";
+const { openModal, closeModal, isOpen } = useModal();
 
 
 

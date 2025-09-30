@@ -46,14 +46,16 @@
                 </div>
                 <div class="flex flex-col xl:flex-row justify-between gap-[30px] xl:items-center mt-auto">
                     <h3 class="font-bold">4 000 ₽</h3>
-                    <button class="btn btn-main w-fit">
+                    <button @click="openModal('pay')" class="btn btn-main w-fit">
                         <IconArrow />Заказать
                     </button>
                 </div>
             </div>
         </div>
-        <PayModal />
+        <PayModal v-if="isOpen('pay')" />
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+const { openModal, closeModal, isOpen } = useModal();
+</script>

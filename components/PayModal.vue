@@ -119,18 +119,54 @@
 
 
                 </div>
-                <button class="btn btn-white">
+                <button class="btn btn-white" @click="generatePdf">
                     <IconArrow /> выставить счет
                 </button>
             </div>
         </div>
+        <div class="hidden">
+            <PayFile ref="payFileComponent" />
+        </div>
+
+
     </div>
 </template>
 <script setup>
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength, email, sameAs } from "@vuelidate/validators";
 import { useFileDialog } from "@vueuse/core";
-const { openModal, closeModal, isOpen } = useModal();
+const { closeModal } = useModal();
+
+
+import { ref, onMounted } from 'vue';
+import PayFile from '~/components/PayFile.vue';
+
+let html2pdf
+onMounted(async () => {
+    // Динамически импортируем только на клиенте
+    html2pdf = (await import('html2pdf.js')).default
+})
+
+const payFileComponent = ref(null)
+
+const generatePdf = async () => {
+    const element = payFileComponent.value?.payFile
+    if (!element || !html2pdf) return
+
+    const opt = {
+        margin: 0.5,
+        filename: 'invoice.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    }
+
+    // html2pdf().set(opt).from(element).save()
+    const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob')
+    const pdfUrl = URL.createObjectURL(pdfBlob)
+    window.open(pdfUrl, '_blank')
+}
+
 
 
 

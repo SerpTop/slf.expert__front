@@ -11,7 +11,7 @@
             <span class="text-black text-xl md:text-[1.625rem] xl:text-[2rem] 2xl:text-[2.875rem] font-medium">Как
                 повышение госпошлин изменило таможенные споры?</span>
         </div>
-        <NuxtLink to="#" class="xl:ml-auto btn bg-blue-200 text-white h-11 2xl:h-[54px] w-fit">
+        <NuxtLink to="/faq/_type" class="xl:ml-auto btn bg-blue-200 text-white h-11 2xl:h-[54px] w-fit">
             <IconArrow /> ОТВЕТ
         </NuxtLink>
     </div>

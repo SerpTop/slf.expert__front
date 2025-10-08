@@ -1,6 +1,6 @@
 <template>
     <div class="fixed top-0 left-0 w-full h-full z-[999] md:p-10 overflow-scroll flex">
-        <div class="absolute inset-0 bg-white/20 backdrop-blur-2xl z-20 cursor-pointer" @click="closeModal('pay')">
+        <div class="absolute inset-0 bg-white/20 backdrop-blur-2xl z-20 cursor-pointer w-full h-full" @click="closeModal('pay')">
         </div>
 
         <div

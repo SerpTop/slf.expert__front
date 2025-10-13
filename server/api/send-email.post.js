@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 const config = useRuntimeConfig();
 
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   const options = {
-    subject: "Новая заявка с сайта - slf.expert",
+    subject: 'Новая заявка с сайта - slf.expert',
     text: `
     Имя: ${body.name}
 
@@ -25,19 +25,28 @@ export default defineEventHandler(async (event) => {
 
     E-mail: ${body.email}
 
-    Практика: ${body.practic}
+    ${body.service ? `Услуга: ${body.service}` : ''}
 
-    Комментарий: ${body.comment}
+    ${body.expert ? `Специалист: ${body.expert}` : ''}
+
+    ${body.price ? `Стоимость: ${body.price} ₽` : ''}
+
+    ${body.practic ? `Практика: ${body.practic}` : ''}
+
+    ${body.comment ? `Комментарий: ${body.comment}` : ''}
+
+    ${body.date ? `Дата и время: ${body.date}` : ''}
 
     `,
-    attachments: body.files.map((file) => {
-      if (file) {
-        return {
-          filename: file.name,
-          content: Buffer.from(file.content, "base64"), // предполагается, что файл передается в base64
-        };
-      }
-    }),
+    attachments:
+      body.files?.map((file) => {
+        if (file) {
+          return {
+            filename: file.name,
+            content: Buffer.from(file.content, 'base64'), // предполагается, что файл передается в base64
+          };
+        }
+      }) || [],
   };
 
   const mailOptions = {
@@ -48,8 +57,8 @@ export default defineEventHandler(async (event) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    return { status: "success" };
+    return { status: 'success' };
   } catch (error) {
-    return { status: "error", message: error.message };
+    return { status: 'error', message: error.message };
   }
 });

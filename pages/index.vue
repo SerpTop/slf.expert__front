@@ -24,7 +24,10 @@
         :data="data.cases"
       />
 
-      <ServiceOrder />
+      <ServiceOrder
+        v-if="data?.services"
+        :data="data.services"
+      />
 
       <InfoBlock
         v-if="data?.info"

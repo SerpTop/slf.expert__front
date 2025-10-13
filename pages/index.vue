@@ -41,13 +41,10 @@
         :data="data.documents"
       />
 
-      <VideoSlider />
-
-      <!-- <FormComponent
-        v-if="data?.contacts"
-        :practices="data.practices.practices"
-        :contacts="data.contacts"
-      /> -->
+      <VideoSlider
+        v-if="data?.videos"
+        :data="data.videos"
+      />
     </div>
   </div>
 </template>

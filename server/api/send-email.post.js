@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 const config = useRuntimeConfig();
 
@@ -16,8 +16,13 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const body = await readBody(event);
 
+  let invoiceNumber = "";
+  if (body.invoiceNumber) {
+    invoiceNumber = `\n    Номер счета: ${body.invoiceNumber}`;
+  }
+
   const options = {
-    subject: 'Новая заявка с сайта - slf.expert',
+    subject: "Новая заявка с сайта - slf.expert",
     text: `
     Имя: ${body.name}
 
@@ -25,17 +30,17 @@ export default defineEventHandler(async (event) => {
 
     E-mail: ${body.email}
 
-    ${body.service ? `Услуга: ${body.service}` : ''}
+    ${body.service ? `Услуга: ${body.service}` : ""}
 
-    ${body.expert ? `Специалист: ${body.expert}` : ''}
+    ${body.expert ? `Специалист: ${body.expert}` : ""}
 
-    ${body.price ? `Стоимость: ${body.price} ₽` : ''}
+    ${body.price ? `Стоимость: ${body.price} ₽` : ""}${invoiceNumber}
 
-    ${body.practic ? `Практика: ${body.practic}` : ''}
+    ${body.practic ? `Практика: ${body.practic}` : ""}
 
-    ${body.comment ? `Комментарий: ${body.comment}` : ''}
+    ${body.comment ? `Комментарий: ${body.comment}` : ""}
 
-    ${body.date ? `Дата и время: ${body.date}` : ''}
+    ${body.date ? `Дата и время: ${body.date}` : ""}
 
     `,
     attachments:
@@ -43,7 +48,7 @@ export default defineEventHandler(async (event) => {
         if (file) {
           return {
             filename: file.name,
-            content: Buffer.from(file.content, 'base64'), // предполагается, что файл передается в base64
+            content: Buffer.from(file.content, "base64"), // предполагается, что файл передается в base64
           };
         }
       }) || [],
@@ -57,8 +62,8 @@ export default defineEventHandler(async (event) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    return { status: 'success' };
+    return { status: "success" };
   } catch (error) {
-    return { status: 'error', message: error.message };
+    return { status: "error", message: error.message };
   }
 });

@@ -380,7 +380,7 @@
     </div>
 
     <div class="hidden">
-      <PayFile ref="payFileComponent" />
+      <PayFile ref="payFileComponent" :invoiceData="invoiceData" />
     </div>
   </div>
 </template>
@@ -424,6 +424,7 @@ import { Navigation } from "swiper/modules";
 const modules = [Navigation];
 import PayFile from "~/components/PayFile.vue";
 import { onClickOutside } from "@vueuse/core";
+import { getCurrentInvoiceDate } from "~/utils/invoiceUtilsWithLibraryNew";
 
 let html2pdf;
 onMounted(async () => {
@@ -432,46 +433,92 @@ onMounted(async () => {
 
 const payFileComponent = ref(null);
 
+// Данные для счета
+const invoiceData = ref({
+  invoiceNumber: "С-00001",
+  invoiceDate: getCurrentInvoiceDate(),
+  serviceName: "",
+  servicePrice: 0,
+  clientName: "",
+  expertName: "",
+});
+
 const generatePdf = async () => {
-  const element = payFileComponent.value?.payFile;
-  if (!element || !html2pdf) return;
+  try {
+    // Получаем следующий номер счета
+    const { data: invoiceNumberData } = await useFetch(
+      "/api/get-invoice-number"
+    );
 
-  const opt = {
-    /* ... */
-  };
+    if (invoiceNumberData.value?.success) {
+      // Обновляем данные счета
+      invoiceData.value.invoiceNumber =
+        invoiceNumberData.value.data.formattedNumber;
+      invoiceData.value.invoiceDate = getCurrentInvoiceDate();
+      invoiceData.value.serviceName = serviceData.value?.title || "";
+      invoiceData.value.servicePrice = serviceData.value?.price || 0;
+      invoiceData.value.clientName = form.name || "";
+      invoiceData.value.expertName = selectedExpert.value || "";
+    }
 
-  // одна генерация — получаем blob
-  const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
+    const element = payFileComponent.value?.payFile;
+    if (!element || !html2pdf) return;
 
-  const pdfUrl = URL.createObjectURL(pdfBlob);
+    const opt = {
+      margin: 0,
+      filename: `invoice-${invoiceData.value.invoiceNumber}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    };
 
-  // инициируем скачивание
-  const a = document.createElement("a");
-  a.href = pdfUrl;
-  a.download = "invoice.pdf";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+    // одна генерация — получаем blob
+    const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
 
-  // и/или открываем в новой вкладке
-  window.open(pdfUrl, "_blank");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    // инициируем скачивание
+    const a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = `invoice-${invoiceData.value.invoiceNumber}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    // и/или открываем в новой вкладке
+    window.open(pdfUrl, "_blank");
+  } catch (error) {
+    console.error("Ошибка при генерации PDF:", error);
+    // Fallback: генерируем PDF без обновления номера
+    const element = payFileComponent.value?.payFile;
+    if (!element || !html2pdf) return;
+
+    const opt = {
+      margin: 0,
+      filename: "invoice.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    };
+
+    const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    const a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = "invoice.pdf";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.open(pdfUrl, "_blank");
+  }
 };
 
 const dateOpen = ref(false);
 const selectedDate = ref(null);
 const selectedTime = ref(null);
 const datePickerRef = ref(null);
-
-// const dates = [
-//   { date: "2025-09-21", label: "21.09, ПН" },
-//   { date: "2025-09-22", label: "22.09, ВТ" },
-//   { date: "2025-09-23", label: "23.09, СР" },
-//   { date: "2025-09-24", label: "24.09, ЧТ" },
-//   { date: "2025-09-25", label: "25.09, ПН" },
-//   { date: "2025-09-26", label: "26.09, ВТ" },
-//   { date: "2025-09-27", label: "27.09, СР" },
-//   { date: "2025-09-28", label: "28.09, ЧТ" },
-// ];
 
 const WEEK_DAYS_RU = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
 
@@ -622,6 +669,7 @@ const onSubmitForm = async () => {
       expert: selectedExpert.value || "",
       price: serviceData.value?.price || 0,
       files: form.files,
+      invoiceNumber: invoiceData.value.invoiceNumber || "",
     },
   });
 

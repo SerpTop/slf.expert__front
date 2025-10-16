@@ -31,7 +31,7 @@
     </div>
 
     <NuxtLink
-      :to="`/faq/${categorySlug}`"
+      :to="`/faq/${slug}`"
       class="xl:ml-auto btn btn-blue h-11 2xl:h-[54px] w-fit"
     >
       <IconArrow /> Ответ

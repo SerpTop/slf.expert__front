@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-gray-400">
+  <div
+    class="bg-gray-400"
+    id="services"
+  >
     <div
       class="_container flex flex-col gap-5 sm:gap-6 xl:gap-[30px] 2xl:gap-10 pb-[60px] sm:pb-20 xl:pb-[120px] 2xl:pb-[200px]"
     >

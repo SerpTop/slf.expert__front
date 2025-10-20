@@ -2,7 +2,8 @@
  * Утилиты для работы со счетами (версия с библиотекой number-to-words-ru)
  */
 
-import { convert as convertNumberToWordsRu } from "number-to-words-ru";
+import pkg from 'number-to-words-ru';
+const { convert: convertNumberToWordsRu } = pkg;
 
 /**
  * Преобразует число в сумму прописью на русском языке с правильными склонениями
@@ -11,12 +12,12 @@ import { convert as convertNumberToWordsRu } from "number-to-words-ru";
  */
 export function numberToWords(amount) {
   if (amount === 0) {
-    return "ноль рублей";
+    return 'ноль рублей';
   }
 
   try {
     const options = {
-      currency: "rub",
+      currency: 'rub',
       convertNumberToWords: {
         integer: true,
         fractional: true,
@@ -28,7 +29,7 @@ export function numberToWords(amount) {
     // Убираем лишние пробелы и приводим к правильному формату
     return result.trim().charAt(0).toUpperCase() + result.trim().slice(1);
   } catch (error) {
-    console.error("Ошибка при преобразовании числа в слова:", error);
+    console.error('Ошибка при преобразовании числа в слова:', error);
     // Fallback к простому формату
     return `${amount.toFixed(2)} рублей`;
   }
@@ -43,18 +44,18 @@ export function formatInvoiceDate(date) {
   const d = new Date(date);
 
   const months = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
+    'января',
+    'февраля',
+    'марта',
+    'апреля',
+    'мая',
+    'июня',
+    'июля',
+    'августа',
+    'сентября',
+    'октября',
+    'ноября',
+    'декабря',
   ];
 
   const day = d.getDate();
@@ -70,7 +71,7 @@ export function formatInvoiceDate(date) {
  * @returns {string} Отформатированная цена
  */
 export function formatPrice(price) {
-  return Number(price).toLocaleString("ru-RU", {
+  return Number(price).toLocaleString('ru-RU', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });

@@ -89,15 +89,15 @@
             />
 
             <Listbox
-              v-if="experts && experts.length > 0"
-              v-model="selectedExpert"
+              v-if="specializations && specializations.length > 0"
+              v-model="selectedSpecialization"
             >
               <div class="relative z-50">
                 <ListboxButton
                   class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white w-full duration-500 cursor-pointer transition-colors"
                 >
                   <span class="block truncate text-start">{{
-                    selectedExpert || 'Выберите специалиста'
+                    selectedSpecialization || 'Выбор специализации юриста'
                   }}</span>
                 </ListboxButton>
 
@@ -111,9 +111,9 @@
                   >
                     <ListboxOption
                       v-slot="{ active, selected }"
-                      v-for="(expert, expertId) in experts"
-                      :key="expertId"
-                      :value="expert"
+                      v-for="(specialization, specializationId) in specializations"
+                      :key="specializationId"
+                      :value="specialization"
                       as="template"
                     >
                       <li
@@ -123,7 +123,7 @@
                         ]"
                       >
                         <span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate']">
-                          {{ expert }}
+                          {{ specialization }}
                         </span>
                       </li>
                     </ListboxOption>
@@ -134,7 +134,7 @@
 
             <div
               class="relative w-full"
-              :class="{ 'xl:col-span-2': experts && experts.length > 0 }"
+              :class="{ 'xl:col-span-2': specializations && specializations.length > 0 }"
             >
               <BaseInput
                 type="text"
@@ -332,7 +332,7 @@
           class="flex flex-col items-center gap-4"
           v-show="isSubmitSuccess"
         >
-          <div class="flex items-center justify-center w-10 h-10 bg-white rounded-full shrink-0">
+          <!-- <div class="flex items-center justify-center w-10 h-10 bg-white rounded-full shrink-0">
             <IconQR class="w-5 h-5 text-black" />
           </div>
 
@@ -353,7 +353,7 @@
             <span class="text-sm text-white uppercase">или </span>
 
             <div class="bg-blue-400 w-full h-[1px]"></div>
-          </div>
+          </div> -->
 
           <button
             class="btn btn-white"
@@ -388,15 +388,15 @@
   };
 
   // Список специалистов из данных услуги
-  const experts = computed(() => {
-    if (!serviceData.value?.experts || !Array.isArray(serviceData.value.experts)) {
+  const specializations = computed(() => {
+    if (!serviceData.value?.specializations || !Array.isArray(serviceData.value.specializations)) {
       return [];
     }
 
-    return serviceData.value.experts;
+    return serviceData.value.specializations;
   });
 
-  const selectedExpert = ref(null);
+  const selectedSpecialization = ref(null);
 
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import 'swiper/css';
@@ -421,7 +421,6 @@
     serviceName: '',
     servicePrice: 0,
     clientName: '',
-    expertName: '',
   });
 
   const generatePdf = async () => {
@@ -436,7 +435,6 @@
         invoiceData.value.serviceName = serviceData.value?.title || '';
         invoiceData.value.servicePrice = serviceData.value?.price || 0;
         invoiceData.value.clientName = form.name || '';
-        invoiceData.value.expertName = selectedExpert.value || '';
       }
 
       const element = payFileComponent.value?.payFile;
@@ -644,7 +642,7 @@
         email: form.email,
         date: form.date,
         service: serviceData.value?.title || '',
-        expert: selectedExpert.value || '',
+        specialization: selectedSpecialization.value || '',
         price: serviceData.value?.price || 0,
         files: form.files,
         invoiceNumber: invoiceData.value.invoiceNumber || '',
@@ -662,7 +660,7 @@
     form.email = '';
     form.privacy = false;
     form.files = [];
-    selectedExpert.value = null;
+    selectedSpecialization.value = null;
 
     v$.value.$reset();
 

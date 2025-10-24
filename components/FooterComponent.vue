@@ -27,7 +27,6 @@
             ></span>
           </span>
 
-          <!-- TODO стандартизировать номера телефонов -->
           <NuxtLink
             v-for="(phone, phoneId) in data.phones"
             :key="phoneId"
@@ -96,24 +95,54 @@
       </div>
 
       <div
-        class="flex flex-col gap-5 text-sm text-gray-600 sm:grid sm:grid-cols-2 sm:gap-4 xl:gap-6 2xl:gap-8 2xl:text-base sm:items-center"
+        class="grid gap-5 text-sm text-gray-600 sm:justify-center xl:grid-cols-2 lg:gap-4 xl:gap-6 2xl:gap-8 2xl:text-base xl:items-center"
       >
-        <NuxtLink
-          :to="data.policy.url"
-          target="_blank"
-          ref="footerLinks"
-          class="text-gray-600 transition-colors duration-500 hover:text-black"
-        >
-          Политика конфиденциальности
-        </NuxtLink>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-2.5">
+          <NuxtLink
+            :to="data.policy.url"
+            target="_blank"
+            ref="footerLinks"
+            class="text-gray-600 transition-colors duration-500 hover:text-black py-0.5"
+          >
+            Политика конфиденциальности
+          </NuxtLink>
 
-        <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <span ref="footerLinks">© {{ new Date().getFullYear() }} ИП Семин А. С.</span>
+          <div class="w-[1px] h-5 bg-gray-600 hidden sm:block"></div>
+
+          <NuxtLink
+            to="/dogovor-publichnoy-oferty.pdf"
+            target="_blank"
+            ref="footerLinks"
+            class="text-gray-600 transition-colors duration-500 hover:text-black py-0.5"
+          >
+            Договор оферты
+          </NuxtLink>
+
+          <div class="w-[1px] h-5 bg-gray-600 hidden sm:block"></div>
+
+          <NuxtLink
+            to="/poryadok-provedeniya-oplaty.pdf"
+            target="_blank"
+            ref="footerLinks"
+            class="text-gray-600 transition-colors duration-500 hover:text-black py-0.5"
+          >
+            Порядок проведения оплат
+          </NuxtLink>
+        </div>
+
+        <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+          <span
+            ref="footerLinks"
+            class="sm:text-center xl:text-left"
+          >
+            © {{ new Date().getFullYear() }} ИП Семин А. С.
+          </span>
 
           <NuxtLink
             to="https://serptop.ru"
             target="_blank"
             ref="footerLinks"
+            class="sm:text-center xl:text-right"
           >
             Разработка: Serptop
           </NuxtLink>

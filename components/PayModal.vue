@@ -24,7 +24,7 @@
           </div>
         </div>
 
-        <div v-show="!isSubmitSuccess && !isSubmitError">
+        <div v-show="!isSubmitSuccess && !isSubmitError && !qrStep">
           <div
             class="inset-0 bg-white/20 backdrop-blur-2xl p-4 md:p-5 2xl:p-[30px] rounded-[20px] flex md:items-center gap-5"
           >
@@ -97,7 +97,7 @@
                   class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white w-full duration-500 cursor-pointer transition-colors"
                 >
                   <span class="block truncate text-start">{{
-                    selectedSpecialization || 'Выбор специализации юриста'
+                    selectedSpecialization || "Выбор специализации юриста"
                   }}</span>
                 </ListboxButton>
 
@@ -329,31 +329,45 @@
         </div>
 
         <div
+          v-if="qrStep"
           class="flex flex-col items-center gap-4"
-          v-show="isSubmitSuccess"
         >
-          <!-- <div class="flex items-center justify-center w-10 h-10 bg-white rounded-full shrink-0">
-            <IconQR class="w-5 h-5 text-black" />
-          </div>
-
           <div class="flex flex-col items-center gap-[6px]">
-            <span class="text-white text-lg 2xl:text-[1.625rem] font-medium">
-              Оплата по QR-коду
-            </span>
-
-            <span class="text-sm text-gray-300">
-              Пожалуйста, отсканируйте QR-код в приложении вашего банка
-            </span>
+            <span class="text-white text-lg 2xl:text-[1.625rem] font-medium"
+              >Оплата по QR-коду</span
+            >
+            <span class="text-sm text-gray-300">Сканируйте QR в приложении банка</span>
           </div>
-          <IconCode />
+
+          <img
+            v-if="qrImageDataUrl"
+            :src="qrImageDataUrl"
+            alt="QR"
+            class="w-[260px] h-[260px] object-contain bg-white p-2 rounded"
+          />
+          <div
+            v-else
+            class="w-[260px] h-[260px] bg-white p-2 rounded flex items-center justify-center"
+          >
+            <span class="text-xs text-center text-gray-800"
+              >QR не получен, воспользуйтесь кнопкой ниже</span
+            >
+          </div>
+
+          <a
+            v-if="paymentUrl"
+            class="btn btn-white"
+            :href="paymentUrl"
+            target="_blank"
+            rel="noopener"
+            >Открыть оплату</a
+          >
 
           <div class="flex items-center w-full gap-4">
             <div class="bg-blue-400 w-full h-[1px]"></div>
-
-            <span class="text-sm text-white uppercase">или </span>
-
+            <span class="text-sm text-white uppercase">или</span>
             <div class="bg-blue-400 w-full h-[1px]"></div>
-          </div> -->
+          </div>
 
           <button
             class="btn btn-white"
@@ -374,17 +388,17 @@
   </div>
 </template>
 <script setup>
-  import { useVuelidate } from '@vuelidate/core';
-  import { required, minLength, email } from '@vuelidate/validators';
-  import { useFileDialog } from '@vueuse/core';
-  import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue';
+  import { useVuelidate } from "@vuelidate/core";
+  import { required, minLength, email } from "@vuelidate/validators";
+  import { useFileDialog } from "@vueuse/core";
+  import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from "@headlessui/vue";
 
   const { closeModal, getModalData } = useModal();
 
-  const serviceData = computed(() => getModalData('pay'));
+  const serviceData = computed(() => getModalData("pay"));
 
   const formatPrice = (price) => {
-    return Number(price).toLocaleString('ru-RU');
+    return Number(price).toLocaleString("ru-RU");
   };
 
   // Список специалистов из данных услуги
@@ -398,43 +412,43 @@
 
   const selectedSpecialization = ref(null);
 
-  import { Swiper, SwiperSlide } from 'swiper/vue';
-  import 'swiper/css';
-  import 'swiper/css/navigation';
-  import { Navigation } from 'swiper/modules';
+  import { Swiper, SwiperSlide } from "swiper/vue";
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import { Navigation } from "swiper/modules";
   const modules = [Navigation];
-  import PayFile from '~/components/PayFile.vue';
-  import { onClickOutside } from '@vueuse/core';
-  import { getCurrentInvoiceDate } from '~/utils/invoiceUtilsWithLibraryNew';
+  import PayFile from "~/components/PayFile.vue";
+  import { onClickOutside } from "@vueuse/core";
+  import { getCurrentInvoiceDate } from "~/utils/invoiceUtilsWithLibraryNew";
 
   let html2pdf;
   onMounted(async () => {
-    html2pdf = (await import('html2pdf.js')).default;
+    html2pdf = (await import("html2pdf.js")).default;
   });
 
   const payFileComponent = ref(null);
 
   // Данные для счета
   const invoiceData = ref({
-    invoiceNumber: 'С-00001',
+    invoiceNumber: "С-00001",
     invoiceDate: getCurrentInvoiceDate(),
-    serviceName: '',
+    serviceName: "",
     servicePrice: 0,
-    clientName: '',
+    clientName: "",
   });
 
   const generatePdf = async () => {
     try {
       // Получаем следующий номер счета
-      const { data: invoiceNumberData } = await useFetch('/api/get-invoice-number');
+      const { data: invoiceNumberData } = await useFetch("/api/get-invoice-number");
 
       if (invoiceNumberData.value?.success) {
         // Обновляем данные счета
         invoiceData.value.invoiceNumber = invoiceNumberData.value.data.formattedNumber;
         invoiceData.value.invoiceDate = getCurrentInvoiceDate();
-        invoiceData.value.serviceName = serviceData.value?.title || '';
+        invoiceData.value.serviceName = serviceData.value?.title || "";
         invoiceData.value.servicePrice = serviceData.value?.price || 0;
-        invoiceData.value.clientName = form.name || '';
+        invoiceData.value.clientName = form.name || "";
       }
 
       const element = payFileComponent.value?.payFile;
@@ -443,18 +457,18 @@
       const opt = {
         margin: 0,
         filename: `invoice-${invoiceData.value.invoiceNumber}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       };
 
       // одна генерация — получаем blob
-      const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
+      const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
 
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
       // инициируем скачивание
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = pdfUrl;
       a.download = `invoice-${invoiceData.value.invoiceNumber}.pdf`;
       document.body.appendChild(a);
@@ -462,32 +476,32 @@
       a.remove();
 
       // и/или открываем в новой вкладке
-      window.open(pdfUrl, '_blank');
+      window.open(pdfUrl, "_blank");
     } catch (error) {
-      console.error('Ошибка при генерации PDF:', error);
+      console.error("Ошибка при генерации PDF:", error);
       // Fallback: генерируем PDF без обновления номера
       const element = payFileComponent.value?.payFile;
       if (!element || !html2pdf) return;
 
       const opt = {
         margin: 0,
-        filename: 'invoice.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        filename: "invoice.pdf",
+        image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       };
 
-      const pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
+      const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = pdfUrl;
-      a.download = 'invoice.pdf';
+      a.download = "invoice.pdf";
       document.body.appendChild(a);
       a.click();
       a.remove();
 
-      window.open(pdfUrl, '_blank');
+      window.open(pdfUrl, "_blank");
     }
   };
 
@@ -496,7 +510,7 @@
   const selectedTime = ref(null);
   const datePickerRef = ref(null);
 
-  const WEEK_DAYS_RU = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+  const WEEK_DAYS_RU = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
 
   function generateDates(days = 8) {
     const result = [];
@@ -504,11 +518,11 @@
     for (let i = 0; i < days; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() + i);
-      const day = String(d.getDate()).padStart(2, '0');
-      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, "0");
+      const month = String(d.getMonth() + 1).padStart(2, "0");
       const weekday = WEEK_DAYS_RU[d.getDay()];
       result.push({
-        date: d.toISOString().split('T')[0],
+        date: d.toISOString().split("T")[0],
         label: `${day}.${month}, ${weekday}`,
       });
     }
@@ -518,24 +532,24 @@
   const dates = generateDates(8);
 
   const times = [
-    '09:00',
-    '09:30',
-    '10:00',
-    '10:30',
-    '11:00',
-    '11:30',
-    '12:00',
-    '12:30',
-    '13:00',
-    '13:30',
-    '14:00',
-    '14:30',
-    '15:00',
-    '15:30',
-    '16:00',
-    '16:30',
-    '17:00',
-    '17:30',
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30",
   ];
 
   // --- Открытие и автоматическая подстановка первой даты/времени ---
@@ -575,10 +589,10 @@
   });
 
   const form = reactive({
-    name: '',
-    phone: '',
-    email: '',
-    date: '',
+    name: "",
+    phone: "",
+    email: "",
+    date: "",
     privacy: false,
     files: [],
   });
@@ -596,6 +610,11 @@
   const isSubmitSuccess = ref(false);
   const isSubmitError = ref(false);
 
+  // --- QR шаг ---
+  const qrStep = ref(false);
+  const paymentUrl = ref("");
+  const qrImageDataUrl = ref("");
+
   const { open, onChange } = useFileDialog({});
 
   const filesArray = ref([]);
@@ -611,7 +630,7 @@
         form.files.push({
           name: file.name,
           size: file.size,
-          content: e.target.result.split(',')[1], // берем только base64 часть
+          content: e.target.result.split(",")[1], // берем только base64 часть
         });
       };
 
@@ -631,33 +650,62 @@
 
     isSubmit.value = true;
 
-    const { data } = await useFetch('/api/send-email', {
-      method: 'POST',
+    // 1) Отправляем письмо как и раньше
+    const { data: mailData } = await useFetch("/api/send-email", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: {
         name: form.name,
         phone: form.phone,
         email: form.email,
         date: form.date,
-        service: serviceData.value?.title || '',
-        specialization: selectedSpecialization.value || '',
+        service: serviceData.value?.title || "",
+        specialization: selectedSpecialization.value || "",
         price: serviceData.value?.price || 0,
         files: form.files,
-        invoiceNumber: invoiceData.value.invoiceNumber || '',
+        invoiceNumber: invoiceData.value.invoiceNumber || "",
       },
     });
 
-    if (data.value.status === 'success') {
-      isSubmitSuccess.value = true;
-    } else if (data.value.status === 'error') {
+    // 2) Создаём платёж и получаем SBP ссылку + QR
+    try {
+      const { data: payData, error: payErr } = await useFetch("/api/create-modulbank-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: {
+          orderId: `${Date.now()}`,
+          amount: serviceData.value?.price || 0,
+          description: serviceData.value?.title || "Оплата услуги",
+          clientEmail: form.email,
+          clientPhone: form.phone,
+          successUrl: window.location.origin,
+          failUrl: window.location.origin,
+          qrLifetime: 30, // минут
+          withImage: true,
+        },
+      });
+
+      if (payErr?.value) throw new Error(payErr.value?.message || "Ошибка создания платежа");
+
+      if (payData?.value?.status === "ok") {
+        paymentUrl.value = payData.value.paymentUrl || "";
+        qrImageDataUrl.value = payData.value.qrImageDataUrl || "";
+        qrStep.value = true;
+      } else {
+        throw new Error(payData?.value?.message || "Некорректный ответ платёжного сервиса");
+      }
+    } catch (e) {
+      console.error("Ошибка создания платежа:", e);
+      // fallback — показать ссылку, если есть, или ошибку
+      qrStep.value = false;
       isSubmitError.value = true;
     }
 
-    form.name = '';
-    form.phone = '';
-    form.email = '';
+    form.name = "";
+    form.phone = "";
+    form.email = "";
     form.privacy = false;
     form.files = [];
     selectedSpecialization.value = null;

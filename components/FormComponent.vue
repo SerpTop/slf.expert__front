@@ -2,7 +2,12 @@
   <div class="bg-blue-100">
     <div class="_container py-[5.5rem] sm:py-[6.25rem] 2xl:py-[7.5rem]">
       <div v-show="!isSubmitSuccess && !isSubmitError">
-        <h2 ref="formTitle" class="text-white">Записаться на консультацию</h2>
+        <h2
+          ref="formTitle"
+          class="text-white"
+        >
+          Записаться на консультацию
+        </h2>
 
         <form
           ref="formElement"
@@ -44,9 +49,7 @@
               <ListboxButton
                 class="bg-transparent border-b h-[54px] text-sm 2xl:text-base border-blue-400 hover:border-white text-white w-full duration-500 cursor-pointer transition-colors"
               >
-                <span class="block truncate text-start">{{
-                  activePractic?.label
-                }}</span>
+                <span class="block truncate text-start">{{ activePractic?.label }}</span>
               </ListboxButton>
 
               <transition
@@ -67,18 +70,11 @@
                   >
                     <li
                       :class="[
-                        active
-                          ? 'bg-amber-100 text-amber-900'
-                          : 'text-gray-900',
+                        active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-10 pr-4',
                       ]"
                     >
-                      <span
-                        :class="[
-                          selected ? 'font-medium' : 'font-normal',
-                          'block truncate',
-                        ]"
-                      >
+                      <span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate']">
                         {{ item.label }}
                       </span>
 
@@ -94,12 +90,16 @@
             </div>
           </Listbox>
 
-          <BaseTextarea v-model="form.comment" placeholder="Комментарий" />
+          <BaseTextarea
+            v-model="form.comment"
+            placeholder="Комментарий"
+          />
 
-          <div
-            class="flex flex-wrap items-center justify-center gap-5 col-span-full"
-          >
-            <div v-if="form.files" class="flex flex-wrap items-center gap-5">
+          <div class="flex flex-wrap items-center justify-center gap-5 col-span-full">
+            <div
+              v-if="form.files"
+              class="flex flex-wrap items-center gap-5"
+            >
               <div
                 v-for="(file, fileId) in form.files"
                 class="flex items-center gap-2.5 cursor-pointer"
@@ -124,27 +124,19 @@
               class="flex items-center gap-2.5"
               @click="open"
             >
-              <div
-                class="h-11 w-11 bg-blue-500 2xl:w-[54px] 2xl:h-[54px] rounded-full"
-              >
+              <div class="h-11 w-11 bg-blue-500 2xl:w-[54px] 2xl:h-[54px] rounded-full">
                 <IconFileCircle class="flex-shrink-0 w-full h-auto" />
               </div>
 
               <div class="flex flex-col items-start">
-                <span class="text-sm text-blue-300 2xl:text-base">
-                  Подгрузить документ
-                </span>
+                <span class="text-sm text-blue-300 2xl:text-base"> Подгрузить документ </span>
 
-                <span class="text-sm text-blue-400 2xl:text-base">
-                  Не более [20 MB]
-                </span>
+                <span class="text-sm text-blue-400 2xl:text-base"> Не более [20 MB] </span>
               </div>
             </button>
           </div>
 
-          <label
-            class="flex  justify-center gap-2 text-sm 2xl:text-base xl:col-span-2"
-          >
+          <label class="flex justify-center gap-2 text-sm 2xl:text-base xl:col-span-2">
             <div class="relative w-5 h-5">
               <input
                 type="checkbox"
@@ -157,15 +149,16 @@
               />
             </div>
 
-            <span class="text-white"> Я согласен на обработку  <NuxtLink
-              :to="contacts.personalConsent.url"
-              target="_blank"
-              class="text-blue-300"
+            <span class="text-white">
+              Я согласен на обработку
+              <NuxtLink
+                :to="contacts.personalConsent.url"
+                target="_blank"
+                class="text-blue-300"
+              >
+                Персональных данных.
+              </NuxtLink></span
             >
-              Персональных данных.
-            </NuxtLink></span>
-
-           
           </label>
 
           <div class="flex justify-center w-full xl:col-span-2">
@@ -186,7 +179,10 @@
         class="flex flex-col justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full max-w-[360px,904px] mx-auto"
         :class="{ 'items-start': modal }"
       >
-        <h2 class="text-center text-white" :class="{ 'text-start': modal }">
+        <h2
+          class="text-center text-white"
+          :class="{ 'text-start': modal }"
+        >
           Спасибо, данные успешно <br />
           отправлены!
         </h2>
@@ -195,22 +191,19 @@
           class="text-base text-center text-white 2xl:text-xl"
           :class="{ 'text-start': modal }"
         >
-          Ваша заявка успешно отправлена, и мы уже приступаем к ее рассмотрению.
-          В ближайшее время мы свяжемся с вами, чтобы обсудить ваш вопрос. Мы
-          отвечаем на заявки не позднее двух дней — по возможности раньше.
+          Ваша заявка успешно отправлена, и мы уже приступаем к ее рассмотрению. В ближайшее время
+          мы свяжемся с Вами, чтобы обсудить ваш вопрос. Мы отвечаем на заявки не позднее двух дней
+          — по возможности раньше.
         </span>
 
         <span
           class="text-base text-center text-white 2xl:text-xl"
           :class="{ 'text-start': modal }"
         >
-          Если у вас срочный вопрос вы можете связаться с нами прямо сейчас по
-          контактам ниже:
+          Если у Вас срочный вопрос вы можете связаться с нами прямо сейчас по контактам ниже:
         </span>
 
-        <div
-          class="grid grid-cols-2 sm:grid-cols-4 w-full gap-[9px] sm:gap-4 xl:gap-6 2xl:gap-8"
-        >
+        <div class="grid grid-cols-2 sm:grid-cols-4 w-full gap-[9px] sm:gap-4 xl:gap-6 2xl:gap-8">
           <a
             v-if="contacts.phones[0].value"
             :href="contacts.phones[0].value"
@@ -258,7 +251,10 @@
         class="flex flex-col justify-center gap-5 sm:gap-[30px] 2xl:gap-10 w-full max-w-[360px,904px] mx-auto"
         :class="{ 'items-start': modal }"
       >
-        <h2 class="text-center text-white" :class="{ 'text-start': modal }">
+        <h2
+          class="text-center text-white"
+          :class="{ 'text-start': modal }"
+        >
           Что-то пошло не так. Попробуйте еще раз
         </h2>
 
@@ -266,13 +262,10 @@
           class="text-base text-center text-white 2xl:text-xl"
           :class="{ 'text-start': modal }"
         >
-          Если у вас срочный вопрос вы можете связаться с нами прямо сейчас по
-          контактам ниже:
+          Если у Вас срочный вопрос вы можете связаться с нами прямо сейчас по контактам ниже:
         </span>
 
-        <div
-          class="grid grid-cols-2 sm:grid-cols-4 w-full gap-[9px] sm:gap-4 xl:gap-6 2xl:gap-8"
-        >
+        <div class="grid grid-cols-2 sm:grid-cols-4 w-full gap-[9px] sm:gap-4 xl:gap-6 2xl:gap-8">
           <a
             v-if="contacts.phones[0].value"
             :href="contacts.phones[0].value"
@@ -319,210 +312,208 @@
 </template>
 
 <script setup>
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import {
-  Listbox,
-  ListboxLabel,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from "@headlessui/vue";
-import { useVuelidate } from "@vuelidate/core";
-import { required, minLength, email, sameAs } from "@vuelidate/validators";
-import { useFileDialog } from "@vueuse/core";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import {
+    Listbox,
+    ListboxLabel,
+    ListboxButton,
+    ListboxOptions,
+    ListboxOption,
+  } from "@headlessui/vue";
+  import { useVuelidate } from "@vuelidate/core";
+  import { required, minLength, email, sameAs } from "@vuelidate/validators";
+  import { useFileDialog } from "@vueuse/core";
 
-gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-const props = defineProps({
-  modal: {
-    type: Boolean,
-    default: false,
-  },
-  practices: {
-    type: Array,
-    default: [],
-  },
-  contacts: {
-    type: Object,
-    required: true,
-  },
-});
-
-const form = reactive({
-  name: "",
-  phone: "",
-  email: "",
-  comment: "",
-  privacy: false,
-  files: [],
-});
-
-const rules = {
-  name: { required },
-  phone: { required, minLength: minLength(18) },
-  email: { email },
-};
-
-const v$ = useVuelidate(rules, form);
-
-const isSubmit = ref(false);
-const isSubmitSuccess = ref(false);
-const isSubmitError = ref(false);
-
-const { activePracticeId } = usePractices();
-
-const practics = ref([
-  { id: 0, value: "Практика не выбрана", label: "Выберите практику" },
-]);
-
-props.practices.forEach((practic, practicId) => {
-  practics.value.push({
-    id: practicId + 1,
-    value: practic.title,
-    label: practic.title,
+  const props = defineProps({
+    modal: {
+      type: Boolean,
+      default: false,
+    },
+    practices: {
+      type: Array,
+      default: [],
+    },
+    contacts: {
+      type: Object,
+      required: true,
+    },
   });
-});
 
-watch(props.practices, (newPractices) => {
-  newPractices.forEach((practic, practicId) => {
+  const form = reactive({
+    name: "",
+    phone: "",
+    email: "",
+    comment: "",
+    privacy: false,
+    files: [],
+  });
+
+  const rules = {
+    name: { required },
+    phone: { required, minLength: minLength(18) },
+    email: { email },
+  };
+
+  const v$ = useVuelidate(rules, form);
+
+  const isSubmit = ref(false);
+  const isSubmitSuccess = ref(false);
+  const isSubmitError = ref(false);
+
+  const { activePracticeId } = usePractices();
+
+  const practics = ref([{ id: 0, value: "Практика не выбрана", label: "Выберите практику" }]);
+
+  props.practices.forEach((practic, practicId) => {
     practics.value.push({
       id: practicId + 1,
       value: practic.title,
       label: practic.title,
     });
   });
-});
 
-const activePractic = ref(practics.value[activePracticeId.value]);
-
-const { files, open, reset, onChange } = useFileDialog({});
-
-const filesArray = ref([]);
-
-const previewFiles = (event) => {
-  form.files = files;
-};
-
-onChange((files) => {
-  filesArray.value = Array.from(files);
-
-  for (let i = 0; i < filesArray.value.length; i++) {
-    const file = filesArray.value[i];
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      form.files.push({
-        name: file.name,
-        size: file.size,
-        content: e.target.result.split(",")[1], // берем только base64 часть
+  watch(props.practices, (newPractices) => {
+    newPractices.forEach((practic, practicId) => {
+      practics.value.push({
+        id: practicId + 1,
+        value: practic.title,
+        label: practic.title,
       });
-    };
-
-    reader.readAsDataURL(file);
-  }
-});
-
-const resetFile = (fileId) => {
-  filesArray.value.splice(fileId, 1);
-  form.files.splice(fileId, 1);
-};
-
-const onSubmitForm = async () => {
-  const isFormCorrect = await v$.value.$validate();
-
-  if (!isFormCorrect) return;
-
-  isSubmit.value = true;
-
-  const { data } = await useFetch("/api/send-email", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: {
-      name: form.name,
-      phone: form.phone,
-      email: form.email,
-      comment: form.comment,
-      practic: activePractic.value.value,
-      files: form.files,
-    },
+    });
   });
 
-  if (data.value.status === "success") {
-    isSubmitSuccess.value = true;
-  } else if (data.value.status === "error") {
-    isSubmitError.value = true;
-  }
+  const activePractic = ref(practics.value[activePracticeId.value]);
 
-  form.name = "";
-  form.phone = "";
-  form.email = "";
-  form.comment = "";
-  activePractic.value = practics.value[0];
-  form.privacy = false;
-  form.files = [];
+  const { files, open, reset, onChange } = useFileDialog({});
 
-  v$.value.$reset();
+  const filesArray = ref([]);
 
-  isSubmit.value = false;
-};
+  const previewFiles = (event) => {
+    form.files = files;
+  };
 
-// Анимации
-const formTitle = ref(null);
-const formElement = ref(null);
-const mediaQuery = ref(null);
+  onChange((files) => {
+    filesArray.value = Array.from(files);
 
-onMounted(async () => {
-  // Проверяем, что мы на клиенте
-  if (process.client) {
-    mediaQuery.value = window.matchMedia("(min-width: 1280px)");
+    for (let i = 0; i < filesArray.value.length; i++) {
+      const file = filesArray.value[i];
+      const reader = new FileReader();
 
-    if (props.modal === false) {
-      // ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    } else return;
-    await nextTick(); // Дожидаемся обновления DOM
-    if (mediaQuery.value.matches) {
-      // Анимация заголовка формы
-      gsap.fromTo(
-        formTitle.value,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 3,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: formTitle.value,
-            start: "top 80%",
-            end: "top 60%",
-            scrub: true,
-            markers: false,
-          },
-        }
-      );
+      reader.onload = (e) => {
+        form.files.push({
+          name: file.name,
+          size: file.size,
+          content: e.target.result.split(",")[1], // берем только base64 часть
+        });
+      };
 
-      // Анимация элементов формы
-      gsap.fromTo(
-        formElement.value,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 3,
-          ease: "power3.out",
-          stagger: 0.3, // Задержка между анимацией элементов
-          scrollTrigger: {
-            trigger: formElement.value,
-            start: "top 70%",
-            end: "top 50%",
-            scrub: true,
-            markers: false,
-          },
-        }
-      );
+      reader.readAsDataURL(file);
     }
-  }
-});
+  });
+
+  const resetFile = (fileId) => {
+    filesArray.value.splice(fileId, 1);
+    form.files.splice(fileId, 1);
+  };
+
+  const onSubmitForm = async () => {
+    const isFormCorrect = await v$.value.$validate();
+
+    if (!isFormCorrect) return;
+
+    isSubmit.value = true;
+
+    const { data } = await useFetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        comment: form.comment,
+        practic: activePractic.value.value,
+        files: form.files,
+      },
+    });
+
+    if (data.value.status === "success") {
+      isSubmitSuccess.value = true;
+    } else if (data.value.status === "error") {
+      isSubmitError.value = true;
+    }
+
+    form.name = "";
+    form.phone = "";
+    form.email = "";
+    form.comment = "";
+    activePractic.value = practics.value[0];
+    form.privacy = false;
+    form.files = [];
+
+    v$.value.$reset();
+
+    isSubmit.value = false;
+  };
+
+  // Анимации
+  const formTitle = ref(null);
+  const formElement = ref(null);
+  const mediaQuery = ref(null);
+
+  onMounted(async () => {
+    // Проверяем, что мы на клиенте
+    if (process.client) {
+      mediaQuery.value = window.matchMedia("(min-width: 1280px)");
+
+      if (props.modal === false) {
+        // ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      } else return;
+      await nextTick(); // Дожидаемся обновления DOM
+      if (mediaQuery.value.matches) {
+        // Анимация заголовка формы
+        gsap.fromTo(
+          formTitle.value,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 3,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: formTitle.value,
+              start: "top 80%",
+              end: "top 60%",
+              scrub: true,
+              markers: false,
+            },
+          },
+        );
+
+        // Анимация элементов формы
+        gsap.fromTo(
+          formElement.value,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 3,
+            ease: "power3.out",
+            stagger: 0.3, // Задержка между анимацией элементов
+            scrollTrigger: {
+              trigger: formElement.value,
+              start: "top 70%",
+              end: "top 50%",
+              scrub: true,
+              markers: false,
+            },
+          },
+        );
+      }
+    }
+  });
 </script>

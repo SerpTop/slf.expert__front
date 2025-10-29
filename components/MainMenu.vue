@@ -29,7 +29,7 @@
     </div>
 
     <span class="text-base text-white 2xl:text-xl">
-      Если у вас срочный вопрос вы можете связаться с нами прямо сейчас по контактам ниже:
+      Если у Вас срочный вопрос вы можете связаться с нами прямо сейчас по контактам ниже:
     </span>
 
     <div class="grid grid-cols-2 sm:grid-cols-4 w-full gap-[9px] sm:gap-4 xl:gap-6 2xl:gap-8">
@@ -105,16 +105,16 @@
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth', // Плавный скролл
+        behavior: "smooth", // Плавный скролл
       });
     }
   };
 
   const formatPhoneNumber = (phoneNumber) => {
-    const cleaned = phoneNumber.replace(/[^+\d]/g, '');
+    const cleaned = phoneNumber.replace(/[^+\d]/g, "");
 
-    if (cleaned.length === 0 || (cleaned.includes('+') && cleaned[0] !== '+')) {
-      return '';
+    if (cleaned.length === 0 || (cleaned.includes("+") && cleaned[0] !== "+")) {
+      return "";
     }
 
     return `tel:${cleaned}`;

@@ -97,6 +97,7 @@ export default defineNuxtConfig({
     modulbankReceiptSno: process.env.MODULBANK_RECEIPT_SNO, // osn/usn_income/usn_income_outcome/etc
     modulbankReceiptVat: process.env.MODULBANK_RECEIPT_VAT, // none/vat0/vat10/vat20/etc
     modulbankEnableReceipts: process.env.MODULBANK_ENABLE_RECEIPTS, // '1'/'true' to enable
+    modulbankTestMode: process.env.MODULBANK_TEST_MODE, // '1'/'true' тест, иначе боевой
 
     public: {
       strapi: {

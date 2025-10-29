@@ -161,7 +161,6 @@
                   Выберите дату и время
                 </span>
 
-                <!-- Даты -->
                 <div class="flex items-center gap-1">
                   <div
                     class="flex items-center justify-center bg-white cursor-pointer dateSwiperPrev h-7 w-7"
@@ -223,7 +222,6 @@
                   </div>
                 </div>
 
-                <!-- Время -->
                 <div class="grid grid-cols-4 gap-[10px] max-h-[100px] overflow-auto">
                   <button
                     v-for="(time, i) in times"
@@ -401,7 +399,6 @@
     return Number(price).toLocaleString("ru-RU");
   };
 
-  // Список специалистов из данных услуги
   const specializations = computed(() => {
     if (!serviceData.value?.specializations || !Array.isArray(serviceData.value.specializations)) {
       return [];
@@ -428,7 +425,6 @@
 
   const payFileComponent = ref(null);
 
-  // Данные для счета
   const invoiceData = ref({
     invoiceNumber: "С-00001",
     invoiceDate: getCurrentInvoiceDate(),
@@ -439,17 +435,10 @@
 
   const generatePdf = async () => {
     try {
-      // Получаем следующий номер счета
-      const { data: invoiceNumberData } = await useFetch("/api/get-invoice-number");
-
-      if (invoiceNumberData.value?.success) {
-        // Обновляем данные счета
-        invoiceData.value.invoiceNumber = invoiceNumberData.value.data.formattedNumber;
-        invoiceData.value.invoiceDate = getCurrentInvoiceDate();
-        invoiceData.value.serviceName = serviceData.value?.title || "";
-        invoiceData.value.servicePrice = serviceData.value?.price || 0;
-        invoiceData.value.clientName = form.name || "";
-      }
+      invoiceData.value.invoiceDate = getCurrentInvoiceDate();
+      invoiceData.value.serviceName = serviceData.value?.title || "";
+      invoiceData.value.servicePrice = serviceData.value?.price || 0;
+      invoiceData.value.clientName = form.name || "";
 
       const element = payFileComponent.value?.payFile;
       if (!element || !html2pdf) return;
@@ -462,12 +451,10 @@
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       };
 
-      // одна генерация — получаем blob
       const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
 
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
-      // инициируем скачивание
       const a = document.createElement("a");
       a.href = pdfUrl;
       a.download = `invoice-${invoiceData.value.invoiceNumber}.pdf`;
@@ -475,11 +462,9 @@
       a.click();
       a.remove();
 
-      // и/или открываем в новой вкладке
       window.open(pdfUrl, "_blank");
     } catch (error) {
       console.error("Ошибка при генерации PDF:", error);
-      // Fallback: генерируем PDF без обновления номера
       const element = payFileComponent.value?.payFile;
       if (!element || !html2pdf) return;
 
@@ -552,19 +537,16 @@
     "17:30",
   ];
 
-  // --- Открытие и автоматическая подстановка первой даты/времени ---
   function openDatePicker() {
     dateOpen.value = true;
     if (!selectedDate.value) selectedDate.value = dates[0].date;
     if (!selectedTime.value) selectedTime.value = times[0];
   }
 
-  // --- Выбор времени ---
   function selectDateTime(time) {
     selectedTime.value = time;
   }
 
-  // --- Применение выбора ---
   function applyDateTime() {
     if (selectedDate.value && selectedTime.value) {
       form.date = `${selectedDate.value} ${selectedTime.value}`;
@@ -572,7 +554,6 @@
     }
   }
 
-  // --- Клик вне блока для закрытия ---
   onClickOutside(datePickerRef, () => {
     dateOpen.value = false;
   });
@@ -610,7 +591,6 @@
   const isSubmitSuccess = ref(false);
   const isSubmitError = ref(false);
 
-  // --- QR шаг ---
   const qrStep = ref(false);
   const paymentUrl = ref("");
   const qrImageDataUrl = ref("");
@@ -630,7 +610,7 @@
         form.files.push({
           name: file.name,
           size: file.size,
-          content: e.target.result.split(",")[1], // берем только base64 часть
+          content: e.target.result.split(",")[1],
         });
       };
 
@@ -650,7 +630,13 @@
 
     isSubmit.value = true;
 
-    // 1) Отправляем письмо как и раньше
+    try {
+      const { data: invoiceNumberData } = await useFetch("/api/get-invoice-number");
+      if (invoiceNumberData.value?.success) {
+        invoiceData.value.invoiceNumber = invoiceNumberData.value.data.formattedNumber;
+      }
+    } catch (e) {}
+
     const { data: mailData } = await useFetch("/api/send-email", {
       method: "POST",
       headers: {
@@ -669,7 +655,6 @@
       },
     });
 
-    // 2) Создаём платёж и получаем SBP ссылку + QR
     try {
       const { data: payData, error: payErr } = await useFetch("/api/create-modulbank-payment", {
         method: "POST",
@@ -698,7 +683,6 @@
       }
     } catch (e) {
       console.error("Ошибка создания платежа:", e);
-      // fallback — показать ссылку, если есть, или ошибку
       qrStep.value = false;
       isSubmitError.value = true;
     }

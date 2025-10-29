@@ -1,7 +1,10 @@
 <template>
-  <div class="bg-gray-400" id="certificates">
+  <div
+    class="bg-gray-400"
+    id="certificates"
+  >
     <div
-      class="_container flex flex-col gap-5 sm:gap-5 xl:gap-[30px] 2xl:gap-10 pb-[60px] sm:pb-20 xl:pb-[120px] 2xl:pb-[200px]"
+      class="_container flex flex-col gap-5 sm:gap-5 xl:gap-[30px] 2xl:gap-10 py-[60px] sm:py-20 xl:py-[120px] 2xl:py-[200px]"
     >
       <h2
         ref="header"
@@ -14,9 +17,7 @@
         ref="certificateBlocks"
         class="grid xl:grid-cols-[418fr_1372fr] items-start xl:border-t border-gray-100"
       >
-        <span
-          class="flex items-center pt-4 text-sm font-semibold text-black 2xl:text-base xl:pt-5"
-        >
+        <span class="flex items-center pt-4 text-sm font-semibold text-black 2xl:text-base xl:pt-5">
           <span class="w-2 h-2 mr-2 font-bold bg-black rounded-full"></span>
 
           Дипломы
@@ -36,9 +37,7 @@
               {{ diplom.title }}
             </NuxtLink>
 
-            <div
-              class="flex items-center flex-shrink-0 ml-auto xl:gap-40 2xl:gap-64"
-            >
+            <div class="flex items-center flex-shrink-0 ml-auto xl:gap-40 2xl:gap-64">
               <span class="uppercase">{{ diplom.file.format }}</span>
 
               <span class="hidden xl:block">
@@ -53,9 +52,7 @@
         ref="certificateBlocks"
         class="grid xl:grid-cols-[418fr_1372fr] items-start xl:border-t border-gray-100"
       >
-        <span
-          class="flex items-center pt-4 text-sm font-semibold text-black 2xl:text-base xl:pt-5"
-        >
+        <span class="flex items-center pt-4 text-sm font-semibold text-black 2xl:text-base xl:pt-5">
           <span class="w-2 h-2 mr-2 font-bold bg-black rounded-full"></span>
 
           Сертификаты
@@ -75,9 +72,7 @@
               {{ certificate.title }}
             </NuxtLink>
 
-            <div
-              class="flex items-center flex-shrink-0 ml-auto xl:gap-40 2xl:gap-64"
-            >
+            <div class="flex items-center flex-shrink-0 ml-auto xl:gap-40 2xl:gap-64">
               <span class="uppercase">{{ certificate.file.format }}</span>
 
               <span class="hidden xl:block">
@@ -93,52 +88,32 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { ref, onMounted } from "vue";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-const props = defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
-});
+  const props = defineProps({
+    data: {
+      type: Object,
+      required: true,
+    },
+  });
 
-const header = ref(null);
-const certificateBlocks = ref([]);
-const mediaQuery = ref(null);
+  const header = ref(null);
+  const certificateBlocks = ref([]);
+  const mediaQuery = ref(null);
 
-onMounted(() => {
-  // Проверяем, что мы на клиенте
-  if (process.client) {
-    mediaQuery.value = window.matchMedia("(min-width: 1280px)");
+  onMounted(() => {
+    // Проверяем, что мы на клиенте
+    if (process.client) {
+      mediaQuery.value = window.matchMedia("(min-width: 1280px)");
 
-    if (mediaQuery.value.matches) {
-      // Анимация заголовка
-      gsap.fromTo(
-        header.value,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: header.value,
-            start: "top 75%",
-            end: "top 55%",
-            scrub: true,
-            markers: false,
-          },
-        }
-      );
-
-      // Анимация блоков сертификатов
-      gsap.utils.toArray(certificateBlocks.value).forEach((block, index) => {
+      if (mediaQuery.value.matches) {
+        // Анимация заголовка
         gsap.fromTo(
-          block,
+          header.value,
           { y: 50, opacity: 0 },
           {
             y: 0,
@@ -146,17 +121,37 @@ onMounted(() => {
             duration: 1,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: block,
-              start: "top 80%",
-              end: "top 60%",
+              trigger: header.value,
+              start: "top 75%",
+              end: "top 55%",
               scrub: true,
               markers: false,
-              delay: index * 0.3,
             },
-          }
+          },
         );
-      });
+
+        // Анимация блоков сертификатов
+        gsap.utils.toArray(certificateBlocks.value).forEach((block, index) => {
+          gsap.fromTo(
+            block,
+            { y: 50, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: block,
+                start: "top 80%",
+                end: "top 60%",
+                scrub: true,
+                markers: false,
+                delay: index * 0.3,
+              },
+            },
+          );
+        });
+      }
     }
-  }
-});
+  });
 </script>

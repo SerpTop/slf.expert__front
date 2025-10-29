@@ -41,8 +41,10 @@ export default defineEventHandler(async (event) => {
   }
 
   const merchant = config.modulbankShopId; // shop_id/merchant
-  // Тестовый режим → используем только тестовый ключ
-  const secretKey = config.modulbankTestKey;
+  const isTesting =
+    `${config.modulbankTestMode || ""}`.toLowerCase() === "true" ||
+    `${config.modulbankTestMode || ""}` === "1";
+  const secretKey = isTesting ? config.modulbankTestKey : config.modulbankSecretKey;
   const apiUrl = config.modulbankSbpUrl; // URL берём только из env
 
   if (!merchant || !secretKey || !apiUrl) {
@@ -86,7 +88,7 @@ export default defineEventHandler(async (event) => {
     description,
     unix_timestamp: unixTimestamp,
     salt,
-    testing: "1", // тестовый режим включён (требует тестовый ключ)
+    ...(isTesting ? { testing: "1" } : {}),
     ...(receiptsEnabled && receiptContact ? { receipt_contact: receiptContact } : {}),
     ...(receiptsEnabled && receiptItems ? { receipt_items: JSON.stringify(receiptItems) } : {}),
   };

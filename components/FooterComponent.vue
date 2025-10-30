@@ -153,9 +153,9 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue';
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ref, onMounted } from "vue";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -174,7 +174,7 @@
   onMounted(() => {
     // Проверяем, что мы на клиенте
     if (process.client) {
-      mediaQuery.value = window.matchMedia('(min-width: 1280px)');
+      mediaQuery.value = window.matchMedia("(min-width: 1280px)");
 
       if (mediaQuery.value.matches) {
         // Анимация заголовка
@@ -185,11 +185,11 @@
             y: 0,
             opacity: 1,
             duration: 4,
-            ease: 'power3.out',
+            ease: "power3.out",
             scrollTrigger: {
               trigger: header.value,
-              start: 'top 80%',
-              end: 'top 60%',
+              start: "top 80%",
+              end: "top 60%",
               scrub: true,
               markers: false,
             },
@@ -204,11 +204,11 @@
             y: 0,
             opacity: 1,
             duration: 4,
-            ease: 'power3.out',
+            ease: "power3.out",
             scrollTrigger: {
               trigger: logo.value,
-              start: 'top 80%',
-              end: 'top 60%',
+              start: "top 80%",
+              end: "top 60%",
               scrub: true,
               markers: false,
             },
@@ -223,12 +223,12 @@
             y: 0,
             opacity: 1,
             duration: 4,
-            ease: 'power3.out',
+            ease: "power3.out",
             stagger: 0.3,
             scrollTrigger: {
               trigger: listItems.value[0],
-              start: 'top 80%',
-              end: 'top 60%',
+              start: "top 80%",
+              end: "top 60%",
               scrub: true,
               markers: false,
             },
@@ -243,12 +243,12 @@
             y: 0,
             opacity: 1,
             duration: 4,
-            ease: 'power3.out',
+            ease: "power3.out",
             stagger: 0.3,
             scrollTrigger: {
               trigger: footerLinks.value[0],
-              start: 'top 75%',
-              end: 'top 55%',
+              start: "top 75%",
+              end: "top 55%",
               scrub: true,
               markers: false,
             },
@@ -259,10 +259,10 @@
   });
 
   const formatPhoneNumber = (phoneNumber) => {
-    const cleaned = phoneNumber.replace(/[^+\d]/g, '');
+    const cleaned = phoneNumber.replace(/[^+\d]/g, "");
 
-    if (cleaned.length === 0 || (cleaned.includes('+') && cleaned[0] !== '+')) {
-      return '';
+    if (cleaned.length === 0 || (cleaned.includes("+") && cleaned[0] !== "+")) {
+      return "";
     }
 
     return `tel:${cleaned}`;

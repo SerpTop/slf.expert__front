@@ -20,6 +20,7 @@
         :practices="homepage.practices.practices"
         :contacts="homepage.contacts"
       />
+
       <FooterComponent
         v-if="homepage?.contacts"
         :data="homepage.contacts"

@@ -223,23 +223,23 @@
           </a>
 
           <a
-            v-if="contacts.whatsappLink"
-            :href="contacts.whatsappLink"
-            target="_blank"
-            class="text-white text-sm 2xl:text-base w-full h-11 sm:h-[54px] 2xl:h-[64px] border-white border rounded-full flex items-center justify-center gap-2.5"
-          >
-            <IconWhatsapp class="w-[23px] h-[22px] flex-shrink-0" />
-
-            <span class="uppercase">slf.expert</span>
-          </a>
-
-          <a
             v-if="contacts.telegramLink"
             :href="contacts.telegramLink"
             target="_blank"
             class="text-white text-sm 2xl:text-base w-full h-11 sm:h-[54px] 2xl:h-[64px] border-white border rounded-full flex items-center justify-center gap-2.5"
           >
             <IconTelegram class="w-[23px] h-[22px] flex-shrink-0" />
+
+            <span class="uppercase">slf.expert</span>
+          </a>
+
+          <a
+            v-if="contacts.whatsappLink"
+            :href="contacts.whatsappLink"
+            target="_blank"
+            class="text-white text-sm 2xl:text-base w-full h-11 sm:h-[54px] 2xl:h-[64px] border-white border rounded-full flex items-center justify-center gap-2.5"
+          >
+            <IconWhatsapp class="w-[23px] h-[22px] flex-shrink-0" />
 
             <span class="uppercase">slf.expert</span>
           </a>

@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
 
   const mailOptions = {
     from: config.emailUser,
-    to: ["asl@slf.expert", "oo@slf.expert"],
+    to: ["as@slf.expert", "oo@slf.expert"],
     ...options,
   };
 

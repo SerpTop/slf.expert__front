@@ -86,6 +86,7 @@
               label="Почта"
               placeholder="E-mail"
               class="w-full h-full"
+              :class="{ 'xl:col-span-2': isLegalOpinion }"
             />
 
             <Listbox
@@ -133,6 +134,7 @@
             </Listbox>
 
             <div
+              v-if="!isLegalOpinion"
               class="relative w-full"
               :class="{ 'xl:col-span-2': specializations && specializations.length > 0 }"
             >
@@ -409,6 +411,11 @@
 
   const selectedSpecialization = ref(null);
 
+  const isLegalOpinion = computed(() => {
+    if (!serviceData.value?.title) return false;
+    return serviceData.value.title.toLowerCase().includes("юридическое заключение");
+  });
+
   import { Swiper, SwiperSlide } from "swiper/vue";
   import "swiper/css";
   import "swiper/css/navigation";
@@ -578,12 +585,12 @@
     files: [],
   });
 
-  const rules = {
+  const rules = computed(() => ({
     name: { required },
     phone: { required, minLength: minLength(18) },
     email: { email },
-    date: { required },
-  };
+    date: isLegalOpinion.value ? {} : { required },
+  }));
 
   const v$ = useVuelidate(rules, form);
 

@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-blue-100" id="about">
+  <div
+    class="overflow-hidden bg-blue-100"
+    id="about"
+  >
     <div
       ref="container"
       class="_container xl:h-screen max-h-[950px] pt-[60px] pb-[380px] sm:pb-[564px] xl:py-[71px] 2xl:py-[140px] flex xl:grid xl:grid-cols-2 relative"
@@ -35,7 +38,10 @@
           {{ data.heading }}
         </h2>
 
-        <span ref="subtitle" class="text-sm text-blue-300 2xl:text-base">
+        <span
+          ref="subtitle"
+          class="text-sm text-blue-300 2xl:text-base"
+        >
           {{ data.position }}
         </span>
 
@@ -67,131 +73,131 @@
 </template>
 
 <script setup>
-const isFormOpen = ref(false);
-import { ref, onMounted } from "vue";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+  const isFormOpen = ref(false);
+  import { ref, onMounted } from "vue";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-const props = defineProps({
-  data: {
-    type: Object,
-    required: true,
-  },
-});
+  const props = defineProps({
+    data: {
+      type: Object,
+      required: true,
+    },
+  });
 
-const { openModal } = useModal();
+  const { openModal } = useModal();
 
-const container = ref(null);
-const title = ref(null);
-const subtitle = ref(null);
-const infoList = ref(null);
-const ctaButton = ref(null);
+  const container = ref(null);
+  const title = ref(null);
+  const subtitle = ref(null);
+  const infoList = ref(null);
+  const ctaButton = ref(null);
 
-onMounted(() => {
-  // Анимация блока _container
-  // gsap.fromTo(
-  //   container.value,
-  //   { x: "100%", opacity: 0 },
-  //   {
-  //     x: "0%",
-  //     opacity: 1,
-  //     duration: 3,
-  //     ease: "power3.out",
-  //     scrollTrigger: {
-  //       trigger: container.value,
-  //       start: "top 80%",
-  //       end: "top 60%",
-  //       scrub: true,
-  //       markers: false,
-  //       onEnter: () => {
-  //         animateElements();
-  //       },
-  //     },
-  //   }
-  // );
-});
+  onMounted(() => {
+    // Анимация блока _container
+    // gsap.fromTo(
+    //   container.value,
+    //   { x: "100%", opacity: 0 },
+    //   {
+    //     x: "0%",
+    //     opacity: 1,
+    //     duration: 3,
+    //     ease: "power3.out",
+    //     scrollTrigger: {
+    //       trigger: container.value,
+    //       start: "top 80%",
+    //       end: "top 60%",
+    //       scrub: true,
+    //       markers: false,
+    //       onEnter: () => {
+    //         animateElements();
+    //       },
+    //     },
+    //   }
+    // );
+  });
 
-function animateElements() {
-  // Анимация заголовка
-  gsap.fromTo(
-    title.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: title.value,
-        start: "top 75%",
-        end: "top 55%",
-        scrub: true,
-        markers: false,
+  function animateElements() {
+    // Анимация заголовка
+    gsap.fromTo(
+      title.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: title.value,
+          start: "top 75%",
+          end: "top 55%",
+          scrub: true,
+          markers: false,
+        },
       },
-    }
-  );
+    );
 
-  // Анимация подзаголовка
-  gsap.fromTo(
-    subtitle.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: subtitle.value,
-        start: "top 70%",
-        end: "top 50%",
-        scrub: true,
-        markers: false,
+    // Анимация подзаголовка
+    gsap.fromTo(
+      subtitle.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: subtitle.value,
+          start: "top 70%",
+          end: "top 50%",
+          scrub: true,
+          markers: false,
+        },
       },
-    }
-  );
+    );
 
-  // Анимация списка
-  gsap.fromTo(
-    infoList.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: infoList.value,
-        start: "top 65%",
-        end: "top 45%",
-        scrub: true,
-        markers: false,
-        stagger: 0.1,
+    // Анимация списка
+    gsap.fromTo(
+      infoList.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: infoList.value,
+          start: "top 65%",
+          end: "top 45%",
+          scrub: true,
+          markers: false,
+          stagger: 0.1,
+        },
       },
-    }
-  );
+    );
 
-  // Анимация кнопки
-  gsap.fromTo(
-    ctaButton.value,
-    { y: 50, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ctaButton.value,
-        start: "top 75%",
-        end: "top 55%",
-        scrub: true,
-        markers: false,
+    // Анимация кнопки
+    gsap.fromTo(
+      ctaButton.value,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ctaButton.value,
+          start: "top 75%",
+          end: "top 55%",
+          scrub: true,
+          markers: false,
+        },
       },
-    }
-  );
-}
-function updateIsFormOpen(value) {
-  isFormOpen.value = value;
-}
+    );
+  }
+  function updateIsFormOpen(value) {
+    isFormOpen.value = value;
+  }
 </script>
